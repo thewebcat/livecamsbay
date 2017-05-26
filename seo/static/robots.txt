@@ -1,0 +1,20 @@
+User-agent: *
+Disallow: /management/
+Disallow: /checkout/
+Disallow: /wholesale/
+Disallow: /catalogue/rasprodazha/
+Disallow: /catalogue/brand/*
+Disallow: /*?*
+Disallow: /*page
+Disallow: /?page=
+Disallow: /oplata/
+Disallow: /dostavka/
+
+
+#city
+Disallow: /kontakty/*
+Allow: /kontakty/
+Allow: /kontakty/sankt-peterburg/
+
+Host: sumkini.ru
+Sitemap: http://sumkini.ru/sitemap.xml
