@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'admin_tools.theming',
     'admin_tools.menu',
     'admin_tools.dashboard',
+    #'djadmin',
     #'django_admin_bootstrapped',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -46,11 +47,14 @@ INSTALLED_APPS = [
     'modeltranslation',
     'django_filters',
     'sorl.thumbnail',
+    'spurl',
 
     # my apps
     'main',
     'seo',
 ]
+
+#ADMIN_COLOR_THEME = 'green'
 
 ADMIN_TOOLS_INDEX_DASHBOARD = 'livecamsbay.dashboard.CustomIndexDashboard'
 ADMIN_TOOLS_APP_INDEX_DASHBOARD = 'livecamsbay.dashboard.CustomAppIndexDashboard'
@@ -65,6 +69,7 @@ MIDDLEWARE_CLASSES = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'seo.middleware.RuleMiddleware',
+    #'djadmin.middleware.DJMiddleware',
 ]
 
 ROOT_URLCONF = 'livecamsbay.urls'

@@ -342,55 +342,11 @@
                     <div class="headline">
                         <h3>{{ models_count }} cams online <i class="ico_radius"></i> <span>that match your criteria.</span></h3>
                     </div>
-                    <div class="thumbs">
 
-                        {% for item in object_list %}
-                            <div class="th">
-                                <a id="768331527" class="thumblink" href="{{ item.profile_image }}">
-                                    <img src="{{ item.profile_image }}" alt="assessence" width="225"
-                                         height="175">
-                                    <img class="source_logo bongalogo" src="{{ item.cam_service.image.url }}">
-                                    <i class="play">ENTER</i>
-                                </a>
-                                <div class="tools">
-                                    <div class="top-info-thumb">
-                                        <a href="https://megacams.me/cam/assessence/768331527">
-                                            <span>
-                                            {{ item.display_name }}
-                                            </span>
-                                        </a>
-                                        <span class="view">
-                                            <i class="ico_view"></i>
-                                            <em>{{ item.views_count }}</em>
-                                        </span>
-                                    </div>
-                                    <div class="desc">
-                                        <div class="tags">
-                                            <a href="https://megacams.me/webcams/female/teen-18-20">Teen 18 - 20</a>
-                                            <a href="https://megacams.me/webcams/female/brunette">Brunette</a>
-                                            <a href="https://megacams.me/webcams/female/hairy-pussy">Hairy Pussy</a>
-                                            <a href="https://megacams.me/webcams/female/redhead">Redhead</a>
-                                            <a href="https://megacams.me/webcams/female/white">White</a>
-                                            <a href="https://megacams.me/webcams/female/other">Other</a>
-                                            <a href="https://megacams.me/webcams/female/adult-21-29">Adult 21 - 29</a>
-                                        </div>
-                                    </div>
-                                    <div class="thumb-languages">
-                                        <p><img src="en.png"></p>
-                                    </div>
-                                    <div class="rate">
-                                        <div class="circle" data-circle="8">
-                                            <canvas width="72" height="72"></canvas>
-                                            <strong>8 min</strong><span>online</span></div>
-                                        <div class="amount">
-                                            <i class="ico_amount_woman"></i>
-                                            <span>19</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        {% endfor %}
+                    <div id="item-search">
+                        {% include 'models_content.html' %}
                     </div>
+
                     <div class="home-btn">
                         <a id="home-female-more" class="more-button" href="https://megacams.me/webcams/female/all">See
                             all Megacams Camgirls</a>
@@ -680,6 +636,11 @@
            href="http://www.tumblr.com/share?v=3&amp;u=https%3A%2F%2Fmegacams.me%2F&amp;t=Megacams%3A%20Live%20Sex%20%26%20Free%20Cams%20Search&amp;s=Search%20your%20type%20of%20cam%20sex%20model%20on%20various%20sites%20at%20once.%20With%20the%20camgirl%20of%20your%20taste%2C%20you%20can%20easily%20start%20a%20sex%20show%20instantly%20and%20for%20free%2C%20just%20try%20it."
            style=""> <span class="g4t4ua6 gl4b8st"></span> <span class="g-1e52do ">Share on Tumblr</span> </a></div>
 </w-div>
-
+<script
+  src="https://code.jquery.com/jquery-2.2.4.min.js"
+  integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+  crossorigin="anonymous"></script>
+<script src="/static/js/jquery.pjax.js"></script>
+<script src="/static/js/catalogue.js"></script>
 </body>
 </html>

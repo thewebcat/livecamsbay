@@ -1,0 +1,69 @@
+{% load spurl %}
+{% if is_paginated %}
+<div class="pagination">
+    {% if page_obj.has_previous %}
+        <div class="item prev"><a rel="cannonical" href="{% spurl base=request.get_full_path set_query="page={{ page_obj.previous_page_number }}" %}">&lt;</a></div>
+        <div class="item"><a rel="cannonical" href="{% spurl base=request.get_full_path set_query="page=1" %}">1</a></div>
+    {% endif %}
+
+    {% if page_obj.number > 3 %}<div class="item">...</div>{% endif %}
+
+    {% if page_obj.has_previous and page_obj.previous_page_number != 1 %}
+        <div class="item"><a rel="cannonical" href="{% spurl base=request.get_full_path set_query="page={{ page_obj.previous_page_number }}" %}">{{ page_obj.previous_page_number }}</a></div>
+    {% endif %}
+
+    <div class="item active"><a rel="cannonical" class="text-color {{ section.get_color_display }}" href="#">{{ page_obj.number }}</a></div>
+
+    {% if page_obj.has_next and page_obj.next_page_number != page_obj.paginator.num_pages %}
+        <div class="item"><a rel="cannonical" href="{% spurl base=request.get_full_path set_query="page={{ page_obj.next_page_number }}" %}">{{ page_obj.next_page_number }}</a></div>
+    {% endif %}
+
+    {% if page_obj.number != page_obj.paginator.num_pages and page_obj.paginator.num_pages != page_obj.next_page_number and page_obj.paginator.num_pages != page_obj.number|add:"2" %}<div class="item">...</div>{% endif %}
+
+    {% if page_obj.has_next %}
+        <div class="item"><a rel="cannonical" href="{% spurl base=request.get_full_path set_query="page={{ page_obj.paginator.num_pages }}" %}">{{ page_obj.paginator.num_pages }}</a></div>
+        <div class="item next"><a rel="cannonical" href="{% spurl base=request.get_full_path set_query="page={{ page_obj.next_page_number }}" %}">&gt;</a></div>
+    {% endif %}
+</div>
+<style>
+    #item-search .pagination {
+        margin-top: 50px;
+        margin-bottom: 20px;
+    }
+
+    .pagination {
+        text-align: center;
+    }
+
+    .pagination .active {
+        background: #f40361;
+    }
+
+    .pagination > * {
+        display: inline-block;
+        text-decoration: none;
+        border-bottom: none;
+        width: 33px;
+        padding: 5px 0;
+        border: 1px solid #f40361;
+        border-radius: 4px;
+        font: 17px/19px inherit;
+    }
+
+    .pagination > * {
+        display: inline-block;
+        text-decoration: none;
+        border-bottom: none;
+        width: 33px;
+        padding: 5px 0;
+        border: 1px solid #f40361;
+        border-radius: 4px;
+        font: 17px/19px inherit;
+    }
+    .pagination a {
+        display: block;
+        color: #000;
+        text-decoration: none;
+    }
+</style>
+{% endif %}

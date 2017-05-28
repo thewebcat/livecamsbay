@@ -23,7 +23,7 @@ class Index(FilterView):
     def get_template_names(self):
         if not self.request.is_ajax():
             return [self.template_name]
-        return ['index_ajax.html']
+        return ['models_content.html']
 
     def get_queryset(self):
         queryset = Model.objects.filter(available=True).select_related(
@@ -39,6 +39,12 @@ class Index(FilterView):
         context['models_count'] = self.qs_count
         return context
 
+    def get(self, request, *args, **kwargs):
+        response = super(Index, self).get(request, *args, **kwargs)
+        if request.is_ajax():
+            response['Cache-Control'] = 'no-cache, no-store, max-age=0, must-revalidate'
+            response['Pragma'] = 'no-cache'
+        return response
 
 class UpdateApi(TemplateView):
     template_name = 'api-update-log.html'
