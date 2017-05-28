@@ -16,7 +16,9 @@
 
     <meta name="author" content="Megacams.me">
 
-
+    <link rel="stylesheet" href="/static/css/ion.rangeSlider.css" />
+    <link rel="stylesheet" href="/static/css/ion.rangeSlider.skinFlat.css" />
+    <link rel="stylesheet" href="/static/css/catalogue.css" />
     <link media="all" href="/static/index.css" type="text/css" rel="stylesheet">
 </head>
 <body class="">
@@ -132,10 +134,21 @@
         <div class="sidebar">
             <div class="title">
                 <h2><i class="ico_title"></i>LIVE SEX SEARCH</h2>
-                <form action="" method="get">
-                    {{ filter.form.as_p }}
-                    <input type="submit"/>
-                </form>
+                <ul class="left-menu">
+                    <form action="" method="get">
+                        <!--{{ filter.form.as_p }}-->
+
+                        <li class="prices-display" style="padding-right: 10px;">
+                            <span class="bold" style="margin-bottom: 10px;display: inline-block;">Возраст</span>
+                            <input type="hidden" id="range_price" data-min="{{ min_age }}" data-max="{{ max_age }}" data-from="{{ request.GET.min_age|default:min_age }}" data-to="{{ request.GET.max_age|default:max_age }}" />
+                            <div class="price-slider-info">
+                                <span>От</span><input type="text" name="min_age" class="mright10 only-number" value="{{ request.GET.min_age|default:min_age }}">
+                                <span>До</span><input type="text" name="max_age" class="only-number"  value="{{ request.GET.max_age|default:max_age }}">
+                            </div>
+                        </li>
+                        <input type="submit"/>
+                    </form>
+                </ul>
             </div>
             <div class="accordion">
                 <div class="box">
@@ -636,11 +649,13 @@
            href="http://www.tumblr.com/share?v=3&amp;u=https%3A%2F%2Fmegacams.me%2F&amp;t=Megacams%3A%20Live%20Sex%20%26%20Free%20Cams%20Search&amp;s=Search%20your%20type%20of%20cam%20sex%20model%20on%20various%20sites%20at%20once.%20With%20the%20camgirl%20of%20your%20taste%2C%20you%20can%20easily%20start%20a%20sex%20show%20instantly%20and%20for%20free%2C%20just%20try%20it."
            style=""> <span class="g4t4ua6 gl4b8st"></span> <span class="g-1e52do ">Share on Tumblr</span> </a></div>
 </w-div>
+
 <script
-  src="https://code.jquery.com/jquery-2.2.4.min.js"
-  integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
-  crossorigin="anonymous"></script>
-<script src="/static/js/jquery.pjax.js"></script>
-<script src="/static/js/catalogue.js"></script>
+        src="https://code.jquery.com/jquery-2.2.4.min.js"
+        integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+        crossorigin="anonymous"></script>
+<script src="{{ STATIC_URL }}js/jquery.pjax.js"></script>
+<script src="{{ STATIC_URL }}js/ion.rangeSlider.min.js"></script>
+<script src="{{ STATIC_URL }}js/catalogue.js"></script>
 </body>
 </html>

@@ -1,0 +1,29 @@
+.left-menu {
+    list-style-type: none;
+    padding-left: 10px;
+    padding-top: 6px;
+    font-size: 14px;
+    color: white;
+}
+
+.price-slider-info {
+    margin-top: 10px;
+}
+.price-slider-info span {
+    display: inline-block;
+    vertical-align: middle;
+}
+.price-slider-info input {
+    display: inline-block;
+    vertical-align: middle;
+    width: 22%;
+    padding: 0 5px;
+    line-height: 21px;
+    margin-left: 7px;
+    outline: none;
+    height: 21px;
+    color: black;
+}
+.mright10 {
+    margin-right: 10px;
+}

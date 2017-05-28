@@ -13,7 +13,7 @@ import urllib, json
 
 # Create your views here.
 
-class Index(FilterView):
+class Catalogue(FilterView):
     template_name = 'index.html'
     model = Model
     filterset_class = ModelsFilter
@@ -32,15 +32,19 @@ class Index(FilterView):
         return queryset
 
     def get_context_data(self, **kwargs):
-        context = super(Index, self).get_context_data(**kwargs)
+        context = super(Catalogue, self).get_context_data(**kwargs)
         # f = ModelsFilter(self.request.GET, queryset=self.queryset)
         # context['filter'] = f
         #context['models_count'] = len(Model.objects.filter(available=True))
+        # context['max_age'] = max(price_list) if price_list else 1000
+        # context['min_age'] = min(price_list) if price_list else 0
+        context['max_age'] = 70
+        context['min_age'] = 18
         context['models_count'] = self.qs_count
         return context
 
     def get(self, request, *args, **kwargs):
-        response = super(Index, self).get(request, *args, **kwargs)
+        response = super(Catalogue, self).get(request, *args, **kwargs)
         if request.is_ajax():
             response['Cache-Control'] = 'no-cache, no-store, max-age=0, must-revalidate'
             response['Pragma'] = 'no-cache'
