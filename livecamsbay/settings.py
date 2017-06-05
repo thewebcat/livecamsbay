@@ -50,10 +50,13 @@ INSTALLED_APPS = [
     'sorl.thumbnail',
     'spurl',
     'debug_toolbar',
+    'bootstrap3',
+    'sekizai',
 
     # my apps
     'main',
     'seo',
+    'call_orders',
 ]
 
 DEBUG_TOOLBAR_PANELS = [
@@ -104,6 +107,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'sekizai.context_processors.sekizai',
             ],
             'loaders': [
                 'admin_tools.template_loaders.Loader',

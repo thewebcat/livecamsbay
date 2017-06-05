@@ -1,0 +1,106 @@
+<div class="nav_menu1">
+    <div class="">
+        <p><i class="ico_title"></i>LIVE SEX SEARCH</p>
+        <ul class="left-menu">
+            <form action="{{ request.path }}" method="get">
+                <!--{{ filter.form.as_p }}-->
+
+                <li class="prices-display" style="padding-right: 10px;">
+                    <span class="bold" style="margin-bottom: 10px;display: inline-block;">Возраст</span>
+                    <input type="hidden" id="range_price" data-min="{{ min_age }}" data-max="{{ max_age }}" data-from="{{ request.GET.min_age|default:min_age }}" data-to="{{ request.GET.max_age|default:max_age }}" />
+                    <div class="price-slider-info">
+                        <span>От</span><input type="text" name="min_age" class="mright10 only-number" value="{{ request.GET.min_age|default:min_age }}">
+                        <span>До</span><input type="text" name="max_age" class="only-number"  value="{{ request.GET.max_age|default:max_age }}">
+                    </div>
+                </li>
+                <input type="submit"/>
+            </form>
+        </ul>
+    </div>
+</div>
+{#<script>#}
+{#    $(function(){#}
+{#        var rework_template = '<img src="{{ STATIC_URL }}images/rework.png" class="rework" title="В разработке" />'#}
+{#        $('.add_rework').append(rework_template)#}
+{#    })#}
+{#</script>#}
+{##}
+{##}
+{#{% if request.user.profile.is_user %}#}
+{#<div class="nav_menu1">#}
+{#    <ul>#}
+{#        <li><a href="{% url 'accounts:profile' %}">Мой профиль</a></li>#}
+{#        <li class="separator"></li>#}
+{#        <li><a href="{% url 'accounts:order_add' %}">Опубликовать заказ</a></li>#}
+{#        <li><a href="{% url 'accounts:order_list' %}">Заказы</a></li>#}
+{#        <li class="separator"></li>#}
+{#        <li><a href="{% url 'accounts:message_list' %}">Сообщения{% if request.message_counter %} <span class="badge">+{{ request.message_counter }}</span>{% endif %}</a></li>#}
+{#        <li><a href="{% url 'accounts:note_list' %}">Заметки</a></li>#}
+{#        <li><a href="{% url 'accounts:documents' %}">Документы</a></li>#}
+{#        <li><a href="{% url 'accounts:notifications' %}">Настройка уведомлений</a></li>#}
+{#        <li class="separator"></li>#}
+{#        <li><a href="#form_popup" class="jq_open_popup" data-fancybox>Задать вопрос</a></li>#}
+{#        <li><a href="{% url 'accounts:tickets' %}">Ваши вопросы</a></li>#}
+{#    </ul>#}
+{#</div>#}
+{#{% elif request.user.profile.is_company %}#}
+{#<div class="nav_menu1">#}
+{#    <ul>#}
+{#        <li><a href="{% url 'accounts:profile' %}">Профиль компании</a></li>#}
+{#        <li class="separator"></li>#}
+{#        <li><a href="{% url 'accounts:works' %}">Каталог работ</a></li>#}
+{#        <li><a href="{% url 'accounts:services' %}">Каталог услуг</a></li>#}
+{#        <li><a href="{% url 'accounts:products' %}">Каталог товаров</a></li>#}
+{#        <li><a href="{% url 'accounts:materials' %}">Каталог камней</a></li>#}
+{#        <li><a href="{% url 'accounts:articles' %}">Каталог статей</a></li>#}
+{#        <li><a href="{% url 'accounts:order_list' %}">Заказы компании <span class="badge jq_order_counter">{% if request.order_counter %}+{{ request.order_counter }}{% endif %}</span></a></li>#}
+{#        <li><a href="{% url 'accounts:order_add' %}">Опубликовать заказ</a></li>#}
+{#        <li><a href="{% url 'accounts:offers' %}">Акции и предложения</a></li>#}
+{#        <li><a href="{% url 'accounts:news' %}">Новости компании</a></li>#}
+{#        <li class="separator"></li>#}
+{#        <li><a href="{% url 'accounts:message_list' %}">Сообщения{% if request.message_counter %} <span class="badge">+{{ request.message_counter }}</span>{% endif %}</a></li>#}
+{#        <li><a href="{% url 'accounts:note_list' %}">Заметки</a></li>#}
+{#        <li class="add_rework">Вакансии</li>#}
+{#        <li><a href="{% url 'accounts:documents' %}">Документы</a></li>#}
+{#        <li><a href="{% url 'accounts:calendar' %}">Календарь мероприятий</a></li>#}
+{#        <li class="separator"></li>#}
+{#        <li class="add_rework"><a href="{% url 'accounts:bonus_list' %}">Бонусы</a></li>#}
+{#        <li class="add_rework">Статистика</li>#}
+{#        <li class="add_rework">Оплата аккаунта</li>#}
+{#        <li><a href="{% url 'accounts:notifications' %}">Настройка уведомлений</a></li>#}
+{#        <li class="separator"></li>#}
+{#        <li><a href="#form_popup" class="jq_open_popup" data-fancybox>Задать вопрос</a></li>#}
+{#        <li><a href="{% url 'accounts:tickets' %}">Ваши вопросы</a></li>#}
+{#    </ul>#}
+{#</div>#}
+{#{% elif request.user.profile.is_master %}#}
+{#<div class="nav_menu1">#}
+{#    <ul>#}
+{#        <li><a href="{% url 'accounts:profile' %}">Профиль мастера</a></li>#}
+{#        <li class="separator"></li>#}
+{#        <li><a href="{% url 'accounts:works' %}">Каталог работ</a></li>#}
+{#        <li><a href="{% url 'accounts:services' %}">Каталог услуг</a></li>#}
+{#        <li><a href="{% url 'accounts:products' %}">Каталог товаров</a></li>#}
+{#        <li><a href="{% url 'accounts:materials' %}">Каталог камней</a></li>#}
+{#        <li><a href="{% url 'accounts:articles' %}">Каталог статей</a></li>#}
+{#        <li><a href="{% url 'accounts:order_list' %}">Заказы мастера <span class="badge jq_order_counter">{% if request.order_counter %}+{{ request.order_counter }}{% endif %}</span></a></li>#}
+{#        <li><a href="{% url 'accounts:order_add' %}">Опубликовать заказ</a></li>#}
+{#        <li><a href="{% url 'accounts:offers' %}">Акции и предложения</a></li>#}
+{#        <li><a href="{% url 'accounts:news' %}">Новости мастера</a></li>#}
+{#        <li class="separator"></li>#}
+{#        <li><a href="{% url 'accounts:message_list' %}">Сообщения{% if request.message_counter %} <span class="badge">+{{ request.message_counter }}</span>{% endif %}</a></li>#}
+{#        <li><a href="{% url 'accounts:note_list' %}">Заметки</a></li>#}
+{#        <li class="add_rework">Вакансии</li>#}
+{#        <li><a href="{% url 'accounts:documents' %}">Документы</a></li>#}
+{#        <li><a href="{% url 'accounts:calendar' %}">Календарь мероприятий</a></li>#}
+{#        <li class="separator"></li>#}
+{#        <li class="add_rework"><a href="{% url 'accounts:bonus_list' %}">Бонусы</a></li>#}
+{#        <li class="add_rework">Статистика</li>#}
+{#        <li class="add_rework">Оплата аккаунта</li>#}
+{#        <li><a href="{% url 'accounts:notifications' %}">Настройка уведомлений</a></li>#}
+{#        <li class="separator"></li>#}
+{#        <li><a href="#form_popup" class="jq_open_popup" data-fancybox>Задать вопрос</a></li>#}
+{#        <li><a href="{% url 'accounts:tickets' %}">Ваши вопросы</a></li>#}
+{#    </ul>#}
+{#</div>#}
+{#{% endif %}#}

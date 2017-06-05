@@ -1,12 +1,13 @@
 # -*- coding: utf-8 -*-
 from django.shortcuts import render
-from django.views.generic import View, TemplateView, ListView, FormView
+from django.views.generic import View, TemplateView, ListView, DetailView, FormView
 from django_filters.views import FilterView
 
 from .filters import ModelsFilter
 
 from .models import Model
 from .models import CamService
+from .models import CamSnapshot
 
 import urllib, json
 
@@ -27,7 +28,7 @@ class Catalogue(FilterView):
 
     def get_queryset(self):
         queryset = Model.objects.filter(available=True).select_related(
-            'sex', 'race', 'hair_color', 'bust_size', 'figure', 'public_area').prefetch_related('speaks_language')
+            'sex', 'race', 'hair_color', 'bust_size', 'figure', 'public_area', 'cam_service').prefetch_related('speaks_language')
         self.qs_count = len(queryset)
         return queryset
 
@@ -50,16 +51,21 @@ class Catalogue(FilterView):
             response['Pragma'] = 'no-cache'
         return response
 
+class ModelPage(DetailView):
+    slug_field = 'name'
+    template_name = 'model_page.html'
+    model = Model
+
 class UpdateApi(TemplateView):
     template_name = 'api-update-log.html'
 
     def get_context_data(self, **kwargs):
-        url = 'https://ssl-tools.bongacams.com/promo.php?c=372807&type=api&api_v=1&api_type=json'
-        response = urllib.urlopen(url)
-        data = json.loads(response.read())
 
         context = super(UpdateApi, self).get_context_data(**kwargs)
         cam = CamService.objects.get(pk=1)
+        response = urllib.urlopen(cam.api_url)
+
+        data = json.loads(response.read())
         gender = []
         primary_language_key = []
         secondary_language_key = []
@@ -120,12 +126,18 @@ class UpdateApi(TemplateView):
                 'age': i['display_age'],
                 'available': True if i['status'] == 1 else False,
                 'cam_service': cam,
+                'chat_url': i['chat_url_on_home_page'],
+                'online_time': i['online_time'],
             }
-
 
             Model.objects.update_or_create(
                 name=cam.prefix + i['username'],
                 defaults=data
+            )
+
+            CamSnapshot.objects.create(
+                model=Model.objects.get(name=cam.prefix + i['username']),
+                snapshot_url=i['profile_images']['thumbnail_image_medium_live'],
             )
 
         return context

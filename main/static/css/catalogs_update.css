@@ -1,0 +1,177 @@
+.block_info #jq_tabs .table_wrap:not(:first-child) {
+    display: none;
+}
+.block_info #jq_tabs .table_wrap:first-child {
+    display: block;
+}
+.block_info .table_wrap ul.tabs li {
+    padding: 0;
+}
+.block_info .table_wrap ul.tabs li a {
+    color: #000;
+}
+.catalog_panel {
+    display: none;
+}
+.catalog_panel.active {
+    display: block;
+}
+.directory.active {
+    color: #358c38 !important;
+}
+a.cube {
+    display: block;
+    position: relative;
+    width: 249px !important;
+    height: 247px !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+a.cube .back_side {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: none;
+}
+a.cube:hover .front_side {
+    display: none;
+}
+a.cube:hover .back_side {
+    display: block;
+}
+.stone_inverted {
+    margin: 0;
+    background-color: #417538;
+}
+.inverted_text {
+    position: initial;
+    margin-left: 0;
+}
+
+.catalog_elements_list a.jq_next_page {
+    display: none;
+    padding-top: 0;
+    padding-bottom: 20px;
+}
+.catalog_elements_list a.jq_next_page span {
+    text-align: center;
+    border: 1px solid #358c38;
+    background-color: #A4D89D;
+    color: white;
+    margin: 0 505px;
+    display: block;
+    padding: 10px;
+}
+.catalog_elements_list a.jq_next_page:last-child {
+    display: block;
+}
+.catalog_elements_list .stone_breaker {
+    margin-left: 25px;
+    display: table;
+    clear: both;
+    content: ' ';
+}
+.catalog_elements_list .stone_breaker > a.jq_next_page:last-child {
+    padding-bottom: 25px;
+}
+
+
+
+
+                .stone_tipe label {
+                    display: block;
+                    width: 100px;
+                    padding-top: 105px;
+                    background-repeat: no-repeat;
+                    background-position: center top;
+                    color: #808080;
+                    text-align: center;
+                    position: relative;
+                    cursor: pointer;
+                }
+                .stone_tipe input:checked + label {
+                    color: #417538;
+                }
+                .stone_tipe input:checked + label > div {
+                    display: block;
+                    position: absolute;
+                    width: 15px;
+                    height: 13px;
+                    top: 0;
+                    right: 0;
+                    background: #ffffff url('/static/images/checkbox.png') no-repeat;
+                }
+
+
+
+
+.stone_tipe {
+    vertical-align: top;
+}
+.stone_tipe a {
+    margin: 0;
+    display: block !important;
+    text-align: center;
+    width: 100px;
+    font-size: initial !important;
+    padding: 0 !important;
+}
+.stone_filter a.active {
+    color: #417538;
+}
+
+
+
+.jcarousel_stone_wrapper {
+    padding: 20px 0;
+    position: relative;
+    margin-left: 54px;
+    width: 1012px;
+    margin-right: 54px;
+}
+.jcarousel_stone_wrapper:after, .jcarousel_stone_wrapper:before {
+    display: table;
+    content: " ";
+    clear: both;
+}
+.jcarousel_stone_wrapper .jcarousel_stone_list {
+    position: relative;
+    /* padding: 10px 0; */
+    overflow: hidden;
+}
+.jcarousel_stone_wrapper .jcarousel_stone_list ul {
+    list-style: none;
+    display: block;
+    padding: 0;
+    margin: 0;
+    position: relative;
+    width: 20000em;
+}
+.jcarousel_stone_wrapper .jcarousel_stone_list ul li {
+    float: left;
+}
+.jcarousel_stone_wrapper .jcarousel_stone_list ul li:last-child .stone_tipe {
+    margin-right: 0;
+}
+.jcarousel_stone_wrapper a.jcarousel-control-prev,
+.jcarousel_stone_wrapper a.jcarousel-control-next {
+    padding: 0;
+    position: absolute;
+    top: 50%;
+    height: 17px;
+    margin-top: -9px;
+    width: 10px;
+    display: block;
+}
+
+.jcarousel_stone_wrapper a.jcarousel-control-prev {
+    /* float: left; */
+    left: -17px;
+    background: url('../images/rights.png') no-repeat center -2px;
+}
+
+.jcarousel_stone_wrapper .jcarousel-control-next {
+    float: right;
+    right: -17px;
+    background: url('../images/lefts.png') no-repeat center top;
+}

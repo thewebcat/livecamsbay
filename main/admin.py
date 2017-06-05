@@ -12,6 +12,7 @@ from .models import PublicArea
 from .models import Extra
 from .models import CamService
 from .models import Model
+from .models import CamSnapshot
 from .models import AgeTag
 
 
@@ -77,15 +78,24 @@ class CamServiceAdmin(admin.ModelAdmin):
     list_editable = ('api_url',)
 
 
+class CamSnapshotInline(admin.TabularInline):
+    model = CamSnapshot
+    extra = 0
+
 @admin.register(Model)
 class ModelAdmin(admin.ModelAdmin):
     list_display = ('name', 'display_name', 'available', 'user', 'date_add')
     list_editable = ('available',)
     list_filter = ('available',)
     search_fields = ['display_name']
+    inlines = (CamSnapshotInline,)
 
 
 @admin.register(AgeTag)
 class AgeTagAdmin(admin.ModelAdmin):
     list_display = ('name', 'id')
     list_editable = ('name',)
+
+@admin.register(CamSnapshot)
+class CamSnapshotAdmin(admin.ModelAdmin):
+    list_display = ('snapshot_url', 'model')

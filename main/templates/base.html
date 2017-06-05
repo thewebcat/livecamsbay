@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+{% load bootstrap3 sekizai_tags %}
+{% comment %}staticfiles compress{% endcomment %}
+<html lang="en" class="page">
+<head>
+  <meta charset="utf-8">
+  <meta name="yandex-verification" content="68710cf95641ae01"/>
+  <meta name="google-site-verification" content="yfIZNnP60h2qge3Kh4ufapJIhzoE3UXvk_DqtOQWBtQ"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="format-detection" content="telephone=no">
+{#  <meta http-equiv="x-rim-auto-match" content="none">#}
+{#  {% if request.rule %}#}
+{#    <title>{{ request.rule.title }}</title>#}
+{#    {% if request.rule.keywords %}<meta name="keywords" content="{{ request.rule.keywords }}">{% endif %}#}
+{#    {% if request.rule.description %}<meta name="description" content="{{ request.rule.description }}">{% endif %}#}
+{#  {% elif meta %}#}
+{#    {% load meta %}#}
+{#    {% set_meta meta %}#}
+{#  {% else %}#}
+{#    {% block meta %}#}
+{#      <title>Amigostone - онлайн биржа</title>#}
+{#      <meta name="description" content="Удобно, быстро, надёжно! К вашим услугам весь каменный рынок России и мира, лучшие производители и изготовители "/>#}
+{#      <meta name="keywords" content="онлайн биржа"/>#}
+{#      <meta http-equiv="Last-Modified" content=""/>#}
+{#    {% endblock %}#}
+{#  {% endif %}#}
+  <link rel="icon" href="{{ STATIC_URL }}images/favicon.png" type="image/png">
+  <script>
+      document.addEventListener('DOMContentLoaded', function () {
+          if (window.isMobile !== undefined) {
+              if (isMobile.any) {
+                  var rootClasses = ' is-mobile';
+                  for (key in isMobile) {
+                      if (typeof isMobile[key] === 'boolean' && isMobile[key] && key !== 'any') rootClasses += ' is-mobile--' + key;
+                      if (typeof isMobile[key] === 'object' && key !== 'other') {
+                          for (type in isMobile[key]) {
+                              if (isMobile[key][type]) rootClasses += ' is-mobile--' + key + '-' + type;
+                          }
+                      }
+                  }
+                  document.documentElement.className += rootClasses;
+              }
+          }
+          else {
+              console.log('Классы для мобильных не добавлены: в сборке отсутствует isMobile.js');
+          }
+      });
+  </script>
+  {% addtoblock 'js' %}
+    <script src="{{ STATIC_URL }}js/jgrowl.js"></script>
+    <script src="{{ STATIC_URL }}js/libs/jquery.uploadformset.js" type="text/javascript"></script>
+    <script src="{{ STATIC_URL }}js/libs/jquery.uploadform.js" type="text/javascript"></script>
+    <script src="{{ STATIC_URL }}js/libs/moment.min.js" type="text/javascript"></script>
+    <script src="{{ STATIC_URL }}js/libs/jquery.jcarousel.min.js" type="text/javascript"></script>
+    <script src="{{ STATIC_URL }}js/libs/scrollup.js" type="text/javascript"></script>
+    <script src="{{ STATIC_URL }}js/libs/mustache.min.js" type="text/javascript"></script>
+    <script src="{{ STATIC_URL }}js/libs/jquery.form.min.js" type="text/javascript"></script>
+    <script src="{{ STATIC_URL }}datetimepicker/jquery.datetimepicker.js" type="text/javascript"></script>
+    <script src="{{ STATIC_URL }}js/libs/jquery.maskedinput.min.js" type="text/javascript"></script>
+    <script src="{{ STATIC_URL }}js/scripts.js" type="text/javascript"></script>
+    <script src="{{ STATIC_URL }}js/libs/jquery.custom-scrollbar.js" type="text/javascript"></script>
+    <script src="{{ STATIC_URL }}js/jquery.tags.js" type="text/javascript"></script>
+    <script src="{{ STATIC_URL }}fancybox-3.0/js/jquery.fancybox.min.js" type="text/javascript"></script>
+  {% endaddtoblock %}
+
+  <link rel="stylesheet" href="{{ STATIC_URL }}customized_bootstrap/css/bootstrap.css"/>
+
+  {% addtoblock 'js' %}
+    {# JQuery ui #}
+    <script src="{{ STATIC_URL }}jquery-ui-1.11.4/jquery-ui.js" type="text/javascript"></script>
+    <script src="{{ STATIC_URL }}js/libs/tytabs.jquery.min.js" type="text/javascript"></script>
+    {# fullcalendar #}
+    <script src="{{ STATIC_URL }}fullcalendar-2.3.1/fullcalendar.min.js" type="text/javascript"></script>
+    <script src="{{ STATIC_URL }}fullcalendar-2.3.1/lang-all.js" type="text/javascript"></script>
+  {% endaddtoblock %}
+  <link rel="stylesheet" href="{{ STATIC_URL }}fullcalendar-2.3.1/fullcalendar.min.css"/>
+  <link rel="stylesheet" href="{{ STATIC_URL }}css/fix_style_fullcalendar.css"/>
+
+  {# Qtips for fullCalendar #}
+  {% addtoblock 'js' %}
+    <script src="{{ STATIC_URL }}jquery.qtip-2.2.1/jquery.qtip.js" type="text/javascript"></script>
+  {% endaddtoblock %}
+
+  <link rel="stylesheet" href="{{ STATIC_URL }}index.css"/>
+  <link rel="stylesheet" href="{{ STATIC_URL }}jquery.qtip-2.2.1/jquery.qtip.css"/>
+  <link rel="stylesheet" href="{{ STATIC_URL }}css/block_info.css" type="text/css" media="screen"/>
+  <link rel="stylesheet" href="{{ STATIC_URL }}css/style.css" type="text/css" media="screen"/>
+  <link rel="stylesheet" href="{{ STATIC_URL }}css/style03.css" type="text/css" media="screen"/>
+  <link rel="stylesheet" href="{{ STATIC_URL }}css/fix_style.css"/>
+  <link rel="stylesheet" href="{{ STATIC_URL }}css/pravki.css"/>
+  <link rel="stylesheet" href="{{ STATIC_URL }}css/to_remove.css"/>
+  <link rel="stylesheet" href="{{ STATIC_URL }}css/default_form_center.css"/>
+  <link rel="stylesheet" href="{{ STATIC_URL }}css/styles.css"/>
+  <link rel="stylesheet" href="{{ STATIC_URL }}css/stylesmenu.css"/>
+  <link rel="stylesheet" href="{{ STATIC_URL }}css/styles_menu.css"/>
+  <link rel="stylesheet" href="{{ STATIC_URL }}css/style_modal.css"/>
+  <link rel="stylesheet" href="{{ STATIC_URL }}css/fix_style_modal.css"/>
+  <link rel="stylesheet" href="{{ STATIC_URL }}css/fix_style_catalogs.css"/>
+  <link rel="stylesheet" href="{{ STATIC_URL }}css/ckeditor.css"/>
+{#  <link rel="stylesheet" href="{{ STATIC_URL }}css/forms.css"/>#}
+  <link rel="stylesheet" href="{{ STATIC_URL }}css/top_menu.css"/>
+  <link rel="stylesheet" href="{{ STATIC_URL }}css/custom_select.css"/>
+  <link rel="stylesheet" href="{{ STATIC_URL }}css/jquery.custom-scrollbar.css"/>
+  <link rel="stylesheet" href="{{ STATIC_URL }}datetimepicker/jquery.datetimepicker.css"/>
+  <link rel="stylesheet" href="{{ STATIC_URL }}fancybox-3.0/css/jquery.fancybox.min.css"/>
+  <link rel="stylesheet" href="{{ STATIC_URL }}css/style-for-menu-left.css"/>
+  <link rel="stylesheet" type="text/css"
+        href="//cdnjs.cloudflare.com/ajax/libs/jquery-jgrowl/1.4.1/jquery.jgrowl.min.css"/>
+  <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}font-awesome-4.6.3/css/font-awesome.min.css"/>
+  <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}select2/css/select2.min.css"/>
+  <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/fix_select2.css"/>
+  <link rel="stylesheet" href="{{ STATIC_URL }}css/actions.css"/>
+  <link rel="stylesheet" href="{{ STATIC_URL }}css/ion.rangeSlider.css" />
+  <link rel="stylesheet" href="{{ STATIC_URL }}css/ion.rangeSlider.skinFlat.css" />
+  <link rel="stylesheet" href="{{ STATIC_URL }}css/catalogue.css"/>
+  <script src="{{ STATIC_URL }}js/script.min.js"></script>
+  {% addtoblock 'js' %}
+    <script src="{{ STATIC_URL }}select2/js/select2.min.js"></script>
+    <script src="{{ STATIC_URL }}select2/js/i18n/ru.js"></script>
+    <script src="{{ STATIC_URL }}js/actions.js"></script>
+    <script src="{{ STATIC_URL }}js/jquery.pjax.js"></script>
+    <script src="{{ STATIC_URL }}js/ion.rangeSlider.min.js"></script>
+    <script src="{{ STATIC_URL }}js/catalogue.js"></script>
+  {% endaddtoblock %}
+
+  {% block extra_css %}
+  {% endblock %}
+  {% render_block "css" %}
+  <link rel="stylesheet" href="{{ STATIC_URL }}css/style.min.css"/>
+
+
+  <script src="{{ STATIC_URL }}js/ws.js" type="text/javascript"></script>
+
+  {% block extra %}
+  {% endblock %}
+
+        {% comment %}
+        <!-- Documentation extras -->
+        <link href="../assets/css/docs.min.css" rel="stylesheet">
+        <!--[if lt IE 9]><script src="../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+        <![endif]-->
+        {% endcomment %}
+        <style>
+            .alert {
+                border: 1px solid orangered;
+            }
+        </style>
+
+    <script src='https://www.google.com/recaptcha/api.js'></script>
+  </head>
+<body class="page__body">
+
+{% include "blocks/yandex.metrika.counter_&_ga.html" %}
+
+
+<div class="off-canvas position-right is-transition-push" id="offCanvas" data-off-canvas>
+  <ul class="menu menu--canvas menu--canvas-top">
+    <li class="menu__item">
+      <a href="#" class="menu__link">
+        <span class="menu__item-icon icon icon-user"></span>
+        Личный кабинет</a>
+    </li>
+    <li class="menu__item">
+      <a href="{{ config.PHONE_RUSSIAN }}" class="menu__link">
+        <span class="menu__item-icon icon icon-phone"></span>
+        Поддержка<br>{{ config.PHONE_RUSSIAN }}</a>
+    </li>
+  </ul>
+  <ul id="main-menu--canvass" class="menu menu--canvas"></ul>
+  <hr/>
+  <ul class="menu menu--canvas">
+    <li class="menu__item">
+            <span class="menu__link">
+              <span class="menu__item-icon icon icon-sign-in"></span>
+              Quick</span>
+      <ul class="menu">
+        {% if request.all_users %}
+          {% for user in request.all_users %}
+            <li class="menu__item"><a class="menu__link"
+                                      href="{% url "authorization:quick_enter" %}?email={{ user.email }}">
+              {% if user.profile.is_user %}
+                U:
+              {% elif user.profile.is_company %}
+                C:
+              {% elif user.profile.is_master %}
+                M:
+              {% else %}
+                A:
+              {% endif %}
+              {{ user.profile.name }}
+            </a></li>
+          {% endfor %}
+          {% if request.user.is_admin %}
+            <li class="menu__item"><a class="menu__link" href="{% url 'cp:index' %}">Control panel</a></li>
+          {% endif %}
+        {% endif %}
+      </ul>
+    </li>
+  </ul>
+</div>
+<div class="off-canvas-content flex-container flex-dir-column" data-off-canvas-content>
+  <div class="flex-child-shrink">
+    {% block navbar %}
+      {% include 'blocks/header.html' %}
+    {% endblock %}
+  </div>
+  <div class="flex-child-auto">
+    {% if not request.path == '/' %}
+      <div class="row">
+        <div class="column self-full-gutter navigation">
+          <div class="nav_home"></div>
+          <div class="nav_text">
+            {% block breadcrumbs %}
+              <div class="breadcrumb"><a href="/">Главная</a></div>
+            {% endblock %}
+          </div>
+        </div>
+      </div>
+    {% endif %}
+
+    <div class="wrapper">
+        {% block content %}
+
+        {% endblock %}
+    </div>
+
+    {% block map %}
+    {% endblock %}
+
+    {% block reviews %}
+    {% endblock %}
+  </div>
+  <div class="flex-child-shrink">
+    {% include 'blocks/footer.html' %}
+  </div>
+</div>
+{#{% include 'orders/blocks/quick_panel.html' %}#}
+{#{% include 'orders/mustache/mustache_templates.html' %}#}
+
+{% block mustache_templates %}
+{% endblock %}
+
+{% block extra_js %}
+{% endblock %}
+
+{% render_block "js" %}
+</body>
+</html>

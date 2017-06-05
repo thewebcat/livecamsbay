@@ -10,7 +10,7 @@
             </a>
             <div class="tools">
                 <div class="top-info-thumb">
-                    <a href="https://megacams.me/cam/assessence/768331527">
+                    <a href="/models/{{ item.name }}">
                         <span>
                         {{ item.display_name }}
                         </span>
@@ -37,10 +37,10 @@
                 <div class="rate">
                     <div class="circle" data-circle="8">
                         <canvas width="72" height="72"></canvas>
-                        <strong>8 min</strong><span>online</span></div>
+                        <strong>{{ item.online_time }} min</strong><span>online</span></div>
                     <div class="amount">
                         <i class="ico_amount_woman"></i>
-                        <span>19</span>
+                        <span>{{ item.age }}</span>
                     </div>
                 </div>
             </div>

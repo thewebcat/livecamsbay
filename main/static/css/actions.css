@@ -1,0 +1,74 @@
+.container_action_bar {
+    position: relative;
+}
+
+.container_action_bar .action_bar {
+
+}
+.container_action_bar .main_actions {
+    position: absolute;
+    top: 0;
+    right: 6px;
+    display: none;
+    margin-right: 4px;
+}
+.container_action_bar .container_action_bar_visible {
+    position: relative;
+}
+.container_action_bar .container_action_bar_visible .main_actions {
+    display: block;
+}
+.container_action_bar:hover .main_actions {
+    display: block;
+}
+.container_action_bar .main_actions .main_action {
+    height: 24px;
+    width: 24px;
+    background: no-repeat center center;
+}
+.container_action_bar .main_actions > a {
+    background-color: #358C38;
+}
+.container_action_bar .container_action_bar_visible .main_actions > a {
+    background: none;
+}
+.container_action_bar .main_actions .main_action.main_action_edit{
+    background-image: url(../images/edit-white.png);
+}
+.container_action_bar .main_actions .main_action.main_action_delete {
+    background-image: url(../images/del-white.png);
+}
+.container_action_bar .container_action_bar_visible .main_actions .main_action.main_action_edit{
+    background-image: url(../images/edit.png);
+}
+.container_action_bar .container_action_bar_visible .main_actions .main_action.main_action_delete {
+    background-image: url(../images/del.png);
+}
+.container_action_bar .action_delete_form {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 250px;
+    height: 250px;
+    background-color: #ffffff;
+    display: none;
+    box-shadow: 2px 2px 5px 1px rgba(0,0,0,.5);
+    font-size: 18px;
+}
+.container_action_bar .action_delete_form table {
+    height: 100%;
+    width: 100%;
+}
+.container_action_bar .action_delete_form .retain {
+    width: initial;
+    margin-top: 0;
+    display: initial;
+    height: initial;
+    padding: 10px;
+    line-height: initial;
+}
+.container_action_bar .action_delete_form .retain-gray {
+    background-color: #CCCCCC;
+    color: #000000;
+}
+.nav-right .line_down:first-child, .nav-right .line_down:last-child {display: none;}

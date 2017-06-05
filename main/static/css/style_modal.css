@@ -1,0 +1,109 @@
+.overlay {
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 10;
+    display: none;
+    background-color: rgba(0, 0, 0, 0.65);
+    position: fixed;
+    cursor: default; 
+}
+
+.overlay:target {
+    display: block;
+}
+
+.popup {
+    /* top:110%; */
+    /* right: 0; */
+    /* left: 50%; */
+    /* z-index: 20; */
+    /* margin: 0; */
+    /* width: 921px; */
+    /* position: fixed; */
+    /* padding: 25px; */
+    /* background: #fefefe; */
+    text-align: center;
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    -ms-border-radius: 6px;
+    border-radius: 6px;
+    font: 18px  Arial, sans-serif;
+}
+
+.overlay:target+.popup {
+    -webkit-transform: translate(-50%, 0);
+    -ms-transform: translate(-50%, 0);
+    -o-transform: translate(-50%, 0);
+    transform: translate(-50%, 0);
+    top: 5%;
+}
+
+.close {
+    display: none;
+    top: -10px;
+    right: -10px;
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    padding: 0;
+    border: 2px solid #ccc;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    -ms-border-radius: 15px;
+    -o-border-radius: 15px;
+    border-radius: 15px;
+    background-color: rgba(61, 61, 61, 0.8);
+    -webkit-box-shadow: 0 0 10px #000;
+    -moz-box-shadow: 0 0 10px #000;
+    box-shadow: 0 0 10px #000;
+    text-align: center;
+    text-decoration: none;
+    font: 13px/20px  Arial, sans-serif;
+    font-weight: bold;
+    -webkit-transition: all ease .8s;
+    -moz-transition: all ease .8s;
+    -ms-transition: all ease .8s;
+    -o-transition: all ease .8s;
+    transition: all ease .8s;
+}
+.close:before {
+    color: rgba(255, 255, 255, 0.9);
+    content: "X";
+    text-shadow: 0 -1px rgba(0, 0, 0, 0.9);
+    font-size: 12px;
+}
+.close:hover {
+    background-color: #358c38;
+    -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg);    
+}
+.popup embed, 
+.popup iframe {
+    top: 0;
+    right: 0;
+    bottom: 0; 
+    left: 0; 
+    display:block;
+    margin: auto;
+    width: 100%;
+}
+
+.popup h3{
+text-align:center;
+    margin-top: 0;
+}
+
+.cataloge{
+ width:225px; margin-top:25px; display:inline-block; vertical-align:top; text-align:center;
+ }
+ #cataloge_wrapper{
+ margin-left:212px;
+ }
+ #cataloge_wrapper .cataloge{
+ width:245px; 
+ }

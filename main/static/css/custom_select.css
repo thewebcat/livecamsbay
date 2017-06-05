@@ -1,0 +1,59 @@
+.custom-select-wrapper {
+    width: 215px;
+    height: 36px;
+    position: relative;
+}
+.custom-select-wrapper, .custom-select-wrapper * {
+    -webkit-box-sizing: border-box; /* For legacy WebKit based browsers */
+       -moz-box-sizing: border-box; /* For legacy (Firefox <29) Gecko based browsers */
+            box-sizing: border-box;
+
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+
+    cursor: pointer;
+}
+.custom-select-wrapper .custom-select {
+    border: 1px solid #417538;
+    background: #ffffff url('/static/images/custom_select_arrow.png') no-repeat right center;
+    width: inherit;
+    height: inherit;
+}
+.custom-select-wrapper .custom-select .custom-select-top {
+    height: inherit;
+    padding: 0 20px 0 10px;
+}
+.custom-select-wrapper ul, .custom-select-wrapper li {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    border-collapse: collapse;
+}
+.custom-select-wrapper ul {
+    border: 1px solid #417538;
+    /*border-bottom: none;*/
+    display: none;
+    z-index: 10;
+    position: absolute;
+    width: inherit;
+    height: 300px;
+    background-color: #cccccc;
+}
+.custom-select-wrapper ul.custom-select-list-active {
+    display: block;
+}
+.custom-select-wrapper li {
+    border-bottom: 1px solid #417538;
+    padding: 0 10px;
+    background-color: white;
+    height: 30px;
+    line-height: 30px;
+
+}
+.custom-select-wrapper li.custom-select-li-active {
+    background-color: #417538;
+}

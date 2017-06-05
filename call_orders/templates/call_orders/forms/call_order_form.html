@@ -1,0 +1,19 @@
+{% load widget_tweaks %}
+
+{% if call_order_sending %}
+    form send
+{% endif %}
+{% if call_order_form.errors %}
+    form error
+{% endif %}
+
+<form method="post"
+      action="{% url 'call_orders:send' %}"
+      onsubmit="yaCounter43281554.reachGoal('zakaz_zvonka_shapka_success');
+                ga('send', 'pageview', '/zaka_zvonka_iz_shapki_success');">
+    {% csrf_token %}
+    {{ call_order_form.action }}
+    <div class="control-container {{ call_order_form.name.css_classes }}">{{ call_order_form.name.label_tag }}{{ call_order_form.name }}</div>
+    <div class="control-container {{ call_order_form.phone.css_classes }}">{{ call_order_form.phone.label_tag }}{{ call_order_form.phone }}</div>
+    <div class="buttons-container buttons-container-center"><button type="submit">Отправить</button></div>
+</form>

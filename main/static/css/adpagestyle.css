@@ -1,0 +1,98 @@
+@font-face {
+    font-family: rouble;
+    src: url(../fonts/rouble.ttf);
+   }
+
+.wrapper{
+width:1200px;
+margin: 0 auto;
+}
+
+ .h1{
+font-size:28px;
+ }
+ .advert-info{
+ padding:33px 0 53px;
+ text-align:center
+ }
+ .advert-info p{
+ font-size:18px; 
+ color:#000; 
+ line-height:30px;
+ padding-bottom:10px
+ }
+ 
+  .advert-info.advert-info ul li{
+  color:#000;
+  font-size:21px;
+  line-height:28px;
+  position:relative;
+  margin:0 34px;
+  display:inline-block;
+  vertical-align:top
+  }
+  
+  .advert-positions{
+  padding-bottom:59px
+  }
+  .advert-positions .advert-item{
+  padding-bottom:36px
+  }
+  .advert-positions .advert-item .advert-item-title{
+  line-height:25px;
+  position:relative;
+  text-align:center;
+  }
+  
+  .advert-positions .advert-item .advert-price-column{
+  float:left;
+  width:220px;
+  padding-top:85px;
+  margin-left:30px;
+  }
+  
+  .advert-positions .advert-item .advert-price-column p{
+  color:#959595;
+  padding-bottom:28px
+  }
+  .advert-positions .advert-item .advert-price-column p span{
+  color:#343434
+  }
+  .advert-positions .advert-item .advert-price-column p .price-rouble{
+  font-size:24px;
+
+  }
+  .advert-info-column{
+  float:right;
+  width:220px;
+  line-height:25px;
+  padding-top:55px
+  }
+   .advert-info-column li{
+  padding-bottom:20px;
+  list-style-type:none;
+  
+  }
+   .advert-bnnr-img img{
+     margin-left: 30px;
+  }
+  .advert-positions .advert-item .advert-bnnr-img form{
+  text-align:center
+  }
+ 
+  .h2{
+  text-align:center;
+  font-size:24px;
+ line-height:28px;
+ padding:48px 0 24px;
+ }
+
+ 
+.rouble {
+    font-family:rouble;
+}
+ 
+  
+ 
+
+  

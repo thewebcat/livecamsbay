@@ -2,7 +2,8 @@
 from django.conf.urls import patterns, url
 
 from django_filters.views import FilterView
-from main.views import Index
+from main.views import Catalogue
+from main.views import ModelPage
 from main.views import UpdateApi
 
 from main.models import Model
@@ -10,6 +11,8 @@ from main.models import Model
 urlpatterns = [
     url(r'^$', Catalogue.as_view(), name='index'),
     url(r'^catalogue/$', Catalogue.as_view(), name='catalogue'),
+    url(r'^models/(?P<slug>[-\w]+)/$', ModelPage.as_view(), name='model-page'),
+
     url(r'^update-api/$', UpdateApi.as_view(), name='update-api'),
     # url(r'^tst/$', views.tst, name='tst'),
     # url(r'^price/$', views.price, name='price'),

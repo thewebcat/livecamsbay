@@ -1,0 +1,72 @@
+{% load sekizai_tags %}
+
+<div class="flex-child-shrink">
+    <div class="page__line page__line--bgi-stone">
+        <div class="page__line-title page__line-title--white">Будьте в курсе наших событий!</div>
+        <form id="email_subscribe" method="post" action="" class="row mini-gutter mini-gutter-off-xlarge-down">
+          {% csrf_token %}
+          <div class="columns small-12 large-6 xlarge-4 xxlarge-3">
+            <input type="text" name="email" id="email_subscribe" placeholder="Введите e-mail" class="input-text input-text--subscribe">
+          </div>
+          <div class="columns small-12 self-micro-full-gutter hide-for-large"></div>
+          <div class="columns small-12 large-6 xlarge-flex-child-shrink">
+            <button type="submit" class="button expanded">Подписаться НА НОВОСТИ</button>
+          </div>
+          <div class="columns small-12 self-micro-full-gutter hide-for-xlarge"></div>
+          <div class="columns xlarge-flex-child-auto large-6 large-offset-6 xlarge-offset-0 small-12">
+            <a href="" class="button pull-right expanded-for-large-down">Календарь мероприятий</a>
+          </div>
+          <div class="columns small-1 show-for-xxlarge"></div>
+        </form>
+        {% addtoblock 'js' %}
+            <script src="{{ STATIC_URL }}newsletter_email/js/email_subscribe.js" type="text/javascript"></script>
+        {% endaddtoblock %}
+    </div>
+    <footer class="footer page__line--footer page__line--white">
+        <div class="row">
+          <div class="columns small-12 medium-6 large-4 xxlarge-3 xxlarge-offset-1">
+            <div class="footer__column-title">Информация</div>
+            <ul class="menu menu--footer">
+              <li class="menu__item"><a class="menu__link" href="?type=natural">Каталог натурального камня</a></li>
+              <li class="menu__item"><a class="menu__link" href="?type=artificial">Каталог искуственного камня</a></li>
+              <li class="menu__item"><a class="menu__link" href="">Каталог услуг</a></li>
+              <li class="menu__item"><a class="menu__link" href="">Каталог работ</a></li>
+              <li class="menu__item"><a class="menu__link" href="">Каталог товаров</a></li>
+              <li class="menu__item"><a class="menu__link" href="">Камнеобработчиков</a></li>
+              <li class="menu__item"><a class="menu__link" href="">Поставщиков</a></li>
+              <li class="menu__item"><a class="menu__link" href="">Статьи</a></li>
+            </ul>
+          </div>
+          <div class="columns small-12 medium-6 large-4">
+            <div class="footer__column-title">Служба поддержки</div>
+            <ul class="menu menu--footer">
+              <li class="menu__item"><a class="menu__link" href="/terms_of_use/">Пользовательское соглашение</a></li>
+              <li class="menu__item"><a class="menu__link" href="/kontakts/">Контакты</a></li>
+              <li class="menu__item"><a class="menu__link" href="">Частые вопросы</a></li>
+              <li class="menu__item"><a class="menu__link" href="">Обратная связь</a></li>
+            </ul>
+            <div class="callback callback--footer">
+              <div class="callback__phone">
+                <a class="callback__phone-number" href="tel:{{ config.PHONE_RUSSIAN }}">{{ config.PHONE_RUSSIAN }}</a>
+              </div>
+              <div class="callback__link">
+                <a href="#add_callback" class="jq_open_popup button small" data-fancybox>Заказать консультацию</a>
+              </div>
+              <p class="footer__text">Эл. почта: <a class="link link--gray-dark" href="mailto:support@amigostone.ru">support@amigostone.ru</a><br>Режим работы: пн-вс 8:00-21:00</p>
+            </div>
+          </div>
+          <div class="columns small-12 large-4">
+            <div class="footer__column-title">Соц. сети</div>
+            <div class="social">
+              <a href="{{ config.FACEBOOK }}" class="social__item social__item--facebook"><span class="icon icon-square-facebook"></span></a>
+              <a href="{{ config.PINTEREST }}" class="social__item social__item--twitter"><span class="icon icon-pinterest-square-big"></span></a>
+              <a href="{{ config.GOOGLE }}" class="social__item social__item--google"><span class="icon icon-square-google-plus"></span></a>
+              <a href="{{ config.VK }}" class="social__item social__item--vk"><span class="icon icon-square-vk"></span></a>
+              <a href="{{ config.YOUTUBE }}" class="social__item social__item--youtube"><span class="icon icon-square-youtube"></span></a>
+            </div>
+            <p class="footer__text footer__text--copyright">Copyright © 2015 - {% now "Y" %} ООО "Амиголаб"</p>
+          </div>
+        </div>
+      </footer>
+      {% include 'forms/callback_form.html' %}
+</div>

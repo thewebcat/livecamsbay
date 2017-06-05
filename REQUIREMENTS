@@ -1,0 +1,7 @@
+Django==1.9
+psycopg2==2.7.1
+Pillow==4.1.1
+django-admin-tools==0.8.0
+sorl-thumbnail==12.3
+django-filter==1.0.2
+django-sekizai==0.10.0

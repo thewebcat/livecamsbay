@@ -147,11 +147,20 @@ class Extra(models.Model):
     def __unicode__(self):
         return self.name
 
-class Model(models.Model):
+class AbstractBaseClass(models.Model):
+    date_add = models.DateTimeField(auto_now_add=True)
+    date_update = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        abstract = True
+
+class Model(AbstractBaseClass):
     name = models.CharField(verbose_name=u'Ник', max_length=100, )
     display_name = models.CharField(verbose_name=u'Ник', max_length=100, )
     description = models.TextField(verbose_name=u'Описание', blank=True)
     profile_image = models.CharField(verbose_name=u'Картинка профиля', max_length=100, blank=True)
+    profile_url = models.CharField(verbose_name=u'Ссылка на профиль', max_length=200, blank=True)
+    chat_url = models.CharField(verbose_name=u'Ссылка на чат', max_length=200, blank=True)
     available = models.BooleanField(default=False)
     age = models.PositiveIntegerField(verbose_name=u'Возраст', default=0)
     sex = models.ForeignKey(Sex, verbose_name=u'Пол', null=True, blank=True)
@@ -162,8 +171,6 @@ class Model(models.Model):
     speaks_language = models.ManyToManyField(SpeaksLanguage, verbose_name=u'Язык', blank=True)
     public_area = models.ForeignKey(PublicArea, verbose_name=u'На показ', null=True, blank=True)
     extra = models.ManyToManyField(Extra, verbose_name=u'Особое', blank=True)
-    date_add = models.DateTimeField(auto_now_add=True)
-    date_update = models.DateTimeField(auto_now=True)
     online_time = models.PositiveIntegerField(verbose_name=u'Время онлайн', default=0)
     views_count = models.PositiveIntegerField(verbose_name=u'Просмотры', default=0)
     user = models.ForeignKey(User, verbose_name=u'Пользователь', null=True, blank=True)
@@ -184,6 +191,14 @@ class Model(models.Model):
 
     class Meta:
         index_together = ["name", "available", "views_count"]
+
+class CamSnapshot(AbstractBaseClass):
+    model = models.ForeignKey(Model, verbose_name=u"Модель", null=True, blank=True)
+    snapshot_url = models.CharField(verbose_name=u"Ссылка", max_length=255, blank=True)
+
+    def __unicode__(self):
+        return self.snapshot_url
+
 
 class AgeTag(models.Model):
     """docstring for AgeTag"""

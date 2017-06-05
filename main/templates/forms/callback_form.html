@@ -1,0 +1,45 @@
+<div class="popup" id="add_callback" style="width: 500px;">
+
+    <h3 style="margin-top:-10px;">Заказать обратный звонок</h3>
+
+    <div class="jq_call_order_form" style="position: relative">
+        <div class="call_order_form_success">
+            <p>Ваша заявка принята</p>
+        </div>
+{#        {% include 'call_orders/forms/call_order_form.html' %}#}
+    </div>
+
+    <a class="close" title="Закрыть" href="#close"></a>
+</div>
+<a href="#x" class="overlay" id="win2" style=""></a>
+
+<script>
+    $(function(){
+        $('#add_callback').ajaxForm(
+{#            var data = $( this ).serializeArray()#}
+{#            var url = $(this).attr('action')#}
+            {
+                type: 'post',
+{#                url: url,#}
+{#                data: data,#}
+                success: function(responseText, statusText, xhr) {
+                    if(responseText.success){
+                        $('#add_callback .call_order_form_success').show();
+                        $('#add_callback form')[0].reset();
+                        $('#add_callback .field-alert').removeClass('field-alert');
+
+                        setTimeout(function(){
+                        $('#add_callback .call_order_form_success').fadeOut();
+                        $('#add_callback').find('a.close').click()
+                        }, 1000);
+
+                    } else {
+                        for(var field in responseText.fields) {
+                            $('#add_callback #id_'+responseText.fields[field]).parent().addClass('field-alert')
+                        }
+                    }
+                }
+            }
+        )
+    })
+</script>

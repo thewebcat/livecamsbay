@@ -1,0 +1,89 @@
+/*!* убираем страшный пятнистый фон *!*/
+#header {
+    background: white;
+}
+
+/*!* на белом фоне теперь все равно ничего не видно *!*/
+#user-tools{
+    color: #000;
+}
+#user-tools a:link {
+    color: #000;
+}
+#user-tools a:visited {
+    color: #000;
+}
+
+/*!* заголовок только занимает место *!*/
+.dashboard-title{
+    display: none;
+}
+
+#header #navigation-menu {
+    border-top: 1px solid #ddd;
+}
+#navigation-menu:before {
+    content: "";
+    display: inline-block;
+    position: absolute;
+    left:0;
+    top:60px;
+    height: 1px;
+    width: 100%;
+    color: #333; /* Цвет текста */
+    background-color: #ddd; /* Цвет фона */
+}
+#navigation-menu:after {
+    content: "";
+    display: inline-block;
+    position: absolute;
+    left:0;
+    top:96px;
+    height: 1px;
+    width: 100%;
+    color: #333; /* Цвет текста */
+    background-color: #ddd; /* Цвет фона */
+}
+
+/* добавляем свою картинку в шапку и убираем оттуда текст */
+#header #branding h1 {
+    margin: 0;
+    padding: 5px 0px;
+    text-indent: -9999px;
+    background: white url(/static/img/logo.svg) center 7px no-repeat;
+    background-size: contain;
+    height: 50px;
+    width: 160px;
+    /*border-bottom: 1px solid lightgray;*/
+}
+
+/* визуально отделяем хлебные крошки */
+div.breadcrumbs {
+    display: block;
+    padding: 10px 15px;
+    border: 0;
+    background-position: 0 -8px;
+    border-bottom: 1px solid #ededed;
+    background: #2f9a32;
+}
+
+div.breadcrumbs a {
+    display: inline;
+}
+
+
+.dashboard-module h2 {
+    border-radius: 6px;
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+}
+.group {
+    border-radius: 6px;
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+}
+/*.dashboard-module ul li {*/
+    /*border-radius: 6px;*/
+    /*-webkit-border-radius: 6px;*/
+    /*-moz-border-radius: 6px;*/
+/*}*/

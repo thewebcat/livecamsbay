@@ -1,0 +1,65 @@
+.form-center.default-form-center {
+    margin: 0 auto;
+    width: 650px;
+}
+.form-center.default-form-center ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.form-center.default-form-center ul li {
+    display: inline-block;
+    padding: 10px 0;
+}
+.form-center.default-form-center ul li > label {
+    width: 200px;
+    display: block;
+    height: 50px;
+    float: left;
+    line-height: 50px;
+    margin-right: 10px;
+    text-align: right;
+}
+
+.form-center.default-form-center input[type="text"],
+.form-center.default-form-center input[type="email"],
+
+.form-center.default-form-center textarea,
+.form-center.default-form-center select,
+.form-center.default-form-center button {
+  width : 400px;
+  height: 50px;
+  margin: 0;
+
+  -webkit-box-sizing: border-box; /* For legacy WebKit based browsers */
+     -moz-box-sizing: border-box; /* For legacy (Firefox <29) Gecko based browsers */
+          box-sizing: border-box;
+
+  border: 1px solid#417538;
+  font-size: 18px;
+  background: none;
+}
+.form-center.default-form-center textarea {
+    height: 200px;
+}
+.form-center.default-form-center button {
+    background-color: #417538;
+}
+.form-center.default-form-center input[type="file"] {
+    padding-top: 10px;
+    font-size: 18px;
+}
+.form-center.default-form-center .wrapper-image-input {
+    float: left;
+}
+.form-center.default-form-center > ul > li {
+    position: relative;
+}
+/*.errorlist {*/
+    /*position: relative;*/
+    /*display: initial;*/
+    /*position: absolute;*/
+    /*top: -16px;*/
+    /*right: 0px;*/
+    /*color: red;*/
+/*}*/

@@ -1,0 +1,82 @@
+.wrapper_carousel {
+    width: 1200px;
+    height: 500px;
+	margin:50px auto 0;
+	
+}
+.jcarousel {
+    position: relative;
+    overflow: hidden;
+    margin:auto;
+}
+.jcarousel ul {
+    width: 20000em;
+    position: relative;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+	
+}
+.jcarousel li {
+    display:inline-block;
+    height: 335px;
+    vertical-align: top;
+}
+
+a.slider-element{
+    height: inherit;
+    margin: 0;
+    padding:0;
+    /*height: 246px;*/
+	width: 400px;
+    position: relative;
+	text-align: center;
+}
+a.slider-element .image-wrapper {
+    height: 250px;
+    line-height: 250px;
+}
+a.slider-element .image-wrapper img {
+    vertical-align: middle;
+}
+a.slider-element .figcaption{
+	margin-top:20px;
+    bottom: 0;
+    text-align: center;
+    color: #fff;
+	display:block;
+	text-decoration:none;
+	font-size:20px;
+}
+
+a.slider-element:hover .figcaption{
+	color:#f7931e;
+}
+
+.jcarousel-pagination{
+    width:100px;
+    margin: auto;
+	margin-top:30px;
+}
+.jcarousel-pagination a{
+    width:10px;
+    height:10px;
+    border-radius: 30px;
+    background: #fff;
+    display: block;
+    text-align: center;
+    text-indent: -9999px;
+    float:left;
+    margin: 10px 7px;
+    -webkit-box-shadow: 0 0 2px #F0EFE7;
+    -moz-box-shadow: 0 0 2px #F0EFE7;
+    box-shadow: 0 0 0 5px #FFFFFF;
+}
+.jcarousel-pagination a.active{
+    background: #f7931e;
+    color: #fff;
+    opacity: 1;
+    -webkit-box-shadow: 0 0 2px #F0EFE7;
+    -moz-box-shadow: 0 0 2px #F0EFE7;
+    box-shadow: 0 0 0 5px #FFFFFF;
+}

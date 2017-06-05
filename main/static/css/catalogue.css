@@ -27,3 +27,10 @@
 .mright10 {
     margin-right: 10px;
 }
+#item-search .loading {
+    height: 24px;
+    background-image: url(../img/loader.gif);
+    background-repeat: no-repeat;
+    background-position: center center;
+    margin-top: 30px;
+}

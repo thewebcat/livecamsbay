@@ -1,0 +1,128 @@
+<header class="header">
+  <div class="header__top page__line page__line--black">
+    <div class="row">
+      <div class="column flex-container align-justify align-middle">
+        <div class="flex-child-shrink small-order-2 large-order-1">
+          <ul class="menu menu--top show-for-large">
+            <li class="menu__item"><a class="menu__link" href="">Новости</a></li>
+            <li class="menu__item"><a class="menu__link" href="">Статьи</a></li>
+            <li class="menu__item"><a class="menu__link" href="">Календарь</a></li>
+            <li class="menu__item"><a class="menu__link" href="">Помощь</a></li>
+          </ul>
+          <div class="flex-container align-middle hide-for-large">
+            <div class="header__top-btn">
+              <span class="icon icon-search icon-lg"></span>
+            </div>
+            <div class="header__top-btn">
+              <button class="menu-icon" data-toggle="offCanvas"></button>
+            </div>
+          </div>
+        </div>
+        <div class="flex-child-shrink small-order-1 large-order-2">
+          <a href="" class="logo logo--top-header hide-for-large">
+            <img src="{{ STATIC_URL }}img/logo.svg" alt="" class="logo__img">
+          </a>
+          <ul class="menu menu--top">
+            <li class="menu__item hide-for-large"></li>
+            <li class="menu__item">
+              {% if not request.user.is_authenticated %}
+                <a class="menu__link" href="">
+                  <span class="menu__profile-icon icon icon-user-plus icon-lg"></span>
+                  <span class="show-for-large">Регистрация</span>
+                </a>
+              {% else %}
+                <a class="menu__link" href="">
+                  <span class="menu__profile-icon icon icon-user icon-lg"></span>
+                  <span class="show-for-large hide-for-xlarge">Личный кабинет</span>
+                  <span class="show-for-xlarge">{{ request.user.profile.name }}</span>
+                </a>
+              {% endif %}
+            </li>
+            <li class="menu__item text-secondary">|</li>
+            <li class="menu__item">
+              {% if not request.user.is_authenticated %}
+                <a class="menu__link" href="">
+                  <span class="menu__profile-icon icon icon-sign-in icon-lg"></span>
+                  <span class="show-for-large">Вход</span>
+                </a>
+              {% else %}
+                <a class="menu__link" href="">
+                  <span class="menu__profile-icon icon icon-sign-out icon-lg"></span>
+                  <span class="show-for-large">Выход</span>
+                </a>
+              {% endif %}
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="page__line page__line--white">
+    <div class="header__bottom row align-middle align-justify small-collapse medium-uncollapse">
+      <div class="column shrink show-for-large">
+        <a href="" class="logo logo--bottom-header">
+          <img src="{{ STATIC_URL }}img/logo.svg" alt="" class="logo__img">
+        </a>
+      </div>
+      <div class="column show-for-large">
+        <ul id="main-menu" class="dropdown menu menu--main" data-dropdown-menu>
+          <li class="menu__item">
+            <span class="menu__link">Девушки</span>
+          </li>
+          <li class="menu__item">
+            <span class="menu__link">Парни</span>
+          </li>
+          <li class="menu__item">
+            <span class="menu__link">Трансы</span>
+          </li>
+          <li class="menu__item">
+            <span class="menu__link">
+              <span class="menu__item-icon icon icon-info2 hide-for-large"></span>
+              Информация
+              <span class="menu__item-icon icon icon-angle-down show-for-large"></span>
+            </span>
+            <ul class="menu">
+              <li class="menu__item"><a class="menu__link" href="">Новости</a></li>
+              <li class="menu__item"><a class="menu__link" href="">Статьи</a></li>
+              <li class="menu__item"><a class="menu__link" href="">Помощь</a></li>
+            </ul>
+          </li>
+
+        </ul>
+      </div>
+      <div class="column shrink">
+        <div class="callback">
+          <div class="callback__icon">
+            <span class="icon icon-callback-phone hide-for-large-only"></span>
+          </div>
+{#          <div class="callback__content">#}
+{#            <div class="callback__phone">#}
+{#              <a class="callback__phone-number" href="tel:{{ config.PHONE_RUSSIAN }}">{{ config.PHONE_RUSSIAN }}</a>#}
+{#            </div>#}
+{#            <div class="callback__link">#}
+{#              <a href="#add_callback"#}
+{#                 data-fancybox#}
+{#                 onclick="">Заказать звонок</a>#}
+{#            </div>#}
+{#          </div>#}
+        </div>
+      </div>
+      <div class="column shrink">
+          <div class="search">
+              <form action="/search/">
+                  <button type="submit" class="search-btn"><i class="ico_search"></i></button>
+                  <div class="input">
+                      <input name="modelname" type="text" class="field" placeholder="Search model...">
+                  </div>
+              </form>
+          </div>
+{#        <a href=""#}
+{#           class="button small"#}
+{#           onclick="">#}
+{#          <span class="hide-for-large-only">кнопка</span>#}
+{#          <span class="icon icon-lg icon-plus show-for-large-only"></span>#}
+{#        </a>#}
+      </div>
+    </div>
+  </div>
+</header>

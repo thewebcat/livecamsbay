@@ -1,0 +1,199 @@
+<div class="menu-position-wrapper" style="height: 159px;">
+    <div id="stick-elements">
+        <div id="head">
+            <div class="wrapper">
+                {% if not request.user.is_authenticated %}
+                <div class="record"><a href="">Регистрация</a> |  <a href="">Вход</a></div>
+                {% else %}
+
+                <li class="city">
+
+                    <span style="color: #fff;list-style-type: none;margin-left: 40px;font-size: 22px;" href="#" class="" id="">{{ request.session.geo.title }}</span>
+{#                    <a href="#change-geo-popup" class="jq_open_popup" id="jq-change-geo">{{ request.session.geo.title }}</a>#}
+                    <div class="popup" id="change-geo-popup" style="width: 500px;">
+
+                        <h3 style="margin-top:-10px;">сменить город</h3>
+
+                        <div class="jq_call_order_form" style="position: relative">
+
+                            <div class="ajax-data-sender-url" data-url="{% url 'ajax_set_geo' %}">
+                            <div class="ajax-data-sender">Все города</div>
+                            {% for rgeo in request.geo %}
+                                <div class="ajax-data-sender" data-region="{{ rgeo.id }}">{{ rgeo.title }}</div>
+                                {% for rcity in rgeo.cities %}
+                                    <div class="ajax-data-sender" data-city="{{ rcity.id }}"> + {{ rcity.title }}</div>
+                                {% endfor %}
+                            {% endfor %}
+                            </div>
+
+                        </div>
+
+                        <a class="close" title="Закрыть" href="#close"></a>
+                    </div>
+                </li>
+
+                <div class="record">
+                    <a href="">{{ request.user.profile.name }}</a>
+                    |  <a href="">Выход</a>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="menu">
+        <div class="menu menu111">
+            <div class="wrapper">
+                <a href="/" class="logo"></a>
+                <div class="css-menu">
+                    <ul>
+                        <li class="main-menu">
+                            <span><span class="text-top"> Биржа</span></span>
+                            <ul class="second-menu">
+                                <li><a href="">Заказы</a></li>
+                                <li><a href="">Предложения</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <span><span class="text-top">Каталоги</span></span>
+                            <ul class="second-menu">
+                                <li><a href="">Камней</a></li>
+                                <li><a href="">Товаров</a></li>
+                                <li><a href="">Работ</a></li>
+                                <li><a href="">Услуг</a></li>
+                                <li><a href="">Камнеобработчиков</a></li>
+                                <li><a href="">Поставщиков</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <span><span class="text-top">Информация</span></span>
+                            <ul class="second-menu">
+                                <li><a href="">Новости</a></li>
+                                <li><a href="">Статьи</a></li>
+                                <li><a href="">Календарь мероприятий</a></li>
+                                <li><a href="">Помощь</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+
+
+
+                <div class="holster">
+                    <div class="checkout">
+                        <a href=""
+                           onclick="yaCounter43281554.reachGoal('zakaz_shapka_click');
+                                    ga('send', 'pageview', '/zaka_iz_shapki');
+                                    return true;">Оформить заказ</a>
+                    </div>
+                    <div class="holster_group_button">
+                        <a href="#add_callback"
+                           class="jq_open_popup recall"
+                           data-fancybox
+                           onclick="yaCounter43281554.reachGoal('zakaz_zvonka_shapka_click');
+                                    ga('send', 'pageview', '/zaka_zvonka_iz_shapki');
+                                    return true;">
+                            <img id="recall" src="{{ STATIC_URL }}images/recall.png">
+                        </a>
+                        <div class="search"><a href="{% url 'search' %}"><img id="search" src="{{ STATIC_URL }}images/search.png"></a></div>
+                    </div>
+                    <div class="holster-hamburger-button">
+                        <div class="hamburger-button js_hamburger-button glyphicon glyphicon-menu-hamburger"></div>
+                    </div>
+                </div>
+            </div>
+            </div>
+         </div>
+     </div>
+</div>
+
+{% include 'forms/callback_form.html' %}
+
+
+{# ################################################################################################################## #}
+
+<script>
+$(function(){
+    menu_hamburger = $('.js_menu-hamburger')
+    menu_hamburger_blocker = $('.js_menu-hamburger-blocker')
+    menu_hamburger_duration = 400
+    function hamburger_menu_hide() {
+        menu_hamburger.hide("slide", { direction: "right" }, menu_hamburger_duration, function(){
+            menu_hamburger_blocker.hide()
+            $('body').removeClass('menu-hamburger-active')
+        })
+    }
+    function hamburger_menu_show() {
+        menu_hamburger.show("slide", { direction: "right" }, menu_hamburger_duration, function(){
+            $('body').addClass('menu-hamburger-active')
+            menu_hamburger_blocker.show()
+        });
+    }
+    menu_hamburger_blocker.on('click', function(){
+        hamburger_menu_hide();
+    })
+    $('.js_hamburger-button').on('click', function(){
+        if(menu_hamburger.is(':visible')) {
+            hamburger_menu_hide();
+        } else {
+            hamburger_menu_show();
+        }
+    })
+})
+</script>
+
+<div class="js_menu-hamburger menu-hamburger">
+    <div style="padding-top: 60px;"></div>
+    <div class="menu-hamburger-container">
+        <ul class="menu-hamburger-section">
+            <li>
+                <span>Биржа</span>
+                <ul class="menu-hamburger-subsection">
+                    <li><a href="">Заказы</a></li>
+                    <li><a href="">Предложения</a></li>
+                </ul>
+            </li>
+            <li>
+                <span>Каталоги</span>
+                <ul class="menu-hamburger-subsection">
+                    <li><a href="">Камней</a></li>
+                    <li><a href="">Товаров</a></li>
+
+                </ul>
+            </li>
+            <li>
+                <span>Информация</span>
+                <ul class="menu-hamburger-subsection">
+                    <li><a href="">Новости</a></li>
+                    <li><a href="">Статьи</a></li>
+                    <li><a href="">Календарь мероприятий</a></li>
+                    <li><a href="">Помощь</a></li>
+                </ul>
+            </li>
+            <li><a href="">Обратная связь</a></li>
+            <li><a href="#">Реклама</a></li>
+
+            {% if request.all_users %}
+                <hr/>
+                {% for user in request.all_users %}
+                    <li><a href="?email={{ user.email }}">
+                        {% if user.profile.is_user %}
+                        U:
+                        {% elif user.profile.is_company %}
+                        C:
+                        {% elif user.profile.is_master %}
+                        M:
+                        {% else %}
+                        A:
+                        {% endif %}
+                        {{ user.profile.name }}
+                    </a></li>
+                {% endfor %}
+                {% if request.user.is_admin %}
+                    <li><a href="">Control panel</a></li>
+                {% endif %}
+            {% endif %}
+
+        </ul>
+    </div>
+</div>
+<div class="js_menu-hamburger-blocker menu-hamburger-blocker"></div>
