@@ -1634,7 +1634,7 @@ a {
 }
 
 a:focus, a:hover {
-    color: #386530
+    color: #f40361
 }
 
 a img {
@@ -5062,7 +5062,9 @@ p + .stat {
 
 .page__line--bgi-stone {
     padding-bottom: 1.875rem;
-    background-image: url(../img/page__line--bgi-stone.jpg)
+    background-image: url(../1111artsfon.png);
+    z-index: 100;
+    position: relative;
 }
 
 .page__line--bgi-brick {
@@ -5356,7 +5358,7 @@ p + .stat {
 }
 
 .menu--top .menu__link:focus, .menu--top .menu__link:hover {
-    color: #417538
+    color: #f40361
 }
 
 .menu--top .menu__item {
@@ -5417,7 +5419,7 @@ p + .stat {
 }
 
 .menu--main .menu__link:focus, .menu--main .menu__link:hover {
-    color: #417538
+    color: #f40361;
 }
 
 .menu--main .menu__item-icon {

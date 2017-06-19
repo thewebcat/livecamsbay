@@ -1,314 +1,75 @@
 {% extends 'base.html' %}
 {% block content %}
-    <div class="contain">
-        <script type="application/ld+json">
-        {
-          "@context":"http://schema.org",
-          "@type":"BroadcastService",
-          "name":"{{ object.display_name }}",
-          "broadcastDisplayName":"{{ object.display_name }}",
-          "videoFormat":"HD"
-        }
-        </script>
-        <div class="heading">
-            <h1>
-                💬 Chat with <b>{{ object.display_name }}</b>
-            </h1>
-            <div class="alert"><a id="email-subscribe" href="#">💌 Get an email when this model starts a live show.</a>
+    <div class="wrapper">
+        <div class="block_info">
+            <div class="nav_name">
+                <div class="Full_name">Модель {{ object.display_name }}</div>
             </div>
-            <div style="display: none" ;="" class="cam-profile notification-area">
-                <div id="offline" class="section">
-                    <div class="heading">
-                        <h2>Get instant notifications to your inbox when {{ object.display_name }} starts a show.</h2>
-                    </div>
-                    <div>
-                        <div class="notification-form">
-                            <div class="row">
-                                <input type="hidden" value="771924439" id="notifify_camId">
-                                <input placeholder="Your email" class="text" type="text" id="notify_email">
-                            </div>
-                            <div class="row">
-                                <input id="notifyButton" class="btn" type="submit"
-                                       value="Notify me when {{ object.display_name }} gets online">
-                            </div>
-                        </div>
+            <div class="inside">
 
-                        <script type="text/rocketscript" data-rocketoptimized="true">
-    $('#notifyButton').click(function() {
-        $email = $('#notify_email').val();
-        $camId = $('#notifify_camId').val();
+{#                {% thumbnail company.get_avatar 250x250 crop as thumb %}#}
+                <img src="{{ object.profile_image }}" alt="{{ object.display_name }}">
 
-        $.ajax({
-            url: "/ajax/notify-subscribe",
-            type: 'POST',
-            data: {webcam_id: $camId, notification_email: $email},
-            headers: {
-                'X-CSRF-Token': "pLWUu16y085oaRxqdumFj7kLwNPiacszNomHbiNS"
-            }
-        }).done(function(data) {
-            $('.notification-form').html('<p><b>👍 You are now subscribed and you will get updated when this model goes online. This way you will never miss a show!</b></p>');
-        }).fail(function(data) {
-            alert('Please enter a valid email');
-        });
+                <div class="contacts_wrap">
+                    <p><span class="title_name">Имя:</span> {{ object.display_name }}</p>
+                    <p><span class="title_name">Сервис:</span> {{ object.cam_service.name }}</p>
+                    <p><span class="title_name">В сети:</span> Online </p>
 
-    });
-
-                        </script>
-                    </div>
-                    <div>
-                    </div>
-                </div>
-            </div>
-
-            <script type="text/rocketscript" data-rocketoptimized="true">
-                $('#email-subscribe').click(function() {
-                    $('.notification-area').toggle('slow');
-                });
-
-            </script>
-
-        </div>
-        <div class="content">
-
-            <div class="embed">
-                <div style="width: 100%; margin-bottom: 20px; text-align: center; position: relative; display: inline-block;">
-
-                    <div style="width:100%;margin-right: 10px;">
-                        <a target="_BLANK"
-                           href="{{ object.chat_url }}">
-                            <img width="400" style="border-radius: 10px;"
-                                 src="{{ object.profile_image }}"><br>
-                            <div class="play-btn-thumb"></div>
-                        </a>
-                    </div>
-                    <br><br>
-                    <a target="_BLANK" class="enter-chat-btn"
-                       href="{{ object.chat_url }}">Click
-                        to enter live chat room</a>
-                    <br><br><br><br>
-                </div>
-
-
-            </div>
-
-
-            <script type="text/rocketscript" data-rocketoptimized="true">
-            if( window.canRunAds === undefined ){
-                $('.embed').append('<img src="/images/disable.gif" /><br><br>')
-            }
-
-            </script>
-
-            <p>
-                If you like this chat with {{ object.display_name }}, don't forget to <b>share it with your friends</b> or other people
-                on the web! By sharing this cam model they will be shown on top of the homepage.<br><br>
-                <!-- Go to www.addthis.com/dashboard to customize your tools -->
-                <script type="text/rocketscript"
-                        data-rocketsrc="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-550f193a05987723"
-                        data-rocketoptimized="true"></script>
-                <!-- Go to www.addthis.com/dashboard to customize your tools -->
-            </p>
-            <div class="addthis_sharing_toolbox" data-url="https://megacams.me/cam/vikamicky/771924439"
-                 data-title="{{ object.display_name }} - Megacams" style="clear: both;">
-                <div id="atstbx" class="at4-jumboshare addthis-smartlayers addthis-animated at4-show"
-                     aria-labelledby="at-8adedb62-fbfa-4ecf-85c6-bebba94b4fc7" role="region">
-                    <div class="">
-                        <div id="at-8adedb62-fbfa-4ecf-85c6-bebba94b4fc7" class="at4-hide">AddThis Sharing</div>
-                        <table>
-                            <tr>
-                                <td class="at4-count-container">
-                                    <div class="at4-count" style="color: rgb(102, 102, 102);"><span
-                                            class="at4-spacer">0</span><span
-                                            style="font-size: 60px; line-height: 60px;">0</span></div>
-                                    <div class="at4-title" style="font-size: 18px; color: rgb(102, 102, 102);">VOTES
-                                    </div>
-                                </td>
-                                <td class="at-share-tbx-element at-share-btn-elements at4-share-container"><a
-                                        role="button" tabindex="1" class="at-icon-wrapper at-share-btn at-svc-facebook"
-                                        style="background-color: rgb(59, 89, 152); border-radius: 22%;"><span
-                                        class="at4-visually-hidden">Share to Facebook</span><span
-                                        class="at-icon-wrapper" style="line-height: 32px; height: 32px; width: 32px;"><svg
-                                        xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-                                        viewBox="0 0 32 32" class="at-icon at-icon-facebook"
-                                        style="fill: rgb(255, 255, 255); width: 32px; height: 32px;"><g><path
-                                        d="M22 5.16c-.406-.054-1.806-.16-3.43-.16-3.4 0-5.733 1.825-5.733 5.17v2.882H9v3.913h3.837V27h4.604V16.965h3.823l.587-3.913h-4.41v-2.5c0-1.123.347-1.903 2.198-1.903H22V5.16z"
-                                        fill-rule="evenodd"></path></g></svg></span></a><a role="button" tabindex="1"
-                                                                                           class="at-icon-wrapper at-share-btn at-svc-twitter"
-                                                                                           style="background-color: rgb(29, 161, 242); border-radius: 22%;"><span
-                                        class="at4-visually-hidden">Share to Twitter</span><span class="at-icon-wrapper"
-                                                                                                 style="line-height: 32px; height: 32px; width: 32px;"><svg
-                                        xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-                                        viewBox="0 0 32 32" class="at-icon at-icon-twitter"
-                                        style="fill: rgb(255, 255, 255); width: 32px; height: 32px;"><g><path
-                                        d="M27.996 10.116c-.81.36-1.68.602-2.592.71a4.526 4.526 0 0 0 1.984-2.496 9.037 9.037 0 0 1-2.866 1.095 4.513 4.513 0 0 0-7.69 4.116 12.81 12.81 0 0 1-9.3-4.715 4.49 4.49 0 0 0-.612 2.27 4.51 4.51 0 0 0 2.008 3.755 4.495 4.495 0 0 1-2.044-.564v.057a4.515 4.515 0 0 0 3.62 4.425 4.52 4.52 0 0 1-2.04.077 4.517 4.517 0 0 0 4.217 3.134 9.055 9.055 0 0 1-5.604 1.93A9.18 9.18 0 0 1 6 23.85a12.773 12.773 0 0 0 6.918 2.027c8.3 0 12.84-6.876 12.84-12.84 0-.195-.005-.39-.014-.583a9.172 9.172 0 0 0 2.252-2.336"
-                                        fill-rule="evenodd"></path></g></svg></span></a><a role="button" tabindex="1"
-                                                                                           class="at-icon-wrapper at-share-btn at-svc-google_plusone_share"
-                                                                                           style="background-color: rgb(220, 78, 65); border-radius: 22%;"><span
-                                        class="at4-visually-hidden">Share to Google+</span><span class="at-icon-wrapper"
-                                                                                                 style="line-height: 32px; height: 32px; width: 32px;"><svg
-                                        xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-                                        viewBox="0 0 32 32" class="at-icon at-icon-google_plusone_share"
-                                        style="fill: rgb(255, 255, 255); width: 32px; height: 32px;"><g><path
-                                        d="M12 15v2.4h3.97c-.16 1.03-1.2 3.02-3.97 3.02-2.39 0-4.34-1.98-4.34-4.42s1.95-4.42 4.34-4.42c1.36 0 2.27.58 2.79 1.08l1.9-1.83C15.47 9.69 13.89 9 12 9c-3.87 0-7 3.13-7 7s3.13 7 7 7c4.04 0 6.72-2.84 6.72-6.84 0-.46-.05-.81-.11-1.16H12zm15 0h-2v-2h-2v2h-2v2h2v2h2v-2h2v-2z"
-                                        fill-rule="evenodd"></path></g></svg></span></a><a role="button" tabindex="1"
-                                                                                           class="at-icon-wrapper at-share-btn at-svc-reddit"
-                                                                                           style="background-color: rgb(255, 87, 0); border-radius: 22%;"><span
-                                        class="at4-visually-hidden">Share to Reddit</span><span class="at-icon-wrapper"
-                                                                                                style="line-height: 32px; height: 32px; width: 32px;"><svg
-                                        xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-                                        viewBox="0 0 32 32" class="at-icon at-icon-reddit"
-                                        style="fill: rgb(255, 255, 255); width: 32px; height: 32px;"><g><path
-                                        d="M27 15.5a2.452 2.452 0 0 1-1.338 2.21c.098.38.147.777.147 1.19 0 1.283-.437 2.47-1.308 3.563-.872 1.092-2.06 1.955-3.567 2.588-1.506.634-3.143.95-4.91.95-1.768 0-3.403-.316-4.905-.95-1.502-.632-2.69-1.495-3.56-2.587-.872-1.092-1.308-2.28-1.308-3.562 0-.388.045-.777.135-1.166a2.47 2.47 0 0 1-1.006-.912c-.253-.4-.38-.842-.38-1.322 0-.678.237-1.26.712-1.744a2.334 2.334 0 0 1 1.73-.726c.697 0 1.29.26 1.78.782 1.785-1.258 3.893-1.928 6.324-2.01l1.424-6.467a.42.42 0 0 1 .184-.26.4.4 0 0 1 .32-.063l4.53 1.006c.147-.306.368-.553.662-.74a1.78 1.78 0 0 1 .97-.278c.508 0 .94.18 1.302.54.36.36.54.796.54 1.31 0 .512-.18.95-.54 1.315-.36.364-.794.546-1.302.546-.507 0-.94-.18-1.295-.54a1.793 1.793 0 0 1-.533-1.308l-4.1-.92-1.277 5.86c2.455.074 4.58.736 6.37 1.985a2.315 2.315 0 0 1 1.757-.757c.68 0 1.256.242 1.73.726.476.484.713 1.066.713 1.744zm-16.868 2.47c0 .513.178.95.534 1.315.356.365.787.547 1.295.547.508 0 .942-.182 1.302-.547.36-.364.54-.802.54-1.315 0-.513-.18-.95-.54-1.31-.36-.36-.794-.54-1.3-.54-.5 0-.93.183-1.29.547a1.79 1.79 0 0 0-.54 1.303zm9.944 4.406c.09-.09.135-.2.135-.323a.444.444 0 0 0-.44-.447c-.124 0-.23.042-.32.124-.336.348-.83.605-1.486.77a7.99 7.99 0 0 1-1.964.248 7.99 7.99 0 0 1-1.964-.248c-.655-.165-1.15-.422-1.486-.77a.456.456 0 0 0-.32-.124.414.414 0 0 0-.306.124.41.41 0 0 0-.135.317.45.45 0 0 0 .134.33c.352.355.837.636 1.455.843.617.207 1.118.33 1.503.366a11.6 11.6 0 0 0 1.117.056c.36 0 .733-.02 1.117-.056.385-.037.886-.16 1.504-.366.62-.207 1.104-.488 1.456-.844zm-.037-2.544c.507 0 .938-.182 1.294-.547.356-.364.534-.802.534-1.315 0-.505-.18-.94-.54-1.303a1.75 1.75 0 0 0-1.29-.546c-.506 0-.94.18-1.3.54-.36.36-.54.797-.54 1.31s.18.95.54 1.315c.36.365.794.547 1.3.547z"
-                                        fill-rule="evenodd"></path></g></svg></span></a><a role="button" tabindex="1"
-                                                                                           class="at-icon-wrapper at-share-btn at-svc-buffer"
-                                                                                           style="background-color: rgb(0, 0, 0); border-radius: 22%;"><span
-                                        class="at4-visually-hidden">Share to Buffer</span><span class="at-icon-wrapper"
-                                                                                                style="line-height: 32px; height: 32px; width: 32px;"><svg
-                                        xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-                                        viewBox="0 0 32 32" class="at-icon at-icon-buffer"
-                                        style="fill: rgb(255, 255, 255); width: 32px; height: 32px;"><g><path
-                                        d="M5.264 10.393c-.352-.163-.352-.428 0-.59l10.1-4.68c.35-.164.92-.164 1.273 0l10.1 4.68c.35.162.35.427 0 .59l-10.1 4.68c-.352.163-.922.163-1.274 0l-10.1-4.68zm0 5.323c-.352.163-.352.427 0 .59l10.1 4.68c.35.163.92.163 1.273 0l10.1-4.68c.35-.163.35-.427 0-.59l-2.01-.93c-.35-.164-.92-.164-1.273 0l-6.818 3.158c-.35.163-.92.163-1.273 0l-6.817-3.16c-.352-.162-.922-.162-1.273 0l-2.01.932zm0 5.89c-.352.164-.352.43 0 .592l10.1 4.68c.35.163.92.163 1.273 0l10.1-4.68c.35-.163.35-.428 0-.59l-2.01-.932c-.35-.163-.92-.163-1.273 0l-6.818 3.16c-.35.163-.92.163-1.273 0l-6.817-3.16c-.352-.163-.922-.163-1.273 0l-2.01.93z"
-                                        fill-rule="evenodd"></path></g></svg></span></a><a role="button" tabindex="1"
-                                                                                           class="at-icon-wrapper at-share-btn at-svc-telegram"
-                                                                                           style="background-color: rgb(0, 136, 204); border-radius: 22%;"><span
-                                        class="at4-visually-hidden">Share to Telegram</span><span
-                                        class="at-icon-wrapper" style="line-height: 32px; height: 32px; width: 32px;"><svg
-                                        xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-                                        viewBox="0 0 32 32" class="at-icon at-icon-telegram"
-                                        style="fill: rgb(255, 255, 255); width: 32px; height: 32px;"><g><g
-                                        fill-rule="evenodd"></g><path
-                                        d="M15.02 20.814l9.31-12.48L9.554 17.24l1.92 6.42c.225.63.114.88.767.88l.344-5.22 2.436 1.494z"
-                                        opacity=".6"></path><path
-                                        d="M12.24 24.54c.504 0 .727-.234 1.008-.51l2.687-2.655-3.35-2.054-.344 5.22z"
-                                        opacity=".3"></path><path
-                                        d="M12.583 19.322l8.12 6.095c.926.52 1.595.25 1.826-.874l3.304-15.825c.338-1.378-.517-2.003-1.403-1.594L5.024 14.727c-1.325.54-1.317 1.29-.24 1.625l4.98 1.58 11.53-7.39c.543-.336 1.043-.156.633.214"></path></g></svg></span></a><a
-                                        role="button" tabindex="1" class="at-icon-wrapper at-share-btn at-svc-whatsapp"
-                                        style="background-color: rgb(77, 194, 71); border-radius: 22%;"><span
-                                        class="at4-visually-hidden">Share to WhatsApp</span><span
-                                        class="at-icon-wrapper" style="line-height: 32px; height: 32px; width: 32px;"><svg
-                                        xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-                                        viewBox="0 0 32 32" class="at-icon at-icon-whatsapp"
-                                        style="fill: rgb(255, 255, 255); width: 32px; height: 32px;"><g><path
-                                        d="M19.11 17.205c-.372 0-1.088 1.39-1.518 1.39a.63.63 0 0 1-.315-.1c-.802-.402-1.504-.817-2.163-1.447-.545-.516-1.146-1.29-1.46-1.963a.426.426 0 0 1-.073-.215c0-.33.99-.945.99-1.49 0-.143-.73-2.09-.832-2.335-.143-.372-.214-.487-.6-.487-.187 0-.36-.043-.53-.043-.302 0-.53.115-.746.315-.688.645-1.032 1.318-1.06 2.264v.114c-.015.99.472 1.977 1.017 2.78 1.23 1.82 2.506 3.41 4.554 4.34.616.287 2.035.888 2.722.888.817 0 2.15-.515 2.478-1.318.13-.33.244-.73.244-1.088 0-.058 0-.144-.03-.215-.1-.172-2.434-1.39-2.678-1.39zm-2.908 7.593c-1.747 0-3.48-.53-4.942-1.49L7.793 24.41l1.132-3.337a8.955 8.955 0 0 1-1.72-5.272c0-4.955 4.04-8.995 8.997-8.995S25.2 10.845 25.2 15.8c0 4.958-4.04 8.998-8.998 8.998zm0-19.798c-5.96 0-10.8 4.842-10.8 10.8 0 1.964.53 3.898 1.546 5.574L5 27.176l5.974-1.92a10.807 10.807 0 0 0 16.03-9.455c0-5.958-4.842-10.8-10.802-10.8z"
-                                        fill-rule="evenodd"></path></g></svg></span></a><a role="button" tabindex="1"
-                                                                                           class="at-icon-wrapper at-share-btn at-svc-vk"
-                                                                                           style="background-color: rgb(99, 131, 168); border-radius: 22%;"><span
-                                        class="at4-visually-hidden">Share to Vkontakte</span><span
-                                        class="at-icon-wrapper" style="line-height: 32px; height: 32px; width: 32px;"><svg
-                                        xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-                                        viewBox="0 0 32 32" class="at-icon at-icon-vk"
-                                        style="fill: rgb(255, 255, 255); width: 32px; height: 32px;"><g><path
-                                        d="M26.712 10.96s-.167-.48-1.21-.348l-3.447.024a.785.785 0 0 0-.455.072s-.204.108-.3.37a22.1 22.1 0 0 1-1.28 2.695c-1.533 2.61-2.156 2.754-2.407 2.587-.587-.372-.43-1.51-.43-2.323 0-2.54.382-3.592-.756-3.868-.37-.084-.646-.144-1.616-.156-1.232-.012-2.274 0-2.86.287-.396.193-.695.624-.515.648.227.036.742.143 1.017.515 0 0 .3.49.347 1.568.13 2.982-.48 3.353-.48 3.353-.466.252-1.28-.167-2.478-2.634 0 0-.694-1.222-1.233-2.563-.097-.25-.288-.383-.288-.383s-.216-.168-.527-.216l-3.28.024c-.504 0-.683.228-.683.228s-.18.19-.012.587c2.562 6.022 5.483 9.04 5.483 9.04s2.67 2.79 5.7 2.597h1.376c.418-.035.634-.263.634-.263s.192-.214.18-.61c-.024-1.843.838-2.12.838-2.12.838-.262 1.915 1.785 3.065 2.575 0 0 .874.6 1.532.467l3.064-.048c1.617-.01.85-1.352.85-1.352-.06-.108-.442-.934-2.286-2.647-1.916-1.784-1.665-1.496.658-4.585 1.413-1.88 1.976-3.03 1.796-3.52z"
-                                        fill-rule="evenodd"></path></g></svg></span></a><a role="button" tabindex="1"
-                                                                                           class="at-icon-wrapper at-share-btn at-svc-email"
-                                                                                           style="background-color: rgb(132, 132, 132); border-radius: 22%;"><span
-                                        class="at4-visually-hidden">Share to Email</span><span class="at-icon-wrapper"
-                                                                                               style="line-height: 32px; height: 32px; width: 32px;"><svg
-                                        xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-                                        viewBox="0 0 32 32" class="at-icon at-icon-email"
-                                        style="fill: rgb(255, 255, 255); width: 32px; height: 32px;"><g><g
-                                        fill-rule="evenodd"></g><path
-                                        d="M27 22.757c0 1.24-.988 2.243-2.19 2.243H7.19C5.98 25 5 23.994 5 22.757V13.67c0-.556.39-.773.855-.496l8.78 5.238c.782.467 1.95.467 2.73 0l8.78-5.238c.472-.28.855-.063.855.495v9.087z"></path><path
-                                        d="M27 9.243C27 8.006 26.02 7 24.81 7H7.19C5.988 7 5 8.004 5 9.243v.465c0 .554.385 1.232.857 1.514l9.61 5.733c.267.16.8.16 1.067 0l9.61-5.733c.473-.283.856-.96.856-1.514v-.465z"></path></g></svg></span></a><a
-                                        role="button" tabindex="1" class="at-icon-wrapper at-share-btn at-svc-favorites"
-                                        style="background-color: rgb(245, 202, 89); border-radius: 22%;"><span
-                                        class="at4-visually-hidden">Share to Favorites</span><span
-                                        class="at-icon-wrapper" style="line-height: 32px; height: 32px; width: 32px;"><svg
-                                        xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-                                        viewBox="0 0 32 32" class="at-icon at-icon-favorites"
-                                        style="fill: rgb(255, 255, 255); width: 32px; height: 32px;"><g><path
-                                        d="M26.56 13.56a.432.432 0 0 0-.4-.29h-7.51l-2.32-7.14c-.06-.17-.22-.28-.39-.28s-.34.11-.39.28l-2.34 7.14H5.72c-.18 0-.34.12-.39.29-.06.17.01.35.15.46l6.06 4.42-2.34 7.17c-.06.17.01.35.15.46.14.11.34.1.49 0l6.1-4.43 6.09 4.43c.07.05.16.08.24.08s.17-.03.24-.08c.15-.1.2-.29.15-.46l-2.34-7.18 6.08-4.42a.37.37 0 0 0 .16-.45z"></path></g></svg></span></a>
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-                </div>
-            </div>
-            <p></p>
-
-            <div class="cam-profile">
-                <div id="shows" class="section">
-                    <div class="heading"><h2>Latest cam shows - Snapshots</h2></div>
-                    <h3 style="height: auto; font-size: 10px; line-height: 13px;" showid="20009011"
-                        class="btn toggle-snapshots">
-                        2017-05-23 15:08:25 - 2017-05-23 17:53:06 <span id="iconUp" style="float:right;"
-                                                                        class="glyphicon glyphicon-chevron-up"
-                                                                        aria-hidden="true"></span>
-                        <span id="iconDown" style="float:right; display:none" class="glyphicon glyphicon-chevron-down"
-                              aria-hidden="true"></span>
-                    </h3>
-
-                    <div class="profile-snapshots" id="snapshots-20009011" style="display: block;">
-                        <img alt="{{ object.display_name }} snapshot 1" src="/snapshots/90f/90/20009011/VikaMicky_1.jpg">
-                        <img alt="{{ object.display_name }} snapshot 2" src="/snapshots/90f/90/20009011/VikaMicky_2.jpg">
-                    </div>
-                    <h3 style="height: auto; font-size: 10px; line-height: 13px;" showid="19982949"
-                        class="btn toggle-snapshots">
-                        2017-05-23 09:13:28 - 2017-05-23 14:07:49 <span id="iconUp" style="float:right;"
-                                                                        class="glyphicon glyphicon-chevron-up"
-                                                                        aria-hidden="true"></span>
-                        <span id="iconDown" style="float:right; display:none" class="glyphicon glyphicon-chevron-down"
-                              aria-hidden="true"></span>
-                    </h3>
-
-                    <div class="profile-snapshots" id="snapshots-19982949">
-                        <img alt="VikaMicky snapshot 1" src="/snapshots/18c/18/19982949/VikaMicky_1.jpg">
-                        <img alt="VikaMicky snapshot 2" src="/snapshots/18c/18/19982949/VikaMicky_2.jpg">
-                        <img alt="VikaMicky snapshot 3" src="/snapshots/18c/18/19982949/VikaMicky_3.jpg">
-                        <img alt="VikaMicky snapshot 4" src="/snapshots/18c/18/19982949/VikaMicky_4.jpg">
-                    </div>
-                    <h3 style="height: auto; font-size: 10px; line-height: 13px;" showid="19963892"
-                        class="btn toggle-snapshots">
-                        2017-05-23 03:55:27 - 2017-05-23 06:03:54 <span id="iconUp" style="float:right;"
-                                                                        class="glyphicon glyphicon-chevron-up"
-                                                                        aria-hidden="true"></span>
-                        <span id="iconDown" style="float:right; display:none" class="glyphicon glyphicon-chevron-down"
-                              aria-hidden="true"></span>
-                    </h3>
-
-                    <div class="profile-snapshots" id="snapshots-19963892">
-                        <img alt="VikaMicky snapshot 1" src="/snapshots/224/22/19963892/VikaMicky_1.jpg">
-                    </div>
-
+                    <!-- Go to www.addthis.com/dashboard to customize your tools --> <div class="addthis_inline_share_toolbox"></div>
 
                 </div>
-            </div>
+                <div class="rating_wrap">
+                    <p class="rating">Услуги компании</p>
+                    <a class="comments_num" href="">всего {{ company.services_count }} услуг</a>
 
-            <script type="text/rocketscript" data-rocketoptimized="true">
-            $('.toggle-snapshots').click(function () {
-                $showId = $(this).attr('showId');
-                $('#snapshots-' + $showId).toggle('slow');
-                $('#snapshots-' + $showId).parent('div').find('#iconUp').toggle();
-                $('#snapshots-' + $showId).parent('div').find('#iconDown').toggle();
-            });
+                    <p class="rating" style="margin-top:25px;">Товары компании</p>
+                    <a class="comments_num" href="">всего {{ company.products_count }} товаров</a>
 
-            $('.profile-snapshots').first().toggle('slow');
-
-            </script>
-
-
-            <div class="cam-profile-extra cam-profile">
-                <div class="heading">
-                    <h2>Who is {{ object.display_name }}?</h2>
+                    <div class="go_directory" style="margin-top:30px"><a href="{{ object.chat_url }}">Смотреть</a></div>
                 </div>
+                <div class="rating_wrap">
+                    <p class="rating">
+                        Рейтинг: {% if company.position %}{{ company.position }}{% else %}{{ producers_count }}{% endif %}
+                        <span class="rating_from">/</span> <span class="rating_all">{{ producers_count }}</span>
+                    </p>
+
+                    <div class="shadow_diamond">
+						<div class="rating_diamond" style="width: {% widthratio company.profilegrades.get_gems 5 100 %}%" ></div>
+					</div>
+                    <h3>Отзывы</h3>
+                    <div class="shadow_star">
+						<div class="rating_star" style="width: {{ company.ave_rate }}%" ></div>
+					</div>
+                    <div class="orders_num"></div>
+                    <div class="sum">{{ company.orders_finished }}</div>
+                    <p style="margin:0">выполненных заказов</p>
+                    <a class="comments_num" href="#button_for_look_recalls" >{{ testimonials.count }} {{ testimonials.ave_rate }} отзывов</a><br>
+                    <span class="sum_views_by_users">{{ company.views.get.profiles.count | default:0 }} просмотров</span>
+                </div>
+
+            </div>
+            <div class="nav">
+                <div class="about-me"> Описание</div>
+            </div>
+            <div class="description-text">
                 <div>
                     <div class="profile-column">
                         <div class="profile-item">
                             <h3>Nickname</h3>
-                            <label>{{ object.display_name }}</label>
+                            <label>EBONY-HUGES</label>
                         </div>
 
                         <div class="profile-item">
                             <h3>Age</h3>
-                            <label>20 (<a href="/webcams/female/teen+18+-+20">More Teen 18 - 20 Cams</a>)</label>
+                            <label>33 (<a href="/webcams/female/milf+30%2B">More Milf 30+ Cams</a>)</label>
                         </div>
                         <div class="profile-item">
                             <h3>Race</h3>
-                            <label>Russian (<a href="/webcams/female/russian">More Russian Cams</a>)</label>
+                            <label>Ebony (<a href="/webcams/female/ebony">More Ebony Cams</a>)</label>
                         </div>
                         <div class="profile-item">
                             <h3>Hair color</h3>
-                            <label>Blonde (<a href="/webcams/female/blonde">More Blonde Cams</a>)</label>
+                            <label>Brunette (<a href="/webcams/female/brunette">More Brunette Cams</a>)</label>
                         </div>
                         <div class="profile-item">
                             <h3>Bust size</h3>
@@ -330,7 +91,7 @@
 
                         <div class="profile-item">
                             <h3>This model speaks</h3>
-                            <label style="margin-top: -10px;"><img src="/images/flags/shiny/24/RU.png"><img
+                            <label style="margin-top: -10px;"><img src="/images/flags/shiny/24/ES.png"><img
                                     src="/images/flags/shiny/24/EN.png"></label>
                         </div>
 
@@ -338,158 +99,550 @@
                             <h3>Last live show</h3>
                             <label>Currently live</label>
                         </div>
-
-
                     </div>
-                    <div class="profile-column2">
-                        <div class="profile-item profile-item-full">
-                            <label><a
-                                    href="http://bongacams.com/track?c=19157&amp;subid=megacams&amp;subid2=profile_logo_"
-                                    rel="nofollow" target="_blank"><img width="140"
-                                                                        style="background-color: black;padding:10px; border-radius: 10px;"
-                                                                        src="/images/bongacams_logo2.png"></a></label>
-                            <p>
-                            </p>
-                            <p class="provider-text">
-                                Bongacams is voted the best European camsite. You can chat for free with all models. If
-                                you like the show you are able to tip tokens to show your appreciation. <a
-                                    href="/bongacams/female/all">Click here to view all Bongacams performers</a>.
-                            </p>
-                            <p></p>
-                        </div>
-                    </div>
-                    <div class="clearfix"></div>
                 </div>
-                <div class="clearfix"></div>
             </div>
 
-
-            <div class="cam-profile">
-                <div id="reviews" class="heading">
-                    <h2>{{ object.display_name }} live show reviews</h2>
-                    <p>
-                        Place a <b>review on {{ object.display_name }}'s show</b>. This way {{ object.display_name }} can improve the show. Other
-                        visitors will appreciate this too! <br><br>
-                    </p>
-                </div>
-
-                <div class="form_field">
-                    <div class="section">
-                        <div class="comments">
-
-                            <script type="application/ld+json">
-                            {
-                              "@context": "http://schema.org",
-                              "@type": "CommentAction",
-                              "agent": {
-                                "@type": "Person",
-                                "name": "hugo20000"
-                              },
-                              "resultComment": {
-                                "@type": "Comment",
-                                "text": "all time sex"
-                              },
-                              "about": {
-                                "@type": "BroadcastService",
-                                "name": "VikaMicky"
-                              }
-                            }
-
-                            </script>
-                            <div class="comment">
-                                <h3><img src="/images/flags/shiny/16/DE.png">&nbsp;<i>Comment from "hugo20000" - 1 month
-                                    ago</i></h3>
-                                <p>all time sex</p>
-                            </div>
-
-                            <script type="application/ld+json">
-                            {
-                              "@context": "http://schema.org",
-                              "@type": "CommentAction",
-                              "agent": {
-                                "@type": "Person",
-                                "name": "zahir"
-                              },
-                              "resultComment": {
-                                "@type": "Comment",
-                                "text": "Find my love"
-                              },
-                              "about": {
-                                "@type": "BroadcastService",
-                                "name": "VikaMicky"
-                              }
-                            }
-
-                            </script>
-                            <div class="comment">
-                                <h3><img src="/images/flags/shiny/16/MY.png">&nbsp;<i>Comment from "zahir" - 6 days
-                                    ago</i></h3>
-                                <p>Find my love</p>
-                            </div>
-                        </div>
-                        <div class="comment-form">
-                            <form action="/ajax/comment" method="POST">
-                                <input type="hidden" name="_token" value="pLWUu16y085oaRxqdumFj7kLwNPiacszNomHbiNS">
-                                <input type="hidden" name="comment_webcam_id" value="771924439">
-                                <input type="hidden" name="comment_webcam_name" value="vikamicky">
-
-                                <div class="row">
-                                    <input id="nickname" class="text" placeholder="Nickname" name="comment_name"
-                                           type="text">
-                                </div>
-                                <div class="row">
-                                    <textarea cols="30" rows="10"
-                                              placeholder="What do you like about this show or model ? Share some love!"
-                                              name="comment_message" id="comment_message"></textarea>
-                                </div>
-
-                                <div class="row">
-                                    <div class="g-recaptcha" data-sitekey="6LeCLQYTAAAAAESlU8N9fMeikfTqRi4yY0Ct-Ou-">
-                                        <div style="width: 304px; height: 78px;">
-                                            <div>
-                                                <iframe src="https://www.google.com/recaptcha/api2/anchor?k=6LeCLQYTAAAAAESlU8N9fMeikfTqRi4yY0Ct-Ou-&amp;co=aHR0cHM6Ly9tZWdhY2Ftcy5tZTo0NDM.&amp;hl=ru&amp;v=r20170515161201&amp;size=normal&amp;cb=ltsznzngth80"
-                                                        title="виджет reCAPTCHA" width="304" height="78" frameborder="0"
-                                                        scrolling="no" name="undefined"></iframe>
-                                            </div>
-                                            <textarea id="g-recaptcha-response" name="g-recaptcha-response"
-                                                      class="g-recaptcha-response"
-                                                      style="width: 250px; height: 40px; border: 1px solid #c1c1c1; margin: 10px 25px; padding: 0px; resize: none;  display: none; "></textarea>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <input type="submit" value="Post comment" class="btn">
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-
-                </div>
-                <div class="clearfix"></div>
+            <script>
+            $(function () {
+                $("#jq_tabs").tabs();
+            });
+            </script>
+            <style>
+                .ui-state-active {
+                    color: #fefefe;
+                    background:#f40361;
+                    border: none;
+                    outline: none;
+                }
+                .ui-state-active a {
+                    border: none;
+                    outline: none;
+                    background:#f40361;
+                }
+            </style>
+            <div id="jq_tabs">
+                <ul class="css-menu-3" style="margin-bottom:0">
+                    <li><a href="#tab_offers">Акции и предложения</a></li>
+                    <li><a href="#tab_news">Новости</a></li>
+                    <li id="anchor_catalog"><a href="#tab_catalogs">Каталоги</a></li>
+{#                    <li><a href="#tab_vacancies">Вакансии</a></li>#}
+                    <li><a href="#tab_events">Мероприятия</a></li>
+                </ul>
+{#                <div>#}
+{#                    <div id="tab_offers" class="table_wrap" style="background-color: #ffffff;">#}
+{#                        {% include 'accounts/companies/tabs/tab_offers.html' %}#}
+{#                    </div>#}
+{#                    <div id="tab_news" class="table_wrap" style="background: none">#}
+{#                        {% include 'accounts/companies/tabs/tab_news.html' %}#}
+{#                    </div>#}
+{#                    <div id="tab_catalogs" class="table_wrap">#}
+{#                        {% include 'accounts/companies/tabs/tab_catalogs.html' %}#}
+{#                    </div>#}
+{#                    <div id="tab_vacancies" class="table_wrap">#}
+{#                        {% include 'accounts/companies/tabs/tab_vacancies.html' %}#}
+{#                    </div>#}
+{#                    <div id="tab_events" class="table_wrap" style="background: none">#}
+{#                        {% include 'accounts/companies/tabs/tab_events.html' %}#}
+{#                    </div>#}
+{#                </div>#}
             </div>
-
-
         </div>
-
-        <script type="text/rocketscript" data-rocketoptimized="true">
-                        $iframe = $('.embed iframe');
-
-                        if ($iframe !== undefined && $iframe.attr('src') !== undefined && $iframe.attr('src').indexOf("imlive") > -1) {
-                            $browserWidth = $(window).width();
-
-                            if ($browserWidth > 1300) {
-                                $rest = $browserWidth - 1300;
-                                $iframeHeight = $iframe.attr('height');
-                                $iframe.attr('height', parseInt($iframeHeight) + ($rest * 0.6))
-                            }
-
-                        }
-
-        </script>
-
-        <label class="last-updated">Last updated: May 25th, 2017</label>
-
-
     </div>
+{#    <div class="contain">#}
+{#        <script type="application/ld+json">#}
+{#        {#}
+{#          "@context":"http://schema.org",#}
+{#          "@type":"BroadcastService",#}
+{#          "name":"{{ object.display_name }}",#}
+{#          "broadcastDisplayName":"{{ object.display_name }}",#}
+{#          "videoFormat":"HD"#}
+{#        }#}
+{#        </script>#}
+{#        <div class="heading">#}
+{#            <h1>#}
+{#                💬 Chat with <b>{{ object.display_name }}</b>#}
+{#            </h1>#}
+{#            <div class="alert"><a id="email-subscribe" href="#">💌 Get an email when this model starts a live show.</a>#}
+{#            </div>#}
+{#            <div style="display: none" ;="" class="cam-profile notification-area">#}
+{#                <div id="offline" class="section">#}
+{#                    <div class="heading">#}
+{#                        <h2>Get instant notifications to your inbox when {{ object.display_name }} starts a show.</h2>#}
+{#                    </div>#}
+{#                    <div>#}
+{#                        <div class="notification-form">#}
+{#                            <div class="row">#}
+{#                                <input type="hidden" value="771924439" id="notifify_camId">#}
+{#                                <input placeholder="Your email" class="text" type="text" id="notify_email">#}
+{#                            </div>#}
+{#                            <div class="row">#}
+{#                                <input id="notifyButton" class="btn" type="submit"#}
+{#                                       value="Notify me when {{ object.display_name }} gets online">#}
+{#                            </div>#}
+{#                        </div>#}
+{##}
+{#                        <script type="text/rocketscript" data-rocketoptimized="true">#}
+{#    $('#notifyButton').click(function() {#}
+{#        $email = $('#notify_email').val();#}
+{#        $camId = $('#notifify_camId').val();#}
+{##}
+{#        $.ajax({#}
+{#            url: "/ajax/notify-subscribe",#}
+{#            type: 'POST',#}
+{#            data: {webcam_id: $camId, notification_email: $email},#}
+{#            headers: {#}
+{#                'X-CSRF-Token': "pLWUu16y085oaRxqdumFj7kLwNPiacszNomHbiNS"#}
+{#            }#}
+{#        }).done(function(data) {#}
+{#            $('.notification-form').html('<p><b>👍 You are now subscribed and you will get updated when this model goes online. This way you will never miss a show!</b></p>');#}
+{#        }).fail(function(data) {#}
+{#            alert('Please enter a valid email');#}
+{#        });#}
+{##}
+{#    });#}
+{##}
+{#                        </script>#}
+{#                    </div>#}
+{#                    <div>#}
+{#                    </div>#}
+{#                </div>#}
+{#            </div>#}
+{##}
+{#            <script type="text/rocketscript" data-rocketoptimized="true">#}
+{#                $('#email-subscribe').click(function() {#}
+{#                    $('.notification-area').toggle('slow');#}
+{#                });#}
+{##}
+{#            </script>#}
+{##}
+{#        </div>#}
+{#        <div class="content">#}
+{##}
+{#            <div class="embed">#}
+{#                <div style="width: 100%; margin-bottom: 20px; text-align: center; position: relative; display: inline-block;">#}
+{##}
+{#                    <div style="width:100%;margin-right: 10px;">#}
+{#                        <a target="_BLANK"#}
+{#                           href="{{ object.chat_url }}">#}
+{#                            <img width="400" style="border-radius: 10px;"#}
+{#                                 src="{{ object.profile_image }}"><br>#}
+{#                            <div class="play-btn-thumb"></div>#}
+{#                        </a>#}
+{#                    </div>#}
+{#                    <br><br>#}
+{#                    <a target="_BLANK" class="enter-chat-btn"#}
+{#                       href="{{ object.chat_url }}">Click#}
+{#                        to enter live chat room</a>#}
+{#                    <br><br><br><br>#}
+{#                </div>#}
+{##}
+{##}
+{#            </div>#}
+{##}
+{##}
+{#            <script type="text/rocketscript" data-rocketoptimized="true">#}
+{#            if( window.canRunAds === undefined ){#}
+{#                $('.embed').append('<img src="/images/disable.gif" /><br><br>')#}
+{#            }#}
+{##}
+{#            </script>#}
+{##}
+{#            <p>#}
+{#                If you like this chat with {{ object.display_name }}, don't forget to <b>share it with your friends</b> or other people#}
+{#                on the web! By sharing this cam model they will be shown on top of the homepage.<br><br>#}
+{#                <!-- Go to www.addthis.com/dashboard to customize your tools -->#}
+{#                <script type="text/rocketscript"#}
+{#                        data-rocketsrc="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-550f193a05987723"#}
+{#                        data-rocketoptimized="true"></script>#}
+{#                <!-- Go to www.addthis.com/dashboard to customize your tools -->#}
+{#            </p>#}
+{#            <div class="addthis_sharing_toolbox" data-url="https://megacams.me/cam/vikamicky/771924439"#}
+{#                 data-title="{{ object.display_name }} - Megacams" style="clear: both;">#}
+{#                <div id="atstbx" class="at4-jumboshare addthis-smartlayers addthis-animated at4-show"#}
+{#                     aria-labelledby="at-8adedb62-fbfa-4ecf-85c6-bebba94b4fc7" role="region">#}
+{#                    <div class="">#}
+{#                        <div id="at-8adedb62-fbfa-4ecf-85c6-bebba94b4fc7" class="at4-hide">AddThis Sharing</div>#}
+{#                        <table>#}
+{#                            <tr>#}
+{#                                <td class="at4-count-container">#}
+{#                                    <div class="at4-count" style="color: rgb(102, 102, 102);"><span#}
+{#                                            class="at4-spacer">0</span><span#}
+{#                                            style="font-size: 60px; line-height: 60px;">0</span></div>#}
+{#                                    <div class="at4-title" style="font-size: 18px; color: rgb(102, 102, 102);">VOTES#}
+{#                                    </div>#}
+{#                                </td>#}
+{#                                <td class="at-share-tbx-element at-share-btn-elements at4-share-container"><a#}
+{#                                        role="button" tabindex="1" class="at-icon-wrapper at-share-btn at-svc-facebook"#}
+{#                                        style="background-color: rgb(59, 89, 152); border-radius: 22%;"><span#}
+{#                                        class="at4-visually-hidden">Share to Facebook</span><span#}
+{#                                        class="at-icon-wrapper" style="line-height: 32px; height: 32px; width: 32px;"><svg#}
+{#                                        xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"#}
+{#                                        viewBox="0 0 32 32" class="at-icon at-icon-facebook"#}
+{#                                        style="fill: rgb(255, 255, 255); width: 32px; height: 32px;"><g><path#}
+{#                                        d="M22 5.16c-.406-.054-1.806-.16-3.43-.16-3.4 0-5.733 1.825-5.733 5.17v2.882H9v3.913h3.837V27h4.604V16.965h3.823l.587-3.913h-4.41v-2.5c0-1.123.347-1.903 2.198-1.903H22V5.16z"#}
+{#                                        fill-rule="evenodd"></path></g></svg></span></a><a role="button" tabindex="1"#}
+{#                                                                                           class="at-icon-wrapper at-share-btn at-svc-twitter"#}
+{#                                                                                           style="background-color: rgb(29, 161, 242); border-radius: 22%;"><span#}
+{#                                        class="at4-visually-hidden">Share to Twitter</span><span class="at-icon-wrapper"#}
+{#                                                                                                 style="line-height: 32px; height: 32px; width: 32px;"><svg#}
+{#                                        xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"#}
+{#                                        viewBox="0 0 32 32" class="at-icon at-icon-twitter"#}
+{#                                        style="fill: rgb(255, 255, 255); width: 32px; height: 32px;"><g><path#}
+{#                                        d="M27.996 10.116c-.81.36-1.68.602-2.592.71a4.526 4.526 0 0 0 1.984-2.496 9.037 9.037 0 0 1-2.866 1.095 4.513 4.513 0 0 0-7.69 4.116 12.81 12.81 0 0 1-9.3-4.715 4.49 4.49 0 0 0-.612 2.27 4.51 4.51 0 0 0 2.008 3.755 4.495 4.495 0 0 1-2.044-.564v.057a4.515 4.515 0 0 0 3.62 4.425 4.52 4.52 0 0 1-2.04.077 4.517 4.517 0 0 0 4.217 3.134 9.055 9.055 0 0 1-5.604 1.93A9.18 9.18 0 0 1 6 23.85a12.773 12.773 0 0 0 6.918 2.027c8.3 0 12.84-6.876 12.84-12.84 0-.195-.005-.39-.014-.583a9.172 9.172 0 0 0 2.252-2.336"#}
+{#                                        fill-rule="evenodd"></path></g></svg></span></a><a role="button" tabindex="1"#}
+{#                                                                                           class="at-icon-wrapper at-share-btn at-svc-google_plusone_share"#}
+{#                                                                                           style="background-color: rgb(220, 78, 65); border-radius: 22%;"><span#}
+{#                                        class="at4-visually-hidden">Share to Google+</span><span class="at-icon-wrapper"#}
+{#                                                                                                 style="line-height: 32px; height: 32px; width: 32px;"><svg#}
+{#                                        xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"#}
+{#                                        viewBox="0 0 32 32" class="at-icon at-icon-google_plusone_share"#}
+{#                                        style="fill: rgb(255, 255, 255); width: 32px; height: 32px;"><g><path#}
+{#                                        d="M12 15v2.4h3.97c-.16 1.03-1.2 3.02-3.97 3.02-2.39 0-4.34-1.98-4.34-4.42s1.95-4.42 4.34-4.42c1.36 0 2.27.58 2.79 1.08l1.9-1.83C15.47 9.69 13.89 9 12 9c-3.87 0-7 3.13-7 7s3.13 7 7 7c4.04 0 6.72-2.84 6.72-6.84 0-.46-.05-.81-.11-1.16H12zm15 0h-2v-2h-2v2h-2v2h2v2h2v-2h2v-2z"#}
+{#                                        fill-rule="evenodd"></path></g></svg></span></a><a role="button" tabindex="1"#}
+{#                                                                                           class="at-icon-wrapper at-share-btn at-svc-reddit"#}
+{#                                                                                           style="background-color: rgb(255, 87, 0); border-radius: 22%;"><span#}
+{#                                        class="at4-visually-hidden">Share to Reddit</span><span class="at-icon-wrapper"#}
+{#                                                                                                style="line-height: 32px; height: 32px; width: 32px;"><svg#}
+{#                                        xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"#}
+{#                                        viewBox="0 0 32 32" class="at-icon at-icon-reddit"#}
+{#                                        style="fill: rgb(255, 255, 255); width: 32px; height: 32px;"><g><path#}
+{#                                        d="M27 15.5a2.452 2.452 0 0 1-1.338 2.21c.098.38.147.777.147 1.19 0 1.283-.437 2.47-1.308 3.563-.872 1.092-2.06 1.955-3.567 2.588-1.506.634-3.143.95-4.91.95-1.768 0-3.403-.316-4.905-.95-1.502-.632-2.69-1.495-3.56-2.587-.872-1.092-1.308-2.28-1.308-3.562 0-.388.045-.777.135-1.166a2.47 2.47 0 0 1-1.006-.912c-.253-.4-.38-.842-.38-1.322 0-.678.237-1.26.712-1.744a2.334 2.334 0 0 1 1.73-.726c.697 0 1.29.26 1.78.782 1.785-1.258 3.893-1.928 6.324-2.01l1.424-6.467a.42.42 0 0 1 .184-.26.4.4 0 0 1 .32-.063l4.53 1.006c.147-.306.368-.553.662-.74a1.78 1.78 0 0 1 .97-.278c.508 0 .94.18 1.302.54.36.36.54.796.54 1.31 0 .512-.18.95-.54 1.315-.36.364-.794.546-1.302.546-.507 0-.94-.18-1.295-.54a1.793 1.793 0 0 1-.533-1.308l-4.1-.92-1.277 5.86c2.455.074 4.58.736 6.37 1.985a2.315 2.315 0 0 1 1.757-.757c.68 0 1.256.242 1.73.726.476.484.713 1.066.713 1.744zm-16.868 2.47c0 .513.178.95.534 1.315.356.365.787.547 1.295.547.508 0 .942-.182 1.302-.547.36-.364.54-.802.54-1.315 0-.513-.18-.95-.54-1.31-.36-.36-.794-.54-1.3-.54-.5 0-.93.183-1.29.547a1.79 1.79 0 0 0-.54 1.303zm9.944 4.406c.09-.09.135-.2.135-.323a.444.444 0 0 0-.44-.447c-.124 0-.23.042-.32.124-.336.348-.83.605-1.486.77a7.99 7.99 0 0 1-1.964.248 7.99 7.99 0 0 1-1.964-.248c-.655-.165-1.15-.422-1.486-.77a.456.456 0 0 0-.32-.124.414.414 0 0 0-.306.124.41.41 0 0 0-.135.317.45.45 0 0 0 .134.33c.352.355.837.636 1.455.843.617.207 1.118.33 1.503.366a11.6 11.6 0 0 0 1.117.056c.36 0 .733-.02 1.117-.056.385-.037.886-.16 1.504-.366.62-.207 1.104-.488 1.456-.844zm-.037-2.544c.507 0 .938-.182 1.294-.547.356-.364.534-.802.534-1.315 0-.505-.18-.94-.54-1.303a1.75 1.75 0 0 0-1.29-.546c-.506 0-.94.18-1.3.54-.36.36-.54.797-.54 1.31s.18.95.54 1.315c.36.365.794.547 1.3.547z"#}
+{#                                        fill-rule="evenodd"></path></g></svg></span></a><a role="button" tabindex="1"#}
+{#                                                                                           class="at-icon-wrapper at-share-btn at-svc-buffer"#}
+{#                                                                                           style="background-color: rgb(0, 0, 0); border-radius: 22%;"><span#}
+{#                                        class="at4-visually-hidden">Share to Buffer</span><span class="at-icon-wrapper"#}
+{#                                                                                                style="line-height: 32px; height: 32px; width: 32px;"><svg#}
+{#                                        xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"#}
+{#                                        viewBox="0 0 32 32" class="at-icon at-icon-buffer"#}
+{#                                        style="fill: rgb(255, 255, 255); width: 32px; height: 32px;"><g><path#}
+{#                                        d="M5.264 10.393c-.352-.163-.352-.428 0-.59l10.1-4.68c.35-.164.92-.164 1.273 0l10.1 4.68c.35.162.35.427 0 .59l-10.1 4.68c-.352.163-.922.163-1.274 0l-10.1-4.68zm0 5.323c-.352.163-.352.427 0 .59l10.1 4.68c.35.163.92.163 1.273 0l10.1-4.68c.35-.163.35-.427 0-.59l-2.01-.93c-.35-.164-.92-.164-1.273 0l-6.818 3.158c-.35.163-.92.163-1.273 0l-6.817-3.16c-.352-.162-.922-.162-1.273 0l-2.01.932zm0 5.89c-.352.164-.352.43 0 .592l10.1 4.68c.35.163.92.163 1.273 0l10.1-4.68c.35-.163.35-.428 0-.59l-2.01-.932c-.35-.163-.92-.163-1.273 0l-6.818 3.16c-.35.163-.92.163-1.273 0l-6.817-3.16c-.352-.163-.922-.163-1.273 0l-2.01.93z"#}
+{#                                        fill-rule="evenodd"></path></g></svg></span></a><a role="button" tabindex="1"#}
+{#                                                                                           class="at-icon-wrapper at-share-btn at-svc-telegram"#}
+{#                                                                                           style="background-color: rgb(0, 136, 204); border-radius: 22%;"><span#}
+{#                                        class="at4-visually-hidden">Share to Telegram</span><span#}
+{#                                        class="at-icon-wrapper" style="line-height: 32px; height: 32px; width: 32px;"><svg#}
+{#                                        xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"#}
+{#                                        viewBox="0 0 32 32" class="at-icon at-icon-telegram"#}
+{#                                        style="fill: rgb(255, 255, 255); width: 32px; height: 32px;"><g><g#}
+{#                                        fill-rule="evenodd"></g><path#}
+{#                                        d="M15.02 20.814l9.31-12.48L9.554 17.24l1.92 6.42c.225.63.114.88.767.88l.344-5.22 2.436 1.494z"#}
+{#                                        opacity=".6"></path><path#}
+{#                                        d="M12.24 24.54c.504 0 .727-.234 1.008-.51l2.687-2.655-3.35-2.054-.344 5.22z"#}
+{#                                        opacity=".3"></path><path#}
+{#                                        d="M12.583 19.322l8.12 6.095c.926.52 1.595.25 1.826-.874l3.304-15.825c.338-1.378-.517-2.003-1.403-1.594L5.024 14.727c-1.325.54-1.317 1.29-.24 1.625l4.98 1.58 11.53-7.39c.543-.336 1.043-.156.633.214"></path></g></svg></span></a><a#}
+{#                                        role="button" tabindex="1" class="at-icon-wrapper at-share-btn at-svc-whatsapp"#}
+{#                                        style="background-color: rgb(77, 194, 71); border-radius: 22%;"><span#}
+{#                                        class="at4-visually-hidden">Share to WhatsApp</span><span#}
+{#                                        class="at-icon-wrapper" style="line-height: 32px; height: 32px; width: 32px;"><svg#}
+{#                                        xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"#}
+{#                                        viewBox="0 0 32 32" class="at-icon at-icon-whatsapp"#}
+{#                                        style="fill: rgb(255, 255, 255); width: 32px; height: 32px;"><g><path#}
+{#                                        d="M19.11 17.205c-.372 0-1.088 1.39-1.518 1.39a.63.63 0 0 1-.315-.1c-.802-.402-1.504-.817-2.163-1.447-.545-.516-1.146-1.29-1.46-1.963a.426.426 0 0 1-.073-.215c0-.33.99-.945.99-1.49 0-.143-.73-2.09-.832-2.335-.143-.372-.214-.487-.6-.487-.187 0-.36-.043-.53-.043-.302 0-.53.115-.746.315-.688.645-1.032 1.318-1.06 2.264v.114c-.015.99.472 1.977 1.017 2.78 1.23 1.82 2.506 3.41 4.554 4.34.616.287 2.035.888 2.722.888.817 0 2.15-.515 2.478-1.318.13-.33.244-.73.244-1.088 0-.058 0-.144-.03-.215-.1-.172-2.434-1.39-2.678-1.39zm-2.908 7.593c-1.747 0-3.48-.53-4.942-1.49L7.793 24.41l1.132-3.337a8.955 8.955 0 0 1-1.72-5.272c0-4.955 4.04-8.995 8.997-8.995S25.2 10.845 25.2 15.8c0 4.958-4.04 8.998-8.998 8.998zm0-19.798c-5.96 0-10.8 4.842-10.8 10.8 0 1.964.53 3.898 1.546 5.574L5 27.176l5.974-1.92a10.807 10.807 0 0 0 16.03-9.455c0-5.958-4.842-10.8-10.802-10.8z"#}
+{#                                        fill-rule="evenodd"></path></g></svg></span></a><a role="button" tabindex="1"#}
+{#                                                                                           class="at-icon-wrapper at-share-btn at-svc-vk"#}
+{#                                                                                           style="background-color: rgb(99, 131, 168); border-radius: 22%;"><span#}
+{#                                        class="at4-visually-hidden">Share to Vkontakte</span><span#}
+{#                                        class="at-icon-wrapper" style="line-height: 32px; height: 32px; width: 32px;"><svg#}
+{#                                        xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"#}
+{#                                        viewBox="0 0 32 32" class="at-icon at-icon-vk"#}
+{#                                        style="fill: rgb(255, 255, 255); width: 32px; height: 32px;"><g><path#}
+{#                                        d="M26.712 10.96s-.167-.48-1.21-.348l-3.447.024a.785.785 0 0 0-.455.072s-.204.108-.3.37a22.1 22.1 0 0 1-1.28 2.695c-1.533 2.61-2.156 2.754-2.407 2.587-.587-.372-.43-1.51-.43-2.323 0-2.54.382-3.592-.756-3.868-.37-.084-.646-.144-1.616-.156-1.232-.012-2.274 0-2.86.287-.396.193-.695.624-.515.648.227.036.742.143 1.017.515 0 0 .3.49.347 1.568.13 2.982-.48 3.353-.48 3.353-.466.252-1.28-.167-2.478-2.634 0 0-.694-1.222-1.233-2.563-.097-.25-.288-.383-.288-.383s-.216-.168-.527-.216l-3.28.024c-.504 0-.683.228-.683.228s-.18.19-.012.587c2.562 6.022 5.483 9.04 5.483 9.04s2.67 2.79 5.7 2.597h1.376c.418-.035.634-.263.634-.263s.192-.214.18-.61c-.024-1.843.838-2.12.838-2.12.838-.262 1.915 1.785 3.065 2.575 0 0 .874.6 1.532.467l3.064-.048c1.617-.01.85-1.352.85-1.352-.06-.108-.442-.934-2.286-2.647-1.916-1.784-1.665-1.496.658-4.585 1.413-1.88 1.976-3.03 1.796-3.52z"#}
+{#                                        fill-rule="evenodd"></path></g></svg></span></a><a role="button" tabindex="1"#}
+{#                                                                                           class="at-icon-wrapper at-share-btn at-svc-email"#}
+{#                                                                                           style="background-color: rgb(132, 132, 132); border-radius: 22%;"><span#}
+{#                                        class="at4-visually-hidden">Share to Email</span><span class="at-icon-wrapper"#}
+{#                                                                                               style="line-height: 32px; height: 32px; width: 32px;"><svg#}
+{#                                        xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"#}
+{#                                        viewBox="0 0 32 32" class="at-icon at-icon-email"#}
+{#                                        style="fill: rgb(255, 255, 255); width: 32px; height: 32px;"><g><g#}
+{#                                        fill-rule="evenodd"></g><path#}
+{#                                        d="M27 22.757c0 1.24-.988 2.243-2.19 2.243H7.19C5.98 25 5 23.994 5 22.757V13.67c0-.556.39-.773.855-.496l8.78 5.238c.782.467 1.95.467 2.73 0l8.78-5.238c.472-.28.855-.063.855.495v9.087z"></path><path#}
+{#                                        d="M27 9.243C27 8.006 26.02 7 24.81 7H7.19C5.988 7 5 8.004 5 9.243v.465c0 .554.385 1.232.857 1.514l9.61 5.733c.267.16.8.16 1.067 0l9.61-5.733c.473-.283.856-.96.856-1.514v-.465z"></path></g></svg></span></a><a#}
+{#                                        role="button" tabindex="1" class="at-icon-wrapper at-share-btn at-svc-favorites"#}
+{#                                        style="background-color: rgb(245, 202, 89); border-radius: 22%;"><span#}
+{#                                        class="at4-visually-hidden">Share to Favorites</span><span#}
+{#                                        class="at-icon-wrapper" style="line-height: 32px; height: 32px; width: 32px;"><svg#}
+{#                                        xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"#}
+{#                                        viewBox="0 0 32 32" class="at-icon at-icon-favorites"#}
+{#                                        style="fill: rgb(255, 255, 255); width: 32px; height: 32px;"><g><path#}
+{#                                        d="M26.56 13.56a.432.432 0 0 0-.4-.29h-7.51l-2.32-7.14c-.06-.17-.22-.28-.39-.28s-.34.11-.39.28l-2.34 7.14H5.72c-.18 0-.34.12-.39.29-.06.17.01.35.15.46l6.06 4.42-2.34 7.17c-.06.17.01.35.15.46.14.11.34.1.49 0l6.1-4.43 6.09 4.43c.07.05.16.08.24.08s.17-.03.24-.08c.15-.1.2-.29.15-.46l-2.34-7.18 6.08-4.42a.37.37 0 0 0 .16-.45z"></path></g></svg></span></a>#}
+{#                                </td>#}
+{#                            </tr>#}
+{#                        </table>#}
+{#                    </div>#}
+{#                </div>#}
+{#            </div>#}
+{#            <p></p>#}
+{##}
+{#            <div class="cam-profile">#}
+{#                <div id="shows" class="section">#}
+{#                    <div class="heading"><h2>Latest cam shows - Snapshots</h2></div>#}
+{#                    <h3 style="height: auto; font-size: 10px; line-height: 13px;" showid="20009011"#}
+{#                        class="btn toggle-snapshots">#}
+{#                        2017-05-23 15:08:25 - 2017-05-23 17:53:06 <span id="iconUp" style="float:right;"#}
+{#                                                                        class="glyphicon glyphicon-chevron-up"#}
+{#                                                                        aria-hidden="true"></span>#}
+{#                        <span id="iconDown" style="float:right; display:none" class="glyphicon glyphicon-chevron-down"#}
+{#                              aria-hidden="true"></span>#}
+{#                    </h3>#}
+{##}
+{#                    <div class="profile-snapshots" id="snapshots-20009011" style="display: block;">#}
+{#                        <img alt="{{ object.display_name }} snapshot 1" src="/snapshots/90f/90/20009011/VikaMicky_1.jpg">#}
+{#                        <img alt="{{ object.display_name }} snapshot 2" src="/snapshots/90f/90/20009011/VikaMicky_2.jpg">#}
+{#                    </div>#}
+{#                    <h3 style="height: auto; font-size: 10px; line-height: 13px;" showid="19982949"#}
+{#                        class="btn toggle-snapshots">#}
+{#                        2017-05-23 09:13:28 - 2017-05-23 14:07:49 <span id="iconUp" style="float:right;"#}
+{#                                                                        class="glyphicon glyphicon-chevron-up"#}
+{#                                                                        aria-hidden="true"></span>#}
+{#                        <span id="iconDown" style="float:right; display:none" class="glyphicon glyphicon-chevron-down"#}
+{#                              aria-hidden="true"></span>#}
+{#                    </h3>#}
+{##}
+{#                    <div class="profile-snapshots" id="snapshots-19982949">#}
+{#                        <img alt="VikaMicky snapshot 1" src="/snapshots/18c/18/19982949/VikaMicky_1.jpg">#}
+{#                        <img alt="VikaMicky snapshot 2" src="/snapshots/18c/18/19982949/VikaMicky_2.jpg">#}
+{#                        <img alt="VikaMicky snapshot 3" src="/snapshots/18c/18/19982949/VikaMicky_3.jpg">#}
+{#                        <img alt="VikaMicky snapshot 4" src="/snapshots/18c/18/19982949/VikaMicky_4.jpg">#}
+{#                    </div>#}
+{#                    <h3 style="height: auto; font-size: 10px; line-height: 13px;" showid="19963892"#}
+{#                        class="btn toggle-snapshots">#}
+{#                        2017-05-23 03:55:27 - 2017-05-23 06:03:54 <span id="iconUp" style="float:right;"#}
+{#                                                                        class="glyphicon glyphicon-chevron-up"#}
+{#                                                                        aria-hidden="true"></span>#}
+{#                        <span id="iconDown" style="float:right; display:none" class="glyphicon glyphicon-chevron-down"#}
+{#                              aria-hidden="true"></span>#}
+{#                    </h3>#}
+{##}
+{#                    <div class="profile-snapshots" id="snapshots-19963892">#}
+{#                        <img alt="VikaMicky snapshot 1" src="/snapshots/224/22/19963892/VikaMicky_1.jpg">#}
+{#                    </div>#}
+{##}
+{##}
+{#                </div>#}
+{#            </div>#}
+{##}
+{#            <script type="text/rocketscript" data-rocketoptimized="true">#}
+{#            $('.toggle-snapshots').click(function () {#}
+{#                $showId = $(this).attr('showId');#}
+{#                $('#snapshots-' + $showId).toggle('slow');#}
+{#                $('#snapshots-' + $showId).parent('div').find('#iconUp').toggle();#}
+{#                $('#snapshots-' + $showId).parent('div').find('#iconDown').toggle();#}
+{#            });#}
+{##}
+{#            $('.profile-snapshots').first().toggle('slow');#}
+{##}
+{#            </script>#}
+{##}
+{##}
+{#            <div class="cam-profile-extra cam-profile">#}
+{#                <div class="heading">#}
+{#                    <h2>Who is {{ object.display_name }}?</h2>#}
+{#                </div>#}
+{#                <div>#}
+{#                    <div class="profile-column">#}
+{#                        <div class="profile-item">#}
+{#                            <h3>Nickname</h3>#}
+{#                            <label>{{ object.display_name }}</label>#}
+{#                        </div>#}
+{##}
+{#                        <div class="profile-item">#}
+{#                            <h3>Age</h3>#}
+{#                            <label>20 (<a href="/webcams/female/teen+18+-+20">More Teen 18 - 20 Cams</a>)</label>#}
+{#                        </div>#}
+{#                        <div class="profile-item">#}
+{#                            <h3>Race</h3>#}
+{#                            <label>Russian (<a href="/webcams/female/russian">More Russian Cams</a>)</label>#}
+{#                        </div>#}
+{#                        <div class="profile-item">#}
+{#                            <h3>Hair color</h3>#}
+{#                            <label>Blonde (<a href="/webcams/female/blonde">More Blonde Cams</a>)</label>#}
+{#                        </div>#}
+{#                        <div class="profile-item">#}
+{#                            <h3>Bust size</h3>#}
+{#                            <label>Not Available </label>#}
+{#                        </div>#}
+{#                        <div class="profile-item">#}
+{#                            <h3>Figure</h3>#}
+{#                            <label>Not Available </label>#}
+{#                        </div>#}
+{#                        <div class="profile-item">#}
+{#                            <h3>Pubic area</h3>#}
+{#                            <label>Shaved pussy (<a href="/webcams/female/shaved+pussy">More Shaved pussy#}
+{#                                Cams</a>)</label>#}
+{#                        </div>#}
+{#                        <div class="profile-item">#}
+{#                            <h3>Extra</h3>#}
+{#                            <label>Other, </label>#}
+{#                        </div>#}
+{##}
+{#                        <div class="profile-item">#}
+{#                            <h3>This model speaks</h3>#}
+{#                            <label style="margin-top: -10px;"><img src="/images/flags/shiny/24/RU.png"><img#}
+{#                                    src="/images/flags/shiny/24/EN.png"></label>#}
+{#                        </div>#}
+{##}
+{#                        <div class="profile-item">#}
+{#                            <h3>Last live show</h3>#}
+{#                            <label>Currently live</label>#}
+{#                        </div>#}
+{##}
+{##}
+{#                    </div>#}
+{#                    <div class="profile-column2">#}
+{#                        <div class="profile-item profile-item-full">#}
+{#                            <label><a#}
+{#                                    href="http://bongacams.com/track?c=19157&amp;subid=megacams&amp;subid2=profile_logo_"#}
+{#                                    rel="nofollow" target="_blank"><img width="140"#}
+{#                                                                        style="background-color: black;padding:10px; border-radius: 10px;"#}
+{#                                                                        src="/images/bongacams_logo2.png"></a></label>#}
+{#                            <p>#}
+{#                            </p>#}
+{#                            <p class="provider-text">#}
+{#                                Bongacams is voted the best European camsite. You can chat for free with all models. If#}
+{#                                you like the show you are able to tip tokens to show your appreciation. <a#}
+{#                                    href="/bongacams/female/all">Click here to view all Bongacams performers</a>.#}
+{#                            </p>#}
+{#                            <p></p>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                    <div class="clearfix"></div>#}
+{#                </div>#}
+{#                <div class="clearfix"></div>#}
+{#            </div>#}
+{##}
+{##}
+{#            <div class="cam-profile">#}
+{#                <div id="reviews" class="heading">#}
+{#                    <h2>{{ object.display_name }} live show reviews</h2>#}
+{#                    <p>#}
+{#                        Place a <b>review on {{ object.display_name }}'s show</b>. This way {{ object.display_name }} can improve the show. Other#}
+{#                        visitors will appreciate this too! <br><br>#}
+{#                    </p>#}
+{#                </div>#}
+{##}
+{#                <div class="form_field">#}
+{#                    <div class="section">#}
+{#                        <div class="comments">#}
+{##}
+{#                            <script type="application/ld+json">#}
+{#                            {#}
+{#                              "@context": "http://schema.org",#}
+{#                              "@type": "CommentAction",#}
+{#                              "agent": {#}
+{#                                "@type": "Person",#}
+{#                                "name": "hugo20000"#}
+{#                              },#}
+{#                              "resultComment": {#}
+{#                                "@type": "Comment",#}
+{#                                "text": "all time sex"#}
+{#                              },#}
+{#                              "about": {#}
+{#                                "@type": "BroadcastService",#}
+{#                                "name": "VikaMicky"#}
+{#                              }#}
+{#                            }#}
+{##}
+{#                            </script>#}
+{#                            <div class="comment">#}
+{#                                <h3><img src="/images/flags/shiny/16/DE.png">&nbsp;<i>Comment from "hugo20000" - 1 month#}
+{#                                    ago</i></h3>#}
+{#                                <p>all time sex</p>#}
+{#                            </div>#}
+{##}
+{#                            <script type="application/ld+json">#}
+{#                            {#}
+{#                              "@context": "http://schema.org",#}
+{#                              "@type": "CommentAction",#}
+{#                              "agent": {#}
+{#                                "@type": "Person",#}
+{#                                "name": "zahir"#}
+{#                              },#}
+{#                              "resultComment": {#}
+{#                                "@type": "Comment",#}
+{#                                "text": "Find my love"#}
+{#                              },#}
+{#                              "about": {#}
+{#                                "@type": "BroadcastService",#}
+{#                                "name": "VikaMicky"#}
+{#                              }#}
+{#                            }#}
+{##}
+{#                            </script>#}
+{#                            <div class="comment">#}
+{#                                <h3><img src="/images/flags/shiny/16/MY.png">&nbsp;<i>Comment from "zahir" - 6 days#}
+{#                                    ago</i></h3>#}
+{#                                <p>Find my love</p>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                        <div class="comment-form">#}
+{#                            <form action="/ajax/comment" method="POST">#}
+{#                                <input type="hidden" name="_token" value="pLWUu16y085oaRxqdumFj7kLwNPiacszNomHbiNS">#}
+{#                                <input type="hidden" name="comment_webcam_id" value="771924439">#}
+{#                                <input type="hidden" name="comment_webcam_name" value="vikamicky">#}
+{##}
+{#                                <div class="row">#}
+{#                                    <input id="nickname" class="text" placeholder="Nickname" name="comment_name"#}
+{#                                           type="text">#}
+{#                                </div>#}
+{#                                <div class="row">#}
+{#                                    <textarea cols="30" rows="10"#}
+{#                                              placeholder="What do you like about this show or model ? Share some love!"#}
+{#                                              name="comment_message" id="comment_message"></textarea>#}
+{#                                </div>#}
+{##}
+{#                                <div class="row">#}
+{#                                    <div class="g-recaptcha" data-sitekey="6LeCLQYTAAAAAESlU8N9fMeikfTqRi4yY0Ct-Ou-">#}
+{#                                        <div style="width: 304px; height: 78px;">#}
+{#                                            <div>#}
+{#                                                <iframe src="https://www.google.com/recaptcha/api2/anchor?k=6LeCLQYTAAAAAESlU8N9fMeikfTqRi4yY0Ct-Ou-&amp;co=aHR0cHM6Ly9tZWdhY2Ftcy5tZTo0NDM.&amp;hl=ru&amp;v=r20170515161201&amp;size=normal&amp;cb=ltsznzngth80"#}
+{#                                                        title="виджет reCAPTCHA" width="304" height="78" frameborder="0"#}
+{#                                                        scrolling="no" name="undefined"></iframe>#}
+{#                                            </div>#}
+{#                                            <textarea id="g-recaptcha-response" name="g-recaptcha-response"#}
+{#                                                      class="g-recaptcha-response"#}
+{#                                                      style="width: 250px; height: 40px; border: 1px solid #c1c1c1; margin: 10px 25px; padding: 0px; resize: none;  display: none; "></textarea>#}
+{#                                        </div>#}
+{#                                    </div>#}
+{#                                </div>#}
+{##}
+{#                                <div class="row">#}
+{#                                    <input type="submit" value="Post comment" class="btn">#}
+{#                                </div>#}
+{#                            </form>#}
+{#                        </div>#}
+{#                    </div>#}
+{##}
+{#                </div>#}
+{#                <div class="clearfix"></div>#}
+{#            </div>#}
+{##}
+{##}
+{#        </div>#}
+{##}
+{#        <script type="text/rocketscript" data-rocketoptimized="true">#}
+{#                        $iframe = $('.embed iframe');#}
+{##}
+{#                        if ($iframe !== undefined && $iframe.attr('src') !== undefined && $iframe.attr('src').indexOf("imlive") > -1) {#}
+{#                            $browserWidth = $(window).width();#}
+{##}
+{#                            if ($browserWidth > 1300) {#}
+{#                                $rest = $browserWidth - 1300;#}
+{#                                $iframeHeight = $iframe.attr('height');#}
+{#                                $iframe.attr('height', parseInt($iframeHeight) + ($rest * 0.6))#}
+{#                            }#}
+{##}
+{#                        }#}
+{##}
+{#        </script>#}
+{##}
+{#        <label class="last-updated">Last updated: May 25th, 2017</label>#}
+{##}
+{##}
+{#    </div>#}
+    <!-- Go to www.addthis.com/dashboard to customize your tools --> <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5946f857ff2418a7"></script>
 {% endblock %}
+
+
+
