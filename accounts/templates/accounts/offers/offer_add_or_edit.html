@@ -1,0 +1,80 @@
+{% extends "accounts/offers/offer_view.html" %}
+{% load thumbnail widget_tweaks common_exras %}
+
+{% block breadcrumbs %}
+    {{ block.super }}
+    <div class="breadcrumb"><span>{% if offer.id %}Реадктировать{% else %}Добавить{% endif %}</span></div>
+{% endblock %}
+
+{% block extra_js %}
+    <script>
+        $(function () {
+            var id_city = '#{{ form.city.id_for_label }}';
+            select2_initial($(id_city));
+            var id_currency = '#{{ form.currency.id_for_label }}';
+            select2_basic_initial($(id_currency));
+
+            var id_start_date = '#{{ form.start_date.id_for_label }}';
+            var id_end_date = '#{{ form.end_date.id_for_label }}';
+            $(id_start_date + ', ' + id_end_date).datetimepicker({
+                lang: 'ru',
+                dayOfWeekStart: 1,
+                format: 'd.m.Y',
+                timepicker: false
+            });
+        })
+    </script>
+{% endblock %}
+
+{% block profile_content %}
+    <div class="nav_name">
+        <div class="Full_name">{% if offer.id %}Реадктировать{% else %}Добавить{% endif %} акцию</div>
+    </div>
+    <div class="block_info">
+    <div style="">
+        <form action="" method="post" class="" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.errors }}
+
+            {% check_forms form %}
+
+            <div class="form-row">
+                <div class="form-col-6">
+                    <div class="control-container {{ form.title.css_classes }}">{{ form.title.label_tag }}{{ form.title }}</div>
+                </div>
+                <div class="form-col-6">
+                    <div class="control-container {{ form.city.css_classes }}">{{ form.city.label_tag }}{{ form.city }}</div>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-col-12">
+                    <div class="control-container {{ form.description.css_classes }}">{{ form.description.label_tag }}{{ form.description }}</div>
+                </div>
+            </div>
+
+			{% include 'common/elements/uploadformset.html' %}
+
+
+            <div class="form-row">
+                <div class="form-col-2">
+                    <div class="control-container {{ form.start_date.css_classes }}">{{ form.start_date.label_tag }}{{ form.start_date }}</div>
+                </div>
+                <div class="form-col-2">
+                    <div class="control-container {{ form.end_date.css_classes }}">{{ form.end_date.label_tag }}{{ form.end_date }}</div>
+                </div>
+                <div class="form-col-2">
+                    <div class="control-container {{ form.cost.css_classes }}">{{ form.cost.label_tag }}{{ form.cost }}</div>
+                </div>
+                <div class="form-col-2">
+                    <div class="control-container {{ form.currency.css_classes }}">{{ form.currency.label_tag }}{{ form.currency }}</div>
+                </div>
+            </div>
+
+            {% include 'tags/blocks/tags_control.html' with multiple_choice_tag_form=multiple_choice_tag_form %}
+
+            {% include 'common/elements/user_content_form_submit.html' %}
+
+		</form>
+    </div>
+    </div>
+{% endblock %}

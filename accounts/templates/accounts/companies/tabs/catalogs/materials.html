@@ -1,0 +1,69 @@
+{% load thumbnail %}
+<script>
+$(function(){
+    $(function(){
+        $('.jq_root_catalog').on('click', function(e){
+            e.preventDefault()
+            tmp_url = ""
+            $('.jq_root_catalog').removeClass('active')
+            $(this).addClass('active')
+            $('.jq_catalog_panel').removeClass('active')
+            $('.'+$(this).attr('id')).addClass('active')
+        })
+    })
+})
+</script>
+<div style="background-color: #ffffff">
+                <div class="contents marginbot" style="margin-left:0;">
+
+                            <div id="cssmenu1">
+                                <ul>
+                                    {% for catalog in menu_catalog.get_children %}
+                                        <li>
+                                            <a class="jq_ajax_catalog_products directory jq_root_catalog {% if forloop.first %} active{% endif %}"
+                                               id="{{ catalog.catalog_type }}_{{ custom_prefix }}" href="{% url 'products:ajax_catalog_products' catalog.pk %}">{{ catalog.title }}</a>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+
+
+                        <div class="jq_sub_catalogs_list">
+
+                            {% for material_catalog in menu_catalog.get_children %}
+                            <div class="jq_materials_filters jq_materials_filters{{ forloop.counter0 }} jq_catalog_panel catalog_panel {{ material_catalog.get_root.catalog_type }}_{{ custom_prefix }} {% if forloop.first %} active{% endif %}">
+
+                            <form class="jq_material_filter" data-form="{{ material_catalog.get_root.catalog_type }}{{ custom_prefix }}" action="{% url 'companies:ajax_catalog_materias' %}" method="get">
+
+                                {% include 'material/blocks/filters.html' with prefix=material_catalog.catalog_type catalog=material_catalog %}
+
+                                <input type="hidden" name="catalog_id" value="{{ material_catalog.id }}">
+                                <input type="hidden" name="profile_id" value="{{ company.id }}">
+                                <input type="hidden" name="material_elements_in_line" value="{{ material_elements_in_line }}">
+                            </form>
+
+
+                            <div class="stone_catalog jq_catalog"></div>
+
+
+
+                            <script>
+{#                                $(function () {#}
+{#                                    $('#jq_filter'+'{{ material_catalog.catalog_type }}{{ custom_prefix }}'+' select, #jq_filter'+'{{ material_catalog.catalog_type }}{{ custom_prefix }}'+' input[type=checkbox], #jq_stone_filter'+'{{ material_catalog.catalog_type }}{{ custom_prefix }}'+' input[type=checkbox]').on('change', function (e) {#}
+{#                                        var element_contains_prefix = $('.jq_root_catalog.active')#}
+{#                                        var form = $('#jq_filter' + element_contains_prefix.attr('id'))#}
+{#                                        var url = form.attr('action')#}
+{#                                        var data = filter_data()#}
+{#                                        ajax_load(url, data, update_catalog_products, $(this));#}
+{#                                    })#}
+{#                                })#}
+                            </script>
+
+                            </div>
+                        {% endfor %}
+
+                        </div>
+                        <div class="jq_catalog_elements_list catalog_elements_list"></div>
+
+                </div>
+</div>

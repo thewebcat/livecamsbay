@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% load widget_tweaks thumbnail %}
+
+{% block content %}
+    <div class="wrapper">
+    <div class="block_info">
+        <div class="word">Поздравляем, аккаунт активирован</div>
+
+        <div class="move">
+            <div class="move1" {% if step == 1 %}{% else %}style="color:#b3b3b3"{% endif %}>Шаг первый <span>Добавить <br>информацию о компании</span></div>
+            <div {% if step == 1 %} class="right_green"{% else %} class="right_gray"{% endif %}></div>
+        </div>
+
+        <div class="move">
+            <div class="move1" {% if step == 2 %}{% else %}style="color:#b3b3b3"{% endif %}>Шаг второй <span>Добавить <br>каталоги товаров, услуг</span></div>
+            <div {% if step == 2 %} class="right_green"{% else %} class="right_gray"{% endif %}></div>
+        </div>
+
+        <div class="move">
+            <div class="move1" {% if step == 3 %}{% else %}style="color:#b3b3b3"{% endif %}>Шаг третий <span>Добавить статьи</span></div>
+            <div {% if step == 3 %} class="right_green"{% else %} class="right_gray"{% endif %}></div>
+        </div>
+
+        {% block steps_content %}
+        {% endblock %}
+
+    </div>
+    </div>
+{% endblock %}

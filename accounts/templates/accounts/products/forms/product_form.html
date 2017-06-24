@@ -1,0 +1,24 @@
+{% load widget_tweaks thumbnail common_exras %}
+
+<div id="{{ form_product.description.id_for_label }}_popup" class="popup" style="width:800px;">
+    <h3>Добавить изделие</h3>
+
+    <form action="{% url 'accounts:product_add' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form_product.action }}
+        {{ form_product.product_catalog }}
+
+        {% check_forms form_product %}
+
+        <div class="control-container {{ form_product.title.css_classes }}">{{ form_product.title.label_tag }}{{ form_product.title }}</div>
+        <div class="control-container {{ form_product.description.css_classes }}">{{ form_product.description.label_tag }}{{ form_product.description }}</div>
+
+        {% include 'common/elements/uploadformset.html' with formset=formset_product %}
+
+        {% include 'tags/blocks/tags_control.html' with multiple_choice_tag_form=multiple_choice_tag_form %}
+
+        {% include 'common/elements/user_content_form_submit.html' with prefix=form_product.prefix|stringformat:'s-' %}
+    </form>
+
+    <a class="close" title="Закрыть" href="#close"></a>
+</div>

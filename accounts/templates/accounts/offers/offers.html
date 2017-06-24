@@ -1,0 +1,58 @@
+{% extends "accounts/base.html" %}
+{% load thumbnail %}
+
+{% block breadcrumbs %}
+    {{ block.super }}
+    <div class="breadcrumb"><a href="{% url 'accounts:offers' %}">Акции и предложения</a></div>
+{% endblock %}
+
+{% block profile_content %}
+    <div class="block_info">
+        <div class="nav_name">
+			<div class="Full_name">Акции и предложения</div>
+			<div class="plus">
+				<a href="{% url 'accounts:offer_add' %}" class="add-on"></a>
+			</div>
+            {% include 'accounts/blocks/state_filter.html' %}
+        </div>
+            <div>
+			{% for offer in offers %}
+
+
+
+            <div class="inside {{ offer.get_css_class_for_actions }}">
+                {{ offer.get_actions_html }}
+                {% thumbnail offer.main_image 250x250 crop as thumb %}
+                <a href="{{ offer.private_url }}"><img src="{{ thumb.url }}"></a>
+
+				<div class="shares_left">
+				<div class="shares_title"><a href="{{ offer.private_url }}">{{ offer.title }}</a></div>
+				<div class="categories">
+				<span class="sottotitoli">{{ offer.publish_date|date:"d.m.Y" }}</span><div class="dividing_line"></div>
+{#				<a href="" class="sottotitoli">Кварцевый агломерат </a><div class="dividing_line"></div>#}
+				<a href="" class="sottotitoli">{{ offer.city.title }}</a><div class="dividing_line"></div>
+				<a href="" class="sottotitoli">{{ offer.profile.name }}</a>
+				</div>
+				<div class="info_wrap2">
+					<div class="sale-text2">{{ offer.description|safe }}</div>
+				</div>
+{#				<div class="action_statistics">#}
+{#					<div class="views">Просмотры</div>#}
+{#					<div class="reviews">Отзывы</div>#}
+{#					<div class="shares_wrap2">#}
+{#						<div class="shares_wrap_small">#}
+{#						<div class="shares-edit" style="margin-left:25px;"></div>#}
+{#						<div class="shares-del"></div>#}
+{#						</div>#}
+{#					</div>#}
+{#				</div>#}
+				</div>
+			</div>
+
+            {% if not forloop.last %}<div class="line_down"></div>{% endif %}
+
+        {% endfor %}
+        </div>
+    </div>
+
+{% endblock %}

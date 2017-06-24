@@ -1,4 +1,10 @@
 {% extends 'base.html' %}
+
+{% block breadcrumbs %}
+    {{ block.super }}
+    <div class="breadcrumb"><a href="">{{ object.display_name }}</a></div>
+{% endblock %}
+
 {% block content %}
     <div class="wrapper">
         <div class="block_info">
@@ -19,11 +25,10 @@
 
                 </div>
                 <div class="rating_wrap">
-                    <p class="rating">Услуги компании</p>
-                    <a class="comments_num" href="">всего {{ company.services_count }} услуг</a>
+                    <a class="comments_num" href="#">Добавить модель в избраные</a>
 
-                    <p class="rating" style="margin-top:25px;">Товары компании</p>
-                    <a class="comments_num" href="">всего {{ company.products_count }} товаров</a>
+
+                    <a class="comments_num" href="#snapshots">Снимки камеры</a>
 
                     <div class="go_directory" style="margin-top:30px"><a href="{{ object.chat_url }}">Смотреть</a></div>
                 </div>
@@ -42,7 +47,7 @@
 					</div>
                     <div class="orders_num"></div>
                     <div class="sum">{{ company.orders_finished }}</div>
-                    <p style="margin:0">выполненных заказов</p>
+
                     <a class="comments_num" href="#button_for_look_recalls" >{{ testimonials.count }} {{ testimonials.ave_rate }} отзывов</a><br>
                     <span class="sum_views_by_users">{{ company.views.get.profiles.count | default:0 }} просмотров</span>
                 </div>
@@ -61,15 +66,15 @@
 
                         <div class="profile-item">
                             <h3>Age</h3>
-                            <label>33 (<a href="/webcams/female/milf+30%2B">More Milf 30+ Cams</a>)</label>
+                            <label>33 (<a href="/models/female/milf+30%2B">More</a>)</label>
                         </div>
                         <div class="profile-item">
                             <h3>Race</h3>
-                            <label>Ebony (<a href="/webcams/female/ebony">More Ebony Cams</a>)</label>
+                            <label>Ebony (<a href="/models/female/ebony">More</a>)</label>
                         </div>
                         <div class="profile-item">
                             <h3>Hair color</h3>
-                            <label>Brunette (<a href="/webcams/female/brunette">More Brunette Cams</a>)</label>
+                            <label>Brunette (<a href="/models/female/brunette">More</a>)</label>
                         </div>
                         <div class="profile-item">
                             <h3>Bust size</h3>
@@ -81,8 +86,7 @@
                         </div>
                         <div class="profile-item">
                             <h3>Pubic area</h3>
-                            <label>Shaved pussy (<a href="/webcams/female/shaved+pussy">More Shaved pussy
-                                Cams</a>)</label>
+                            <label>Shaved pussy (<a href="/models/female/shaved+pussy">More</a>)</label>
                         </div>
                         <div class="profile-item">
                             <h3>Extra</h3>
@@ -91,8 +95,8 @@
 
                         <div class="profile-item">
                             <h3>This model speaks</h3>
-                            <label style="margin-top: -10px;"><img src="/images/flags/shiny/24/ES.png"><img
-                                    src="/images/flags/shiny/24/EN.png"></label>
+                            <label style="margin-top: -10px;"><img src="/static/images/flags/ES.png"><img
+                                    src="/static/images/flags/EN.png"></label>
                         </div>
 
                         <div class="profile-item">
@@ -101,6 +105,13 @@
                         </div>
                     </div>
                 </div>
+            </div>
+
+            <div class="nav" id="snapshots">
+                <div class="about-me"> Снимки камеры</div>
+            </div>
+            <div class="description-text">
+
             </div>
 
             <script>
@@ -123,11 +134,11 @@
             </style>
             <div id="jq_tabs">
                 <ul class="css-menu-3" style="margin-bottom:0">
-                    <li><a href="#tab_offers">Акции и предложения</a></li>
-                    <li><a href="#tab_news">Новости</a></li>
-                    <li id="anchor_catalog"><a href="#tab_catalogs">Каталоги</a></li>
+                    <li><a href="#tab_offers">Таб 1</a></li>
+                    <li><a href="#tab_news">Таб 2</a></li>
+                    <li id="anchor_catalog"><a href="#tab_catalogs">Таб 3</a></li>
 {#                    <li><a href="#tab_vacancies">Вакансии</a></li>#}
-                    <li><a href="#tab_events">Мероприятия</a></li>
+                    <li><a href="#tab_events">Таб 4</a></li>
                 </ul>
 {#                <div>#}
 {#                    <div id="tab_offers" class="table_wrap" style="background-color: #ffffff;">#}

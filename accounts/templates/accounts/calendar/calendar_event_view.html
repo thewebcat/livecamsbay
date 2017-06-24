@@ -1,0 +1,79 @@
+{% extends "accounts/calendar/calendar.html" %}
+{% load thumbnail %}
+
+{% block breadcrumbs %}
+    {{ block.super }}
+    <div class="breadcrumb"><a href="{{ event.private_url }}">{{ event.title|truncatewords:5 }}</a></div>
+{% endblock %}
+
+{% block profile_content %}
+
+    <div class="block_info">
+        <div class="service_view">
+            <div class="nav_name">
+                <div class="Full_name">{{ event.title }}</div>
+            </div>
+            <div class="slider_right">
+                <div class="img1">
+                    {% thumbnail event.main_image 340x340 crop as thumb %}
+                    <a href="{{ thumb.url }}" rel="example_group" data-fancybox id="adpdp14">
+                        <img src="{{ thumb.url }}" id="dp14" style="margin-bottom: 3px;" alt="">
+                    </a>
+                </div>
+                <div class="thumbs">
+                    {% for event_image in event.eventimage_set.all %}
+                    <div class="it">
+                        {% thumbnail event_image.image 340x340 crop as thumb %}
+                        <a style="display:none;" href="{{ thumb.url }}" rel="example_group"></a>
+                        <img src="{{ thumb.url }}" onclick="setBigImage(this);" alt="">
+                    </div>
+                    {% endfor %}
+                </div>
+
+            </div>
+            <div class="slider_left1  {{ event.get_css_class_for_actions }}">
+                <div class="shares_right">
+                    <div style="float: right; display: block; margin-left: 0; margin-top: 15px;" class="shares_wrap2 {{ event.get_css_class_for_actions_visible }}">
+                        {{ event.get_actions_html }}
+                    </div>
+                </div>
+
+                <p class="sale-title" style="width: 100%; display: inherit;">{{ event.title|upper }}</p>
+                <p class="price2-wrapper-style">
+                    <a class="price2">Начало: {{ event.start|date:"d.m.Y H:i" }}</a>
+                    <a class="price2">Окончание: {{ event.end|date:"d.m.Y H:i" }}</a>
+                </p>
+                <p><a class="price2">Место проведения: {{ event.city.title }}, {{ event.city.country.title }}</a></p>
+                <p><a class="price2">Организатор: {{ event.profile.name }}</a></p>
+                <div class="info_wrap">
+                    <div class="sale-text">
+                        {{ event.description|safe }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block profile_content2 %}
+
+    <div class="panel-default">
+        <div class="panel-heading">
+            {{ event.title }}
+        </div>
+        <div class="panel-body">
+            <p>Описание: {{ event.description|safe }}</p>
+            <p>Дата начала: {{ event.start }}</p>
+            {% if event.end %}
+            <p>Дата окончания: {{ event.end }}</p>
+            {% endif %}
+            {% if event.profile %}
+                <p>Компания: {{ event.profile.name }}</p>
+            {% else %}
+
+            {% endif %}
+        </div>
+    </div>
+
+{% endblock %}

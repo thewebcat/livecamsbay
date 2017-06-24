@@ -1,0 +1,150 @@
+{% extends "accounts/steps/base_steps.html" %}
+{% load widget_tweaks thumbnail %}
+
+{% block steps_content %}
+
+    <div class="resend_wrap">
+        <form action="" method="post" class="resend" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="event_title" style="width:525px;margin-top:15px;">
+                {{ form_profile.name|add_class:"form-control1"|attr:"style:width:524px;"|attr:"placeholder:ФИО" }}
+            </div>
+
+            <div style='margin-top: 16px;'>{{ form_profile.city|add_class:"select"|attr:'style:height:52px;width:527px' }}</div>
+            <div class="title-small" style="width: 250px;">
+                {{ form_profile.zip|add_class:"form-control1"|attr:"style:width:245px;"|attr:"placeholder:Индекс" }}
+            </div>
+            <div class="title-small" style="margin-left:20px; width: 250px;">
+
+                {{ phone_formset.management_form }}
+                {% for form_phone in phone_formset %}
+                    {% for hidden in form_phone.hidden_fields %}{{ hidden }}{% endfor %}
+                    {{ form_phone.phone|add_class:"form-control1"|attr:"style:width:245px;"|attr:"placeholder:Телефон" }}
+                {% endfor %}
+            </div>
+
+            <div class="event_title" style="width:528px;margin-top:15px;">
+                {{ form_profile.address|add_class:"form-control1"|attr:"style:width:528px;"|attr:"placeholder:Фактический адрес" }}
+            </div>
+
+            {% if request.user.profile.is_company %}
+            <div class="event_title" style="width:528px;margin-top:15px;">
+                {{ form_profile.legal_address|add_class:"form-control1"|attr:"style:width:528px;"|attr:"placeholder:Юридический адрес" }}
+            </div>
+            {% endif %}
+
+            {% if request.user.profile.is_company or request.user.profile.is_master %}
+            <div class="event_title" style="width:528px;margin-top:15px;">
+                {{ email_formset.management_form }}
+                {% for form_email in email_formset %}
+                    {% for hidden in form_email.hidden_fields %}{{ hidden }}{% endfor %}
+                    {{ form_email.email|add_class:"form-control1"|attr:"style:width:528px;"|attr:"placeholder:E-mail" }}
+                {% endfor %}
+            </div>
+
+            <div class="event_title" style="width:528px;margin-top:15px;">
+                {{ url_formset.management_form }}
+                {% for url_form in url_formset %}
+                    {% for hidden in url_form.hidden_fields %}{{ hidden }}{% endfor %}
+                    {{ url_form.url|add_class:"form-control1"|attr:"style:width:522px;"|attr:"placeholder:Адрес сайта" }}
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            {% if request.user.profile.is_company %}
+            <div class="event_title" style="width:528px;margin-top:15px;">
+                {{ director_form.director|add_class:"form-control1"|attr:"style:width:522px;"|attr:"placeholder:Генеральный директор" }}
+            </div>
+
+            <div class="event_title" style="width:528px;margin-top:15px;">
+                {{ contact_person_formset.management_form }}
+                {% for contact_person_form in contact_person_formset %}
+                    {% for hidden in contact_person_form.hidden_fields %}{{ hidden }}{% endfor %}
+                    {{ contact_person_form.contact_person|add_class:"form-control1"|attr:"style:width:528px;"|attr:"placeholder:Оператор биржи" }}
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            {% if request.user.profile.is_company or request.user.profile.is_master %}
+            <div class="event_title" style="width:528px;margin-top:15px;">
+            {% if form_profile.short_description.errors %}alert{% endif %}
+            {{ form_profile.errors }}
+                {{ form_profile.short_description|add_class:"form-control1"|attr:"style:width:528px;"|attr:"placeholder:Короткое описание" }}
+            </div>
+            {% endif %}
+
+
+
+            <div>
+                <p>
+                    {{ form_profile.description|add_class:"textarea"|attr:"style:width:523px; margin-top:0px; height:110px"|attr:"placeholder:Описание, деятельность" }}
+                </p>
+            </div>
+
+            {% if request.user.profile.is_company %}
+                <div class="title-small" style="margin-top:0px;width:249px;">
+                    {{ bank_details_form.inn|add_class:"form-control1"|attr:"style:width: 255px;"|attr:"placeholder:ИНН" }}
+{#					<input type="text" class="form-control1" style="width:255px;" placeholder="ИНН">#}
+				</div>
+				<div class="title-small" style="margin-top:0px; margin-left:20px;width:249px;">
+                    {{ bank_details_form.kpp|add_class:"form-control1"|attr:"style:width: 255px;"|attr:"placeholder:КПП" }}
+{#					<input type="text" class="form-control1" style="width:255px;" placeholder="КПП">#}
+				</div>
+				<div class="title-small" style="margin-top:20px;width:249px;">
+                    {{ bank_details_form.ogrn|add_class:"form-control1"|attr:"style:width: 249px;"|attr:"placeholder:ОГРН" }}
+{#					<input type="text" class="form-control1" style="width:249px;" placeholder="ОГРН">#}
+				</div>
+				<div class="title-small" style="margin-top:20px; margin-left:20px;width:249px;">
+                    {{ bank_details_form.okpo|add_class:"form-control1"|attr:"style:width: 249px;"|attr:"placeholder:ОКПО" }}
+{#					<input type="text" class="form-control1" style="width:249px;" placeholder="ОКПО">#}
+				</div>
+				<div class="title-small" style="margin-top:20px;width:249px;">
+                    {{ bank_details_form.okved|add_class:"form-control1"|attr:"style:width: 249px;"|attr:"placeholder:ОКВЭД" }}
+{#					<input type="text" class="form-control1" style="width:249px;" placeholder="ОКВЭД">#}
+				</div>
+				<div class="title-small" style="margin-top:20px; margin-left:20px;width:249px;">
+                    {{ bank_details_form.bik|add_class:"form-control1"|attr:"style:width: 249px;"|attr:"placeholder:БИК" }}
+{#					<input type="text" class="form-control1" style="width:249px;" placeholder="БИК">#}
+				</div>
+				<div class="title-small" style="margin-top:20px;width:249px;">
+                    {{ bank_details_form.rs_number|add_class:"form-control1"|attr:"style:width: 249px;"|attr:"placeholder:Расчетный счет" }}
+{#					<input type="text" class="form-control1" style="width:249px;" placeholder="Расчетный счет">#}
+				</div>
+				<div class="title-small" style="margin-top:20px; margin-left:20px;width:249px;">
+                    {{ bank_details_form.ks_number|add_class:"form-control1"|attr:"style:width: 249px;"|attr:"placeholder:Корсчет" }}
+{#					<input type="text" class="form-control1" style="width:249px;" placeholder="Корсчет">#}
+				</div>
+            {% endif %}
+
+            <div class="form-image-element" style="display: none">
+                <div class="form-image-input">
+                    {{ form_profile.avatar }}
+                </div>
+            </div>
+            <div class="form-image-previews" style="margin-top: 20px;text-align: left; display: inline-block;">
+                {% if form_profile.avatar.value %}
+                {% thumbnail ""|default:form_profile.avatar.value 130x100 as thumb %}
+                    <div class="photo1" style=" display:inline-block; background-image: url('{{ thumb.url }}')">
+                    <div class="form-image-input" style="width: 100%; height: 100%;"></div>
+                    </div>
+                {% else %}
+                    <div class="photo" style=" display:inline-block;">
+                    <div class="form-image-input" style="width: 100%; height: 100%;"></div>
+                    </div>
+                {% endif %}
+            </div>
+            <div class="deal" style="vertical-align: top; margin-top: 22px; margin-left: 20px;">Изменить аватар</div>
+            <div class="cloud"></div>
+            <div style="clear: both"></div>
+
+
+            {#				<div class="retain">Отправить</div>#}
+            <button type="submit" class="retain">Сохранить</button>
+
+        </form>
+
+
+    </div>
+
+
+{% endblock %}

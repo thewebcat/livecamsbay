@@ -1,0 +1,16 @@
+{% extends "accounts/base.html" %}
+{% load bootstrap3 thumbnail %}
+
+{% block profile_content %}
+
+    <form action="" method="post" class="form form-center" enctype="multipart/form-data">
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        {% buttons %}
+            <button type="submit" class="btn btn-primary">
+                Добавить
+            </button>
+        {% endbuttons %}
+    </form>
+
+{% endblock %}

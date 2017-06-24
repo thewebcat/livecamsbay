@@ -1,0 +1,48 @@
+<form id="filter_form__state" class="filters_container__right" action="" method="get" style="width: 304px">
+    <div class="filters_container__item">
+        <select name="state" class="filters_container__item" id="form__select_state">
+            <option value="">Все</option>
+            {% for state in states %}
+                {% if state.0 != 2 %}
+                <option value="{{ state.0 }}">{{ state.1 }}</option>
+                {% endif %}
+            {% endfor %}
+        </select>
+    </div>
+</form>
+
+<style>
+    .filters_container__right{
+        float: right;
+        width: 608px;
+        padding: 3px 0;
+    }
+    .filters_container__item{
+        display: inline-block;
+        width: 298px;
+        border-left: 2px white solid;
+    }
+    .filters_container__item option{
+        color:black;
+    }
+    .select2-container--default .select2-selection--single .select2-selection__rendered{
+        color: white;
+        background-color: #417538;
+    }
+    .select2-container--default .select2-selection--single .select2-selection__arrow b{
+        border-top-color: white;
+    }
+</style>
+
+<script>
+    $(function(){
+        var state = getUrlParameter('state');
+        var state_filter = $('#form__select_state');
+        state_filter.val(state);
+        $('#filter_form__state').change(function(){
+            $(this).submit()
+        });
+
+        select2_basic_initial(state_filter)
+    })
+</script>

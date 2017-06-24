@@ -1,0 +1,85 @@
+{% extends "accounts/services/services.html" %}
+{% load widget_tweaks thumbnail common_exras %}
+
+{% block breadcrumbs %}
+    {{ block.super }}
+    <div class="breadcrumb"><a href="{{ service.private_url }}">{{ service.title|truncatewords:5 }}</a></div>
+{% endblock %}
+
+{% block profile_content %}
+    <div class="service_view">
+
+        <div class="nav_name">
+            <div class="Full_name">{{ service.title }}</div>
+        </div>
+
+        <div class="slider_right">
+            <div class="img1">
+                {% thumbnail service.main_image 340x340 crop as thumb %}
+                <a href="{% check_empty service.main_image.url thumb.url %}" data-fancybox rel="example_group" id="adpdp14">
+                    <img src="{{ thumb.url }}" id="dp14" style="margin-bottom: 3px;" alt=""/>
+                </a>
+            </div>
+            <div class="thumbs">
+                {% for service_image in service.serviceimage_set.all %}
+                    <div class="it">
+                        {% thumbnail service_image.image 340x340 crop as thumb %}
+                        <a style="display:none;" href="{{ thumb.url }}" rel="example_group"></a>
+                        <img src="{{ thumb.url }}" onclick='setBigImage(this);' alt=""/>
+                    </div>
+                {% endfor %}
+
+                <div class="clr"></div>
+            </div>
+
+        </div>
+        <div class="slider_left1 {{ service.get_css_class_for_actions }}">
+            <div class="shares_right">
+                <div style="float: right; display: block; margin-left: 0; margin-top: 15px;" class="shares_wrap2 {{ service.get_css_class_for_actions_visible }}">
+                    {{ service.get_actions_html }}
+                </div>
+            </div>
+            <p class="sale-title">{{ service.title }}</p>
+
+            <div class="sale-text">{{ service.description|paragraphs|safe }}</div>
+            <div class="price">Цена <br> от <span class="cost">{{ service.price|intspace }}</span> RUB</div>
+{#            <a href="" class="price">Город</a> <br>#}
+{#            <a href="" class="price">Категория</a><br><br>#}
+
+            <div style="clear: both"></div>
+{#            <div>#}
+{#                <div style="float: left">#}
+{#                    {% include 'common/elements/views_count.html' %}#}
+{#                    {% include 'common/elements/comments_count.html' %}#}
+{#                </div>#}
+{##}
+{#            </div>#}
+
+            <div style="clear: both"></div>
+
+
+        </div>
+
+{% comment %}
+
+        <div class="comment">
+            <div class="Full_name">Отзывы</div>
+        </div>
+        <div class="talk_pic"></div>
+        <div class="subhead">
+            <div class="name_pic">Наталья Крякина</div>
+            <a href="" class="date_pic">22.05.2015</a><br>
+
+            <div class="like"></div>
+            <div class="dizlike"></div>
+        </div>
+        <div class="sale-text1">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+            incididunt ut labore et dolore magna aliqua
+            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat
+        </div>
+{% endcomment %}
+
+    </div>
+
+
+{% endblock %}

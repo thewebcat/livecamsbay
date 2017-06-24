@@ -1,0 +1,49 @@
+{% extends "accounts/message_list.html" %}
+{% load bootstrap3 thumbnail %}
+
+{% block breadcrumbs %}
+    {{ block.super }}
+    <div class="breadcrumb"><a href="{{ message.private_url }}">{{ message.subject|truncatewords:5 }}</a></div>
+{% endblock %}
+
+{% block profile_content %}
+
+    <div class="nav_name">
+				<div class="Full_name">{{ message.subject }}</div>
+				<div class="plus">
+					<div class="add-on"></div>
+				</div>
+			</div>
+{#			<div class="square"><img src="images/download_white.png"></div>#}
+{#			<div class="square"><img src="images/important.png"></div>#}
+{#			<div class="square"><img src="images/delete.png"></div>#}
+{#			<div class="square"><img src="images/outbox.png"></div>#}
+{#			<div class="line_down" style="margin-top:15px;"></div>#}
+			<div class="upper_unit">
+				<div class="mail_foto"></div>
+				<a class="unit1">робот<br><span>кому: мне</span></a>
+				<div class="clouse"></div>
+				<div class="mess_page">
+					<a class="score">{{ message.create_date|date:"d.m.y H:i" }}</a>
+				</div>
+			</div>
+			<div class="received">
+				{{ message.content|safe }}
+			</div>
+
+
+{% endblock %}
+
+{% block profile_content1 %}
+
+    {% if message %}
+        <div class="panel-default">
+            <div class="panel-heading">{{ message.subject }}</div>
+            <div class="panel-body">
+                {{ message.content|safe }}
+            </div>
+        </div>
+    {% else %}
+        <div class="alert alert-warning" role="alert">Сообщение не найдено</div>
+    {% endif %}
+{% endblock %}

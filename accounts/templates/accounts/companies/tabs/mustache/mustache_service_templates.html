@@ -1,0 +1,63 @@
+{% verbatim %}
+<script id="services_template" type="x-tmpl-mustache">
+{{ #result.object_list }}
+<div class="card_product">
+<div class="amigostone-container">
+
+    <div class="amigostone-right">
+    <div class="publick">
+        <div class="slider_left1">
+            <p class="sale-title">{{ title }}</p>
+            <div class="wrap_icon">
+                <div class="vk1"></div>
+                <div class="twitter1"></div>
+                <div class="fs1"></div>
+                <div class="inst1"></div>
+            </div>
+            <div class="categories">
+            <a href="" class="sottotitoli">{{ category.title }}</a><div class="dividing_line"></div>
+            <a href="{{ company.url }}" class="sottotitoli">{{ company.title }}</a><div class="dividing_line"></div>
+            <a href="" class="sottotitoli">{{ city.title }}</a>
+            </div>
+
+            <div class="info_wrap">
+                <div class="sale-text">
+                    {{{ description }}}
+                </div>
+                {{#cost}}
+                <div class="price_wrap"><p class="price">Цена от</p> <p class="cost">10 000</p><p class="price"> RUB </p></div>
+                {{/cost}}
+            </div>
+
+        </div>
+    </div>
+    </div>
+
+</div>
+
+    <div class="amigostone-left">
+    <div class="slider_right" style="margin-top:10px;">
+        <div class="img1">
+            <a href="{{ main_image }}" rel="example_group" data-fancybox id="adpdp14">
+            <img src="{{ main_image }}" id="dp14" style="margin-bottom: 3px;" alt="{{ title }}"></a>
+        </div>
+        <div class="thumbs" style="margin-left: 6px;">
+            {{ #images }}
+            <div class="it"><a style="display:none;" href="{{ . }}" rel="example_group"></a>
+                <img src="{{ . }}" onclick="setBigImage(this);" alt="">
+            </div>
+            {{ /images }}
+        </div>
+
+    </div>
+    </div>
+
+
+</div>
+{{#separator}}<div class="line_down"></div>{{/separator}}
+{{ /result.object_list }}
+{{#result.paginator.has_next}}
+<a href="{{result.paginator.next_page_url}}" class="jq_next_page next_page"><span>Показать еще</span></a>
+{{/result.paginator.has_next}}
+</script>
+{% endverbatim %}

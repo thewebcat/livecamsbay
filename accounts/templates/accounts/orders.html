@@ -1,0 +1,92 @@
+{% extends "accounts/base.html" %}
+{% load thumbnail %}
+
+{% block breadcrumbs %}
+    {{ block.super }}
+    <div class="breadcrumb"><a href="{% url 'accounts:order_list' %}">Заказы</a></div>
+{% endblock %}
+
+{% block profile_content %}
+
+    <div class="nav_name">
+        <div class="Full_name">Все заказы</div>
+        <div class="online"></div>
+    </div>
+
+    {% if request.user.profile.is_user %}
+    <div id="cssmenu1">
+        <ul>
+            <li {% if filter == 'active' %}class="active"{% endif %}><a href="{% url 'accounts:orders_type_filter' 'outgoing' 'active' %}">В работе</a></li>
+            <li {% if filter == 'complete' %}class="active"{% endif %}><a href="{% url 'accounts:orders_type_filter' 'outgoing' 'complete' %}">Завершенные</a></li>
+            <li {% if filter == 'moderation' %}class="active"{% endif %}><a href="{% url 'accounts:orders_type_filter' 'outgoing' 'moderation' %}">На модерации</a></li>
+            <li {% if filter == 'all' %}class="active"{% endif %}><a href="{% url 'accounts:orders_type_filter' 'outgoing' 'all' %}">Все</a></li>
+        </ul>
+    </div>
+    {% elif request.user.profile.is_company or request.user.profile.is_master %}
+    <div id="cssmenu1">
+        <ul>
+            <li {% if type == 'incoming' %} class="active"{% endif %}><a href="{% url 'accounts:orders_type' 'incoming' %}">Входящие</a>
+                <ul>
+                    <li><a {% if type == 'incoming' and filter == 'new' %} class="active"{% endif %} href="{% url 'accounts:orders_type_filter' 'incoming' 'new' %}">Новые</a></li>
+                    <li><a {% if type == 'incoming' and filter == 'active' %} class="active"{% endif %} href="{% url 'accounts:orders_type_filter' 'incoming' 'active' %}">В работе</a></li>
+                    <li><a {% if type == 'incoming' and filter == 'viewed' %} class="active"{% endif %} href="{% url 'accounts:orders_type_filter' 'incoming' 'viewed' %}">Просмотренные</a></li>
+                    <li><a {% if type == 'incoming' and filter == 'complete' %} class="active"{% endif %} href="{% url 'accounts:orders_type_filter' 'incoming' 'complete' %}">Завершенные</a></li>
+{#                            <li><a href="#4">Не достоин</a></li>#}
+{#                            <li><a href="#5">Избранные</a></li>#}
+                    <li><a {% if type == 'incoming' and filter == 'all' %} class="active"{% endif %} href="{% url 'accounts:orders_type_filter' 'incoming' 'all' %}">Все</a></li>
+                </ul>
+            </li>
+            <li {% if type == 'outgoing' %} class="active"{% endif %}><a href="{% url 'accounts:orders_type' 'outgoing' %}">Исходящие</a>
+                <ul>
+                    <li><a {% if type == 'outgoing' and filter == 'active' %} class="active"{% endif %} href="{% url 'accounts:orders_type_filter' 'outgoing' 'active' %}">В работе</a></li>
+                    <li><a {% if type == 'outgoing' and filter == 'complete' %} class="active"{% endif %} href="{% url 'accounts:orders_type_filter' 'outgoing' 'complete' %}">Завершенные</a></li>
+                    <li><a {% if type == 'outgoing' and filter == 'moderation' %} class="active"{% endif %} href="{% url 'accounts:orders_type_filter' 'outgoing' 'moderation' %}">На модерации</a></li>
+                    <li><a {% if type == 'outgoing' and filter == 'all' %} class="active"{% endif %} href="{% url 'accounts:orders_type_filter' 'outgoing' 'all' %}">Все</a></li>
+                </ul>
+            </li>
+
+        </ul>
+    </div>
+    {% endif %}
+
+    <div class="menu_line"></div>
+
+    {% if orders %}
+        {% for order in orders %}
+
+        {% if forloop.counter0 > 0 %}<div class="line_down"></div>{% endif %}
+
+
+        {% thumbnail order.main_image 234x204 crop as thumb %}
+        <a href="{{ order.private_url }}">
+		    <div class="finishing" style="background-image: url('{{ thumb.url }}')"></div>
+        </a>
+			<div class="nav_information">
+        <li class="order_title"><a href="{{ order.private_url }}">{{ order.title }}</a></li><br>
+				<li class="order_info">Дата заказа: &nbsp;&nbsp;&nbsp;&nbsp;{{ order.create_date|date:"d.m.Y" }}г.</li>
+				<li class="order_info">Дата оплаты:&nbsp;&nbsp;&nbsp; -</li>
+				<li class="order_info">Статус: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ order.get_status_text }}</li>
+
+            {% include 'common/elements/views_count.html' with count=order.viewed.all.count %}
+            {% include 'common/elements/comments_count.html' with text="Предложения" count=order.offertoorder_set.all.count %}
+
+			</div>
+
+			<div class="right_sector" style="margin-top:90px;">
+{#			<li class="order_info"><a href="{{ order.private_url }}" style="color: #4D4D4D">Подробно</a></li>#}
+			</div>
+			<div class="status_line">
+                {% include 'common/elements/progressbar.html' with percent=order.get_percentage_of_completion segments=order.steps_to_completion %}
+            </div>
+
+        {% endfor %}
+
+        {% include 'common/pagination.html' with paginations=orders %}
+
+
+    {% else %}
+        <div>Заказов нет.</div>
+    {% endif %}
+<br>
+
+{% endblock %}

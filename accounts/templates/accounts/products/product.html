@@ -1,0 +1,60 @@
+{% extends "accounts/products/products.html" %}
+{% load bootstrap3 thumbnail %}
+
+{% block breadcrumbs %}
+    {{ block.super }}
+    {% if product.id %}
+    <div class="breadcrumb"><a href="{{ product.private_url }}">{{ product.title|truncatewords:5 }}</a></div>
+    {% endif %}
+{% endblock %}
+
+{% block profile_content %}
+    <div class="service_view">
+
+        <div class="nav_name">
+            <div class="Full_name">{{ product.title }}</div>
+        </div>
+
+        <div class="slider_right">
+            <div class="img1">
+                {% thumbnail product.main_image 338x246 crop as thumb %}
+                <a href="{{ product.main_image.url }}" rel="example_group" id="adpdp14">
+                    <img src="{{ thumb.url }}" id="dp14" style="margin-bottom: 3px;" alt=""/>
+                </a>
+            </div>
+            <div class="thumbs">
+                {% for product_image in product.get_all_images %}
+                    <div class="it">
+                        {% thumbnail product_image.image 338x246 crop as thumb %}
+                        <a style="display:none;" href="{{ thumb.url }}" rel="example_group"></a>
+                        <img src="{{ thumb.url }}" onclick='setBigImage(this);' alt=""/>
+                    </div>
+                {% endfor %}
+
+                <div class="clr"></div>
+            </div>
+
+        </div>
+        <div class="slider_left1">
+            <div class="shares_right {{ product.get_css_class_for_actions }}">
+            <div class="shares_right">
+                <div style="float: right; display: block; margin-left: 0; margin-top: 15px;" class="shares_wrap2 {{ product.get_css_class_for_actions_visible }}">
+                    {{ product.get_actions_html }}
+                </div>
+            </div>
+            <p class="sale-title">{{ product.title }}</p>
+
+            <div class="sale-text">{{ product.description|safe }}</div>
+{#            <div class="price">Цена <br> от <span class="cost">{{ service.price }}</span> RUB</div>#}
+{#            <a href="" class="price">Город</a> <br>#}
+            <a href="" class="price">{{ product.product_catalog.title }}</a><br><br>
+
+            <div style="clear: both"></div>
+
+            </div>
+        </div>
+
+    </div>
+
+
+{% endblock %}

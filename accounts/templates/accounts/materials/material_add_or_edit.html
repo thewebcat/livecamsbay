@@ -1,0 +1,71 @@
+{% extends "accounts/materials/material.html" %}
+{% load widget_tweaks thumbnail common_exras %}
+
+{% block breadcrumbs %}
+    {{ block.super }}
+    <div class="breadcrumb"><span>{% if material.id %}Реадктировать{% else %}Добавить{% endif %}</span></div>
+{% endblock %}
+
+{% block extra_js %}
+    <script>
+        $(function(){
+            var id_material_catalog = '#{{ form.material_catalog.id_for_label }}';
+            select2_basic_initial($(id_material_catalog));
+            var id_country_catalog = '#{{ form.country.id_for_label }}';
+            select2_basic_initial($(id_country_catalog));
+            var id_production_catalog = '#{{ form.production.id_for_label }}';
+            select2_basic_initial($(id_production_catalog))
+        })
+    </script>
+{% endblock %}
+
+{% block profile_content %}
+    <div class="nav_name">
+        <div class="Full_name">{% if work.id %}Реадктировать{% else %}Добавить{% endif %} камень</div>
+    </div>
+
+    <form action="" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.action }}
+
+    {% check_forms form %}
+
+        {% if not form.production %}
+            <div class="control-container {{ form.title.css_classes }}">{{ form.title.label_tag }}{{ form.title }}</div>
+            <div class="form-row">
+                <div class="form-col-6">
+                    <div class="control-container {{ form.country.css_classes }}">{{ form.country.label_tag }}{{ form.country }}</div>
+                </div>
+                <div class="form-col-6">
+                    <div class="control-container {{ form.material_catalog.css_classes }}">{{ form.material_catalog.label_tag }}{{ form.material_catalog }}</div>
+                </div>
+            </div>
+        {% else %}
+            <div class="control-container {{ form.title.css_classes }}">{{ form.title.label_tag }}{{ form.title }}</div>
+            <div class="form-row">
+                <div class="form-col-4">
+                    <div class="control-container {{ form.country.css_classes }}">{{ form.country.label_tag }}{{ form.country }}</div>
+                </div>
+                <div class="form-col-4">
+                    <div class="control-container {{ form.production.css_classes }}">{{ form.production.label_tag }}{{ form.production }}</div>
+                </div>
+                <div class="form-col-4">
+                    <div class="control-container {{ form.material_catalog.css_classes }}">{{ form.material_catalog.label_tag }}{{ form.material_catalog }}</div>
+                </div>
+            </div>
+        {% endif %}
+        <div class="form-row">
+            <div class="form-col-12">
+                <div class="control-container {{ form.description.css_classes }}">{{ form.description.label_tag }}{{ form.description }}</div>
+            </div>
+        </div>
+
+
+        {% include 'common/elements/uploadformset.html' with formset=formset %}
+
+        {% include 'tags/blocks/tags_control.html' with multiple_choice_tag_form=multiple_choice_tag_form %}
+
+        {% include 'common/elements/user_content_form_submit.html' %}
+    </form>
+    {{ form.media }}
+{% endblock %}

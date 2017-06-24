@@ -1,0 +1,52 @@
+{% extends "accounts/base.html" %}
+{% load bootstrap3 thumbnail %}
+
+{% block breadcrumbs %}
+    {{ block.super }}
+    <div class="breadcrumb"><a href="{% url 'accounts:notifications' %}">Настройка уведомлений</a></div>
+{% endblock %}
+
+{% block profile_content %}
+    <div class="nav_name">
+        <div class="Full_name">Настройка уведомлений</div>
+    </div>
+
+    <div class="block_info">
+        {% regroup settings by group as group_list %}
+        <form method="post" action="" class="notifications_setting_form">
+            {% csrf_token %}
+            {% for g in group_list %}
+            <h4>{{ g.grouper }}</h4>
+                <ul>
+                    {% for s in g.list %}
+                        <li>
+
+                            <input type="checkbox"
+                                   name="subs"
+                                   value="{{ s.action }}"
+
+                                   id="{{ s.action }}"
+                                   {% if s.accept %}checked{% endif %}>
+                            <label style="display:block " for="{{ s.action }}"><span></span>{{ s.description|safe }}</label>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% endfor %}
+        <div class="buttons-container buttons-container-center">
+            <button class="button" type="submit">Сохранить</button>
+        </div>
+
+        </form>
+    </div>
+<style>
+    .notifications_setting_form ul {list-style: none}
+    .notifications_setting_form {
+        padding: 0 25px ;
+    }
+    input[type="checkbox"] { display:none; }
+    input[type="checkbox"] + label span { display:inline-block; width:19px; height:19px; margin:-1px 4px 0 0; vertical-align:middle; background:url(/static/images/check_radio_sheet_square.png) left top no-repeat; cursor:pointer; }
+    input[type="checkbox"]:checked + label span { background:url(/static/images/check_radio_sheet_square.png) -18px top no-repeat; }
+</style>
+
+
+{% endblock %}

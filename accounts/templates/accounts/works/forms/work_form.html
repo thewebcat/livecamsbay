@@ -1,0 +1,25 @@
+{% load widget_tweaks thumbnail common_exras %}
+
+<div id="{{ form_work.description.id_for_label }}_popup" class="popup" style="width:800px;">
+    <h3>Добавить работу</h3>
+
+    <form action="{% url 'accounts:work_add' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form_work.action }}
+        {{ form_work.work_catalog }}
+
+        {% check_forms form_work %}
+
+        <div class="control-container {{ form_work.title.css_classes }}">{{ form_work.title.label_tag }}{{ form_work.title }}</div>
+        <div class="control-container {{ form_work.description.css_classes }}">{{ form_work.description.label_tag }}{{ form_work.description }}</div>
+
+        {% include 'common/elements/uploadformset.html' with formset=formset_work %}
+
+        {% include 'tags/blocks/tags_control.html' with multiple_choice_tag_form=multiple_choice_tag_form %}
+
+        <div style="clear: both"> </div>
+
+        {% include 'common/elements/user_content_form_submit.html' %}
+    </form>
+    <a class="close" title="Закрыть" href="#close"></a>
+</div>

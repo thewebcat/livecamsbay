@@ -1,0 +1,21 @@
+{% extends "accounts/order_add_or_edit.html" %}
+{% load bootstrap3 thumbnail %}
+
+{% block breadcrumbs %}
+    {{ block.super }}
+    <div class="breadcrumb"><a href="{% url 'accounts:order_add_success' %}">Заказ успешно создан</a></div>
+{% endblock %}
+
+{% block profile_content %}
+        <div class="nav_name">
+            <div class="Full_name">Добавить заказ</div>
+        </div>
+        <div class="add_wrap" style="margin: 0 auto; width: 600px;">
+            <div class="moderation" style="margin: 67px 0; text-align: center; width: initial">
+                Ваш заказ отправлен на модерацию.<br/>
+                Ответ по нему поступит в ближайшее время.<br/>
+                Спасибо за выбор биржи amigostone,<br>
+                желаем успешной работы!
+            </div>
+        </div>
+{% endblock %}

@@ -1,0 +1,41 @@
+
+
+<div style="margin-top:15px;"></div>
+<div id="calendar"></div>
+<div style="margin-bottom:15px;"></div>
+<style>
+    #calendar a {
+        display: block;
+        padding: 0 1px;
+        font-size: .85em;
+        color: #ffffff;
+    }
+</style>
+
+<script>
+
+    $(function () {
+        $('#calendar').fullCalendar({
+            lang: 'ru',
+            header: {
+                left: 'prev,next', {#      left: 'prev,next today',#}
+                center: 'title',
+                right: null {#      right: 'month,agendaWeek,agendaDay'#}
+            },
+            editable: false,
+            events: {{ events|safe }},
+            eventRender: function(event, element) {
+                element.qtip({
+                    content: event.description,
+                    position: {
+                        my: 'top center',
+                        at: 'bottom center'
+                    }
+                });
+            }
+        });
+        $("#jq_tabs li:last-child a").on('click', function(){
+            $('#calendar').fullCalendar('render');
+        })
+    })
+</script>

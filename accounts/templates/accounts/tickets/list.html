@@ -1,0 +1,83 @@
+{% extends "accounts/base.html" %}
+{% load bootstrap3 thumbnail %}
+
+{% block breadcrumbs %}
+    {{ block.super }}
+    <div class="breadcrumb"><a href="{% url 'accounts:tickets' %}">Обращения</a></div>
+{% endblock %}
+
+{% block profile_content %}
+    <div class="nav_name">
+        <div class="Full_name">Ваши вопросы</div>
+    </div>
+    <div class="block_info">
+        <div class="tickets">
+            {% thumbnail request.user.profile.get_avatar 57x56 crop as thumb %}
+            {% regroup messages by pk as ticket_list %}
+
+            {% for ticket in ticket_list %}
+                <div class="ticket_block">
+                    <div class="ticket_title">
+                        <div class="ticket_id">{{ ticket.grouper }}</div>
+                        <div class="ticket_date"> {{ ticket.list.0.message__date|date:"d.m.Y H:i" }}</div>
+                        <div class="ticket_title_message">{{ ticket.list.0.message__text|truncatechars:20 }}
+                        </div>
+                        <div class="ticket_button">
+                            <a href="#{{ ticket.grouper }}">
+                                <img src="{{ STATIC_URL }}accounts/images/bot_button.png" data-href="{{ STATIC_URL }}accounts/images/top_button.png">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="ticket_content" hidden>
+                        <div class="ticket_messages">
+                            {% for item in ticket.list %}
+                                {% if item.message__profile %}
+                                    <div class="message_user ">
+                                        <div class="ticket_date">{{ item.message__date|date:'G:i' }}</div><div class="ticket_message">{{ item.message__text }}
+                                            {% if item.message__file %}
+                                            <br>
+                                            <a style="margin-top: 10px; color: #417538;" href="{{ MEDIA_URL }}{{item.message__file}}" target="_blank">Прикрепленный файл</a>
+                                            {% endif %}
+                                        </div><div class="ticket_avatar"><img src="{{ thumb.url }}"></div>
+                                    </div>
+                                {% else %}
+                                    <div class="message_moderator">
+                                        <div class="ticket_avatar"><img src="{{ STATIC_URL }}accounts/images/Amigo_logo.png"></div><div class="ticket_message">{{ item.message__text }}</div><div class="ticket_date">{{ item.message__date|date:'G:i' }}</div>
+                                    </div>
+                                {% endif %}
+                                {% if forloop.last %}
+                                    {% if item.is_active %}
+                                        <div class="ticket_message_form">
+
+                                                <form class="add_message_to_ticket" method="post" enctype="multipart/form-data">
+                                                    {% csrf_token %}
+                                                    <input type="hidden" name="ticket" value="{{ item.pk }}">
+                                                    <div class="control-container">
+                                                        <label for="id_message">Введите сообщение:</label>
+                                                        <textarea name="text" id="id_message" placeholder="Введите сообщение" required></textarea>
+                                                    </div>
+                                                    {% include 'common/elements/uploadform.html' with id_field='id_ticket_file' form=None prefix=ticket.grouper %}
+                                                    <div class="buttons-container buttons-container-center"><button type="submit">Отправить</button></div>
+                                                </form>
+
+                                        </div>
+                                    {% endif %}
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+
+            {% endfor %}
+        </div>
+    </div>
+
+{% endblock %}
+{% block extra_css %}
+    <link rel="stylesheet" href="{{ STATIC_URL }}accounts/css/views_tickets.css" />
+{% endblock %}
+{% block extra_js %}
+    <script type="text/javascript" src="{{ STATIC_URL }}accounts/js/jquery.cookie.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}accounts/js/sent_ticket_ajax.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}accounts/js/view_tickets.js"></script>
+{% endblock %}

@@ -1,0 +1,151 @@
+{% extends "base.html" %}
+{% load thumbnail widget_tweaks %}
+
+{% block breadcrumbs %}
+    {{ block.super }}
+    {% if company_type == "providers" %}
+        <div class="breadcrumb"><a href="{% url 'companies:companies_providers' %}">Каталог поставщиков</a></div>
+    {% else %}
+        <div class="breadcrumb"><a href="{% url 'companies:companies_stoneworkers' %}">Каталог камнеобработчиков</a></div>
+    {% endif %}
+{% endblock %}
+
+{% block extra_js %}
+    <script>
+    $(function(){
+        var id_city = '#{{ city_choice_form.city.id_for_label }}';
+        select2_initial($(id_city))
+        select2_basic_initial($('#id_order'))
+    })
+    </script>
+{% endblock %}
+
+{% block content %}
+    <style>
+    .filter_fields {
+        width: 300px;
+        height: 59px;
+        display: inline-block;
+        float: right;
+        border-left: 1px solid #fff;
+    }
+    .filter_fields a {
+        display: block;
+        height: 59px;
+        line-height: 59px;
+        font-size: 20px;
+        text-align: center;
+        color: #fff;
+        background-color: #358C38;
+    }
+    .filter_fields a:hover {
+        background-color: #417538;
+    }
+    </style>
+
+    <div class="wrapper">
+    <div class="block_info">
+
+			<div class="nav_name">
+			    <h1>Каталог компаний</h1>
+                <div class="filter_fields">
+                    <a href="{% url 'authorization:registration' %}">Зарегистрировать компанию</a>
+                </div>
+			</div>
+
+
+            <div class="jcarousel_wrapper" style="padding: 0">
+
+                <div>
+                    <ul class="tabs" style="left: 0px; top: 0px; margin-bottom: 1em">
+                        <a style="border-bottom:2px solid #358c38; color:#358c38">Компании</a>
+{#                        <a>Мастера</a>#}
+                    </ul>
+                </div>
+
+                <form method="get" action="{% url 'companies:companies_filter' %}" class="jq_filter_city">
+                        <div>{{ city_choice_form.city }}</div>
+                    <div>
+                        <select name="order" id="id_order">
+                            <option value="recalls">Сортировать по отзывам</option>
+                            <option selected value="rate">Сортировать по рейтингу</option>
+                            <option value="orders">По выполненным заказам</option>
+                        </select>
+                    </div>
+                </form>
+			</div>
+            <div>
+
+            </div>
+            <div class="ajax_company_load"></div>
+    </div>
+	</div>
+
+{% include 'accounts/companies/mustache_templates.html' %}
+
+<style>
+.jq_filter_city > div{
+    display: inline-block;
+    margin-right: 1em;
+}
+.ajax_company_load a.next_page {
+    display: none;
+    color: #808080;
+    list-style-type: none;
+    text-decoration: none;
+    padding: 10px;
+    font-size: 18px;
+}
+.ajax_company_load a.next_page span {
+    text-align: center;
+    border: 1px solid #358c38;
+    background-color: #A4D89D;
+    color: white;
+    margin: 0 505px;
+    display: block;
+    padding: 10px;
+}
+.ajax_company_load a.next_page:last-child {
+    display: block;
+}
+</style>
+<script>
+$(function(){
+    function update_companies(responseText, statusText, xhr, target) {
+        var template = $('#company_list_template').html();
+        var rendered = Mustache.render(template, responseText);
+        var ajax_company_load = $('.ajax_company_load')
+        if(target.prop("tagName")=='A') {
+            ajax_company_load.append(Mustache.render($('#company_list_separator_template').html()))
+            ajax_company_load.append(rendered)
+        } else {
+            ajax_company_load.html(rendered)
+        }
+    }
+    function ajax_load(url, data, callback, target) {
+        $.ajax({
+            type: 'get',
+            url: url,
+            data: data,
+            success: function(responseText, statusText, xhr) {callback(responseText, statusText, xhr, target)}
+        })
+    }
+    $('.jq_filter_city select').on('change', function(){
+        var form = $(this).closest('form')
+        var url = form.attr('action')
+        var data = form.serializeArray()
+        ajax_load(url, data, update_companies, $(this))
+    })
+    $('.ajax_company_load').on('click', '.jq_next_page', function(e){
+        e.preventDefault()
+        var form = $('form.jq_filter_city')
+        var url = $(this).attr('href')
+        var data = form.serializeArray()
+        ajax_load(url, data, update_companies, $(this))
+    })
+    ajax_load($('form.jq_filter_city').attr('action'), {}, update_companies, $(this))
+})
+</script>
+
+
+{% endblock %}

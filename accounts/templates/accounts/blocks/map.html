@@ -1,0 +1,37 @@
+{% load sekizai_tags %}
+
+<div id="map" class="mup"></div>
+
+{% addtoblock 'js' %}
+<script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
+<script type="text/javascript">
+    $(function(){
+        ymaps.ready(init);
+
+        function init() {
+            ymaps.geocode('{{ company.city.title }}, {{ company.address }}', {
+                results: 1
+            }).then(function (res) {
+
+                var firstGeoObject = res.geoObjects.get(0),
+                    coords = firstGeoObject.geometry.getCoordinates(),
+                    bounds = firstGeoObject.properties.get('boundedBy');
+
+                var myMap = new ymaps.Map('map', {
+                    center: coords,
+                    zoom: 9,
+                    controls: ['zoomControl'],
+                });
+
+                myMap.behaviors.disable('scrollZoom');
+                myMap.geoObjects.add(firstGeoObject);
+                myMap.setBounds(bounds, {
+                    checkZoomRange: true
+                });
+            });
+        }
+    })
+
+
+</script>
+{% endaddtoblock %}

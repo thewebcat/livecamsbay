@@ -1,0 +1,46 @@
+{% extends "accounts/base.html" %}
+{% load bootstrap3 thumbnail %}
+
+{% block breadcrumbs %}
+    {{ block.super }}
+    <div class="breadcrumb"><a href="{% url 'accounts:calendar' %}">Календарь мероприятий</a></div>
+{% endblock %}
+
+{% block profile_content %}
+
+    <div class="nav_name">
+        <div class="Full_name">Календарь мероприятий</div>
+        <div class="plus">
+            <a href="{% url 'accounts:calendar_event_add' %}" class="add-on"></a>
+        </div>
+        {% include 'accounts/blocks/state_filter.html' %}
+    </div>
+    <p></p>
+    <div id="calendar"></div>
+
+<script>
+
+    $(function () {
+        $('#calendar').fullCalendar({
+            lang: 'ru',
+            header: {
+                left: 'prev,next', {#      left: 'prev,next today',#}
+                center: 'title',
+                right: null {#      right: 'month,agendaWeek,agendaDay'#}
+            },
+            editable: false,
+            events: {{ events|safe }},
+            eventRender: function(event, element) {
+                element.qtip({
+                    content: event.description,
+                    position: {
+                        my: 'top center',
+                        at: 'bottom center'
+                    }
+                });
+            }
+        });
+    })
+</script>
+
+{% endblock %}

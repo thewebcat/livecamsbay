@@ -1,0 +1,147 @@
+{% extends "accounts/profile.html" %}
+{% load widget_tweaks thumbnail common_exras %}
+
+{% block breadcrumbs %}
+    {{ block.super }}
+    <div class="breadcrumb"><a href="{% url 'accounts:profile_edit' %}">Редактирование</a></div>
+{% endblock %}
+
+{% block extra_js %}
+    <script>
+        $(function(){
+            var id_city = '#{{ form_profile.city.id_for_label }}';
+            select2_initial($(id_city))
+        })
+    </script>
+{% endblock %}
+
+{% block profile_content %}
+
+    <div class="nav_name">
+        <div class="Full_name">Редактировать профиль</div>
+    </div>
+    <div class="resend_wrap" style="margin-top:0; margin-left:200px;">
+
+        <form action="" method="post" class="resend">
+            {% csrf_token %}
+
+            {{ form_profile.show_errors }}
+
+{#            {% check_forms form_profile phone_formset url_formset email_formset contact_person_formset director_form bank_details_form %}#}
+
+            <div class="control-container {{ form_profile.name.css_classes }}">{{ form_profile.name.label_tag }}{{ form_profile.name }}</div>
+            {% if request.user.profile.is_company %}
+                <div class="control-container {{ form_profile.provider.css_classes }}">
+                    {{ form_profile.provider|add_class:'radio' }}
+                    <label for="{{ form_profile.provider.id_for_label }}">{{ form_profile.provider.label }}</label>
+                </div>
+                <div class="control-container {{ form_profile.stoneworker.css_classes }}">
+                    {{ form_profile.stoneworker|add_class:'radio' }}
+                    <label for="{{ form_profile.stoneworker.id_for_label }}">{{ form_profile.stoneworker.label }}</label>
+                </div>
+            {% endif %}
+            <div class="control-container {{ form_profile.city.css_classes }}">{{ form_profile.city.label_tag }}{{ form_profile.city }}</div>
+            <div class="form-row">
+                <div class="form-col-6">
+                    <div class="control-container {{ form_profile.zip.css_classes }}">{{ form_profile.zip.label_tag }}{{ form_profile.zip }}</div>
+                </div>
+
+                <div class="form-col-6">
+                    {{ phone_formset.management_form }}
+                    {% for form_phone in phone_formset %}
+                        {% for hidden in form_phone.hidden_fields %}{{ hidden }}{% endfor %}
+                        <div class="control-container {{ form_phone.phone.css_classes }}">{{ form_phone.phone.label_tag }}{{ form_phone.phone }}</div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="control-container {{ form_profile.address.css_classes }}">{{ form_profile.address.label_tag }}{{ form_profile.address }}</div>
+            {% if request.user.profile.is_company %}
+                <div class="control-container {{ form_profile.legal_address.css_classes }}">{{ form_profile.legal_address.label_tag }}{{ form_profile.legal_address }}</div>
+            {% endif %}
+
+            {% if request.user.profile.is_company or request.user.profile.is_master %}
+                {{ email_formset.management_form }}
+                {% for form_email in email_formset %}
+                    {% for hidden in form_email.hidden_fields %}{{ hidden }}{% endfor %}
+                    <div class="control-container {{ form_email.email.css_classes }}">{{ form_email.email.label_tag }}{{ form_email.email }}</div>
+                {% endfor %}
+
+                {{ url_formset.management_form }}
+                {% for url_form in url_formset %}
+                    {% for hidden in url_form.hidden_fields %}{{ hidden }}{% endfor %}
+                    <div class="control-container {{ url_form.url.css_classes }}">{{ url_form.url.label_tag }}{{ url_form.url }}</div>
+                {% endfor %}
+            {% endif %}
+
+            {% if request.user.profile.is_company %}
+                <div class="control-container {{ director_form.director.css_classes }}">{{ director_form.director.label_tag }}{{ director_form.director }}</div>
+
+                {{ contact_person_formset.management_form }}
+                {% for contact_person_form in contact_person_formset %}
+                    {% for hidden in contact_person_form.hidden_fields %}{{ hidden }}{% endfor %}
+                    <div class="control-container {{ contact_person_form.contact_person.css_classes }}">{{ contact_person_form.contact_person.label_tag }}{{ contact_person_form.contact_person }}</div>
+                {% endfor %}
+            {% endif %}
+
+            {% if request.user.profile.is_company or request.user.profile.is_master %}
+                <div class="control-container {{ form_profile.short_description.css_classes }}">{{ form_profile.short_description.label_tag }}{{ form_profile.short_description }}</div>
+            {% endif %}
+
+            <div class="control-container {{ form_profile.description.css_classes }}">{{ form_profile.description.label_tag }}{{ form_profile.description }}</div>
+
+            {% if request.user.profile.is_company %}
+                <div class="form-row">
+                    <div class="form-col-6">
+                        <div class="control-container {{ bank_details_form.inn.css_classes }}">{{ bank_details_form.inn.label_tag }}{{ bank_details_form.inn }}</div>
+                    </div>
+                    <div class="form-col-6">
+                        <div class="control-container {{ bank_details_form.kpp.css_classes }}">{{ bank_details_form.inn.label_tag }}{{ bank_details_form.kpp }}</div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-col-6">
+                        <div class="control-container {{ bank_details_form.ogrn.css_classes }}">{{ bank_details_form.ogrn.label_tag }}{{ bank_details_form.ogrn }}</div>
+                    </div>
+                    <div class="form-col-6">
+                        <div class="control-container {{ bank_details_form.okpo.css_classes }}">{{ bank_details_form.okpo.label_tag }}{{ bank_details_form.okpo }}</div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-col-6">
+                        <div class="control-container {{ bank_details_form.okved.css_classes }}">{{ bank_details_form.okved.label_tag }}{{ bank_details_form.okved }}</div>
+                    </div>
+                    <div class="form-col-6">
+                        <div class="control-container {{ bank_details_form.bik.css_classes }}">{{ bank_details_form.bik.label_tag }}{{ bank_details_form.bik }}</div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-col-6">
+                        <div class="control-container {{ bank_details_form.rs_number.css_classes }}">{{ bank_details_form.rs_number.label_tag }}{{ bank_details_form.rs_number }}</div>
+                    </div>
+                    <div class="form-col-6">
+                        <div class="control-container {{ bank_details_form.ks_number.css_classes }}">{{ bank_details_form.ks_number.label_tag }}{{ bank_details_form.ks_number }}</div>
+                    </div>
+                </div>
+
+            {% endif %}
+            <div class="form-row">
+                <div class="form-col-3">
+                    <div class="control-container">{% include 'common/elements/uploadform.html' with field=form_profile.avatar form=form_profile %}</div>
+                </div>
+                <div class="form-col-9">
+                    <div class="control-container"><div class="deal" style="vertical-align: top; margin-left: 20px;">Изменить аватар</div></div>
+                </div>
+            </div>
+
+{#            <div class="cloud"></div>#}
+            <div style="clear: both"></div>
+
+            <div class="control-container"><a href="{% url 'accounts:profile_change_password' %}" style="color: #2E7D31; font-size: 18px;">Изменить пароль</a></div>
+
+            <div class="buttons-container buttons-container-left"><button class="button" type="submit">Сохранить</button></div>
+            {{ form_profile.media }}
+        </form>
+
+
+    </div>
+{% endblock %}

@@ -1,0 +1,32 @@
+{% extends "accounts/base.html" %}
+{% load bootstrap3 %}
+
+{% block profile_content %}
+
+    <div class="jumbotron">
+
+        <p>Для совершений безопасных сделок требуется заключить договор.</p>
+        <p>Для этого его нужно скачать, заполнить и выслать нам через форму, которая находится ниже.</p>
+
+        <p><a class="btn btn-primary btn-lg" href="#" role="button">Download</a></p>
+    </div>
+
+    {% if not document %}
+        <form action="" method="post" class="form form-center" enctype="multipart/form-data">
+            {% csrf_token %}
+            {% bootstrap_form form %}
+            {% buttons %}
+                <button type="submit" class="btn btn-primary">
+                    Добавить
+                </button>
+            {% endbuttons %}
+        </form>
+    {% else %}
+        {% if document.certified %}
+            <div class="alert alert-info" role="alert"><strong>Все пучком!</strong> Документ добавлен и одобрен модератором.</div>
+        {% else %}
+            <div class="alert alert-warning" role="alert"><strong>Все пучком!</strong> Документ добавлен и ждет одобрения модератором.</div>
+        {% endif %}
+    {% endif %}
+
+{% endblock %}

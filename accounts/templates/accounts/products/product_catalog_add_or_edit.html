@@ -1,0 +1,42 @@
+{% extends "accounts/products/products.html" %}
+{% load widget_tweaks thumbnail common_exras %}
+
+{% block breadcrumbs %}
+    {{ block.super }}
+    <div class="breadcrumb"><span>{% if products_catalog.id %}Реадктировать{% else %}Добавить{% endif %}</span></div>
+{% endblock %}
+
+{% block extra_js %}
+        <script>
+            $(function(){
+                var id_product_catalog = '#{{ form.parent.id_for_label }}';
+                select2_basic_initial($(id_product_catalog))
+            })
+        </script>
+{% endblock %}
+
+{% block profile_content %}
+    <div class="nav_name">
+        <div class="Full_name">{% if work_catalog.id %}Реадктировать{% else %}Добавить{% endif %} каталог изделий</div>
+    </div>
+    <form action="" method="post" class="form form-center" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.action }}
+
+        <div class="form-row">
+            <div class="form-col-6">
+                <div class="control-container {{ form.title.css_classes }}">{{ form.title.label_tag }}{{ form.title }}</div>
+            </div>
+            <div class="form-col-6">
+                <div class="control-container {{ form.parent.css_classes }}">{{ form.parent.label_tag }}{{ form.parent }}</div>
+            </div>
+        </div>
+
+        <div class="control-container {{ form.description.css_classes }}">{{ form.description.label_tag }}{{ form.description }}</div>
+
+        {% include 'common/elements/uploadform.html' with form=form field=form.image %}
+
+        {% include 'common/elements/user_content_form_submit.html' %}
+    </form>
+    {{ form.media }}
+{% endblock %}

@@ -4,10 +4,9 @@
       <div class="column flex-container align-justify align-middle">
         <div class="flex-child-shrink small-order-2 large-order-1">
           <ul class="menu menu--top show-for-large">
-            <li class="menu__item"><a class="menu__link" href="">Новости</a></li>
-            <li class="menu__item"><a class="menu__link" href="">Статьи</a></li>
-            <li class="menu__item"><a class="menu__link" href="">Календарь</a></li>
-            <li class="menu__item"><a class="menu__link" href="">Помощь</a></li>
+              {% for item in cam_services %}
+              <li class="menu__item"><a class="menu__link" href="#">{{ item.name }}</a></li>
+              {% endfor %}
           </ul>
           <div class="flex-container align-middle hide-for-large">
             <div class="header__top-btn">
@@ -19,14 +18,14 @@
           </div>
         </div>
         <div class="flex-child-shrink small-order-1 large-order-2">
-          <a href="" class="logo logo--top-header hide-for-large">
+          <a href="/" class="logo logo--top-header hide-for-large">
             <img src="{{ STATIC_URL }}img/logo.svg" alt="" class="logo__img">
           </a>
           <ul class="menu menu--top">
             <li class="menu__item hide-for-large"></li>
             <li class="menu__item">
               {% if not request.user.is_authenticated %}
-                <a class="menu__link" href="">
+                <a class="menu__link" href="{% url 'authorization:registration' %}">
                   <span class="menu__profile-icon icon icon-user-plus icon-lg"></span>
                   <span class="show-for-large">Регистрация</span>
                 </a>
@@ -60,7 +59,7 @@
   <div class="page__line page__line--white">
     <div class="header__bottom row align-middle align-justify small-collapse medium-uncollapse">
       <div class="column shrink show-for-large">
-        <a href="" class="logo logo--bottom-header">
+        <a href="/" class="logo logo--bottom-header">
           <img src="{{ STATIC_URL }}img/logo.svg" alt="" class="logo__img">
         </a>
       </div>

@@ -1,0 +1,32 @@
+{% extends "accounts/base.html" %}
+{% load bootstrap3 thumbnail private_message %}
+
+{% block extra_css %}
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}accounts/css/private_messages.css" />
+{% endblock %}
+
+{% block breadcrumbs %}
+    {{ block.super }}
+    <div class="breadcrumb"><a href="{% url 'accounts:message_list' %}">Сообщения</a></div>
+{% endblock %}
+
+{% block profile_content %}
+
+    <div class="nav_name">
+        <div class="Full_name">Сообщения</div>
+    </div>
+
+    <div class="list-group">
+        {% for message in messages %}
+            <a href="{% url 'accounts:message_view' message.pk %}" class="list-group-item {% if not message|is_read:request.user %} not-read{% endif %}">
+                <span>{{ message.create_date|date:"d.m.y H:i" }}</span>
+                {% with message.get_relation_object as obj %}
+                        <p class="list-group-item-text">{{ message.subject }}</p>
+                        <p class="list-group-item-text list-group-item-secondary">{{ obj.title }}</p>
+                {% endwith %}
+            </a>
+        {% endfor %}
+    </div>
+
+    {% include 'common/pagination.html' with paginations=messages %}
+{% endblock %}

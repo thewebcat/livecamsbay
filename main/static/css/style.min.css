@@ -898,7 +898,7 @@ a {
 }
 
 .button.disabled, .button.disabled:focus, .button.disabled:hover, .button[disabled], .button[disabled]:focus, .button[disabled]:hover {
-    background-color: #417538;
+    background-color: #f40361;
     color: #fff
 }
 
@@ -908,7 +908,7 @@ a {
 }
 
 .button.disabled.primary, .button.disabled.primary:focus, .button.disabled.primary:hover, .button[disabled].primary, .button[disabled].primary:focus, .button[disabled].primary:hover {
-    background-color: #417538;
+    background-color: #f40361;
     color: #fff
 }
 

@@ -1,0 +1,52 @@
+{% extends "accounts/news/news_view.html" %}
+{% load bootstrap3 widget_tweaks thumbnail common_exras %}
+
+{% block breadcrumbs %}
+    {{ block.super }}
+    <div class="breadcrumb"><span>{% if news.id %}Реадктировать{% else %}Добавить{% endif %}</span></div>
+{% endblock %}
+
+
+{% block profile_content %}
+    <div class="nav-right">
+        <div class="nav_name">
+            <div class="Full_name">{% if news.id %}Реадктировать{% else %}Добавить{% endif %} новость</div>
+        </div>
+
+        <form action="" method="post" enctype="multipart/form-data" class="uploadform">
+            {% csrf_token %}
+
+            {% check_forms form %}
+
+            <div class="control-container {{ form.title.css_classes }}">{{ form.title.label_tag }}{{ form.title }}</div>
+            <div class="control-container {{ form.short_text.css_classes }}">{{ form.short_text.label_tag }}{{ form.short_text }}</div>
+            <div class="control-container {{ form.text.css_classes }}">{{ form.text.label_tag }}{{ form.text }}</div>
+
+            {% include 'common/elements/uploadform.html' with field=form.image form=form %}
+
+{#            <div class="form-image-element" style="display: none">#}
+{#                <div class="form-image-input">#}
+{#                    {{ form.image }}#}
+{#                </div>#}
+{#            </div>#}
+{#            <div class="form-image-previews" style="margin-top: 20px;text-align: left;margin-left: 12px;">#}
+{#                {% if form.image.value %}#}
+{#                {% thumbnail ""|default:form.image.value 130x100 as thumb %}#}
+{#                    <div class="photo1" style=" display:inline-block; background-image: url('{{ thumb.url }}')">#}
+{#                    <div class="form-image-input" style="width: 100%; height: 100%;"></div>#}
+{#                    </div>#}
+{#                {% else %}#}
+{#                    <div class="photo" style=" display:inline-block;">#}
+{#                    <div class="form-image-input" style="width: 100%; height: 100%;"></div>#}
+{#                    </div>#}
+{#                {% endif %}#}
+{#            </div>#}
+
+            {% include 'tags/blocks/tags_control.html' with multiple_choice_tag_form=multiple_choice_tag_form %}
+
+            {% include 'common/elements/user_content_form_submit.html' %}
+
+        </form>
+        {{ form.media }}
+    </div>
+{% endblock %}

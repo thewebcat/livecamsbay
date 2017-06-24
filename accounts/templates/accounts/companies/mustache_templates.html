@@ -1,0 +1,50 @@
+{% verbatim %}
+<script id="company_list_separator_template" type="x-tmpl-mustache">
+<div class="line_down"></div>
+</script>
+<script id="company_list_template" type="x-tmpl-mustache">
+{{ #result.object_list }}
+<div class="inside">
+    <a href="{{ get_public_abs_url }}"><img src="{{ avatar }}" alt="{{ name }}"></a>
+    <div class="left" style="width:50%">
+        <div class="shares_title"><a href="{{ get_public_abs_url }}">{{ name }}</a></div>
+		<div class="categories" style="margin-top: 0px;">
+		    <a href="{{ get_public_abs_url }}" class="sottotitoli">{{ city_title }}</a>
+        </div>
+		<div class="info_wrap2">
+		    <div class="company-description">
+                {{{ description }}}
+				<a href="{{ get_public_abs_url }}" class="further">читать далее</a>
+            </div>
+        </div>
+	</div>
+
+	<div class="rating_wrap">
+		<p class="rating">
+            Рейтинг: {{ position }}
+            <span class="rating_from">/</span> <span class="rating_all">{{ producers_count }}</span>
+        </p>
+		<div class="shadow_diamond">
+			<div class="rating_diamond" style="width: {{ gems }}%" ></div>
+		</div>
+		<h3>Отзывы</h3>
+		<div class="shadow_star">
+		    <div class="rating_star" style="width:{{ ave_grade }}%"></div>
+		</div>
+		<div class="orders_num"></div>
+		<div class="sum">
+		    {{#orders}}<b>{{orders}}</b>{{/orders}}
+            {{^orders}}<b>0</b>{{/orders}}
+        </div>
+		<p style="margin:0">выполненных заказов</p>
+		<a class="comments_num" href="{{ get_public_abs_url }}?to_recalls=1">{{ testimonials }} отзывов</a><br>
+		<span class="sum_views_by_users" href="">{{ views }} просмотров</span>
+	</div>
+</div>
+{{#separator}}<div class="line_down"></div>{{/separator}}
+{{ /result.object_list }}
+{{#result.paginator.has_next}}
+<a href="{{result.paginator.next_page_url}}" class="jq_next_page next_page"><span>Показать еще</span></a>
+{{/result.paginator.has_next}}
+</script>
+{% endverbatim %}

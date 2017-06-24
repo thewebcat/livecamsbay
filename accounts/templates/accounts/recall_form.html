@@ -1,0 +1,28 @@
+<div id="recall_form_popup" class="popup" style="width: 500px;" >
+
+    <h3 style="margin-top:-10px;">Оставить отзыв</h3>
+    <b>Оцените работу компании по 5-ти бальной шкале:</b>
+
+    <div class="jq_call_order_form" style="position: relative">
+        <div class="call_order_form_success">
+            <p>Спасибо за ваш отзыв</p>
+        </div>
+
+        <form id="recall_form" method="post" action="recall/">
+            {% csrf_token %}
+                <div class="control-container {{ recall_form.rate.css_classes }}">{{ recall_form.rate.label_tag }}
+                    <div class="star-radio-group">
+                        {% for rate in recall_form.rate reversed %}
+                            <input {% if rate.is_checked %}checked="checked" {% endif %}id="{{ rate.id_for_label }}" name="{{ rate.name }}" type="radio"  value="{{ rate.choice_value }}" />
+                            <label for="{{ rate.id_for_label }}"></label>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="control-container {{ recall_form.text.css_classes }}">{{ recall_form.text.label_tag }}{{ recall_form.text }}</div>
+
+                <div class="buttons-container buttons-container-center"><button class="button" type="submit">Отправить</button></div>
+
+        </form>
+    </div>
+    <a class="close" title="Закрыть" href="#close"></a>
+</div>

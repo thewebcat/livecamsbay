@@ -52,11 +52,19 @@ INSTALLED_APPS = [
     'debug_toolbar',
     'bootstrap3',
     'sekizai',
+    'easy_thumbnails',
+    'cities_light',
+    'ckeditor',
+    'widget_tweaks',
+    'nocaptcha_recaptcha',
 
     # my apps
     'main',
     'seo',
     'call_orders',
+    'authorization',
+    'accounts',
+    'newsletter_email',
 ]
 
 DEBUG_TOOLBAR_PANELS = [
@@ -74,6 +82,11 @@ DEBUG_TOOLBAR_PANELS = [
     'debug_toolbar.panels.redirects.RedirectsPanel',
 ]
 
+CITIES_LIGHT_TRANSLATION_LANGUAGES = ['ru',]
+CITIES_LIGHT_INCLUDE_COUNTRIES = ['RU']
+
+NORECAPTCHA_SITE_KEY = '6LeVAiMTAAAAAPZSltV-WfpDwqyphmxsIU_U6gsF'
+NORECAPTCHA_SECRET_KEY = '6LeVAiMTAAAAAIoGXD8MP6qFEKDMZzgtJ6o0fLn8'
 
 ADMIN_TOOLS_INDEX_DASHBOARD = 'livecamsbay.dashboard.CustomIndexDashboard'
 ADMIN_TOOLS_APP_INDEX_DASHBOARD = 'livecamsbay.dashboard.CustomAppIndexDashboard'
@@ -107,6 +120,11 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                #
+                'livecamsbay.context_processors.get_settings',
+                'livecamsbay.context_processors.get_cam_services',
+
+                #
                 'sekizai.context_processors.sekizai',
             ],
             'loaders': [

@@ -1,0 +1,99 @@
+{% extends "accounts/works/works.html" %}
+{% load bootstrap3 thumbnail %}
+
+{% block breadcrumbs %}
+    {{ block.super }}
+    {% if work.id %}
+    <div class="breadcrumb"><a href="{{ work.private_url }}">{{ work.title|truncatewords:5 }}</a></div>
+    {% endif %}
+{% endblock %}
+
+{% block profile_content %}
+    <div class="service_view">
+
+        <div class="nav_name">
+            <div class="Full_name">{{ work.title }}</div>
+        </div>
+
+        <div class="slider_right">
+            <div class="img1">
+                {% thumbnail work.main_image 338x246 crop as thumb %}
+                <a href="{{ work.main_image.url }}" rel="example_group" id="adpdp14">
+                    <img src="{{ thumb.url }}" id="dp14" style="margin-bottom: 3px;" alt=""/>
+                </a>
+            </div>
+            <div class="thumbs">
+                {% for work_image in work.get_all_images %}
+                    <div class="it">
+                        {% thumbnail work_image.image 338x246 crop as thumb %}
+                        <a style="display:none;" href="{{ thumb.url }}" rel="example_group"></a>
+                        <img src="{{ thumb.url }}" onclick='setBigImage(this);' alt=""/>
+                    </div>
+                {% endfor %}
+
+                <div class="clr"></div>
+            </div>
+
+        </div>
+        <div class="slider_left1 {{ work.get_css_class_for_actions }}">
+            <div class="shares_right">
+                <div style="float: right; display: block; margin-left: 0; margin-top: 15px;" class="shares_wrap2 {{ work.get_css_class_for_actions_visible }}">
+                    {{ work.get_actions_html }}
+                </div>
+            </div>
+            <p class="sale-title">{{ work.title }}</p>
+
+            <div class="sale-text">{{ work.description|safe }}</div>
+{#            <div class="price">Цена <br> от <span class="cost">{{ service.price }}</span> RUB</div>#}
+{#            <a href="" class="price">Город</a> <br>#}
+            <a href="" class="price">{{ work.work_catalog.title }}</a><br><br>
+
+            <div style="clear: both"></div>
+            <div>
+                <div style="float: left">
+                    {% include 'common/elements/views_count.html' %}
+                    {% include 'common/elements/comments_count.html' %}
+                </div>
+
+            </div>
+
+            <div style="clear: both"></div>
+
+
+        </div>
+
+    </div>
+
+
+{% endblock %}
+
+{% block profile_content1 %}
+
+
+    {% if work %}
+
+        <div class="panel-default">
+            <div class="panel-heading">{{ work.title }}</div>
+            <div class="panel-body">
+                <p>{{ work.description|safe }}</p>
+                {% if work.workimage_set.all %}
+                <div class="row">
+                {% for image in work.workimage_set.all %}
+                    <div class="col-xs-6 col-md-3">
+                        {% thumbnail image.image 171x180 crop as thumb %}
+                        <a href="#" class="thumbnail">
+                            <img src="{{ thumb.url }}" alt="" width="171px" height="180px">
+                        </a>
+                    </div>
+                {% endfor %}
+                </div>
+                {% endif %}
+
+            </div>
+        </div>
+
+    {% else %}
+        <div class="alert alert-warning" role="alert">Работа не найдена</div>
+    {% endif %}
+
+{% endblock %}

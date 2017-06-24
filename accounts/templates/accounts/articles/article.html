@@ -1,0 +1,57 @@
+{% extends "accounts/articles/articles.html" %}
+{% load bootstrap3 thumbnail %}
+
+{% block breadcrumbs %}
+    {{ block.super }}
+    <div class="breadcrumb"><a href="{{ article.private_url }}">{{ article.title|truncatewords:5 }}</a></div>
+{% endblock %}
+
+{% block profile_content %}
+    <div class="block_info">
+        <div class="nav_name">
+            <div class="Full_name">{{ article.title }}</div>
+        </div>
+		<div class="slider_right">
+            <div class="img1">
+                {% thumbnail article.main_image 340x340 crop as thumb %}
+                <a href="{{ article.main_image.url }}" rel="example_group" data-fancybox id="adpdp14">
+                    <img src="{{ thumb.url }}" id="dp14" style="margin-bottom: 3px;" alt="{{ article.title }}"/>
+                </a>
+            </div>
+            <div class="thumbs">
+                {% for article_image in article.articleimage_set.all %}
+                    <div class="it">
+                        {% thumbnail article_image.image 340x340 crop as thumb %}
+                        <a style="display:none;" href="{{ thumb.url }}" rel="example_group"></a>
+                        <img src="{{ thumb.url }}" onclick='setBigImage(this);' alt="Миниатюра {{ forloop.counter }}: {{ article.title }}"/>
+                    </div>
+                {% endfor %}
+
+                <div class="clr"></div>
+            </div>
+
+        </div>
+
+			<div class="slider_left1">
+				<p class="sale-title">{{ article.title }}</p>
+				<div class="categories">
+				<span class="sottotitoli">{{ article.publish_date|date:'d.m.Y' }}</span><div class="dividing_line"></div>
+{#				<a href="" class="sottotitoli">Кварцевый агломерат </a><div class="dividing_line"></div>#}
+				<a href="" class="sottotitoli">{{ article.profile.city.title }}</a><div class="dividing_line"></div>
+				<a href="" class="sottotitoli">{{ article.profile.name }}</a>
+				</div>
+				<div class="info_wrap">
+					<div class="sale-text">{{ article.text|safe }}</div>
+				</div>
+{#				<div class="action_statistics">#}
+{#					<div class="views">Просмотры</div>#}
+{#					<div class="reviews">Отзывы</div>#}
+{#					<div class="shares_wrap2">#}
+{#						<div class="shares-edit"></div>#}
+{#						<div class="shares-del"></div>#}
+{#					</div>#}
+{#				</div>#}
+			</div>
+			<div style="clear: both"></div>
+		</div>
+{% endblock %}

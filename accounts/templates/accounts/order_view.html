@@ -1,0 +1,82 @@
+{% extends "accounts/orders.html" %}
+{% load permissions %}
+{% load bootstrap3 thumbnail common_exras widget_tweaks %}
+
+{% block breadcrumbs %}
+    {{ block.super }}
+    <div class="breadcrumb"><a href="{{ order.private_url }}">{{ order.title|truncatewords:5 }}</a></div>
+{% endblock %}
+
+{% block extra_js %}
+    <script>
+        $(function(){
+            var id_currency = '#{{ form.currency.id_for_label }}';
+            select2_basic_initial($(id_currency))
+        })
+    </script>
+{% endblock %}
+
+{% block profile_content %}
+    <div class="block_info">
+    {% if order %}
+
+        {% include 'orders/blocks/order_view.html' %}
+
+        {% if order.customer == request.user.profile or order.performer == request.user.profile %}
+            {% if order.is_publishing and order.completed %}
+
+                {% include 'orders/blocks/comment_form.html' %}
+
+    {#            <div class="alert alert-warning" role="alert"><strong>Внимание!</strong> Для заключения сделки нужно заключить договор. Перейдите по ссылке <a href="{% url 'accounts:documents' %}">Заключение договора</a></div>#}
+
+            {% endif %}
+        {% endif %}
+
+        {% if offers %}
+            {% for offer in offers %}
+                {% include 'orders/blocks/offers.html' %}
+            {% endfor %}
+        {% endif %}
+
+        {% if request.user.profile.is_producers and not order.performer %}
+{#            {% if request.user.profile.is_master and order.secure_transaction %}#}
+
+{#            {% elif order.customer != request.user.profile and not order.completed %}#}
+                <a name="add_offer"></a>
+                <div class="nav-right">
+                <div class="nav_name">
+                    <div class="Full_name">Ответить на заказ</div>
+                </div>
+                <form action="" method="post">
+                    {% csrf_token %}
+                    {{ form.action }}
+
+                    {{ form.errors }}
+
+                    <div class="form-row">
+                        <div class="form-col-12">
+                            <div class="control-container {{ form.offer.css_classes }}">{{ form.offer.label_tag }}{{ form.offer }}</div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-col-8"></div>
+                        <div class="form-col-2">
+                            <div class="control-container {{ form.price.css_classes }}">{{ form.price.label_tag }}{{ form.price }}</div>
+                        </div>
+                        <div class="form-col-2">
+                            <div class="control-container {{ form.currency.css_classes }}">{{ form.currency.label_tag }}{{ form.currency }}</div>
+                        </div>
+                    </div>
+
+                    <div class="buttons-container buttons-container-center"><button class="button" type="submit">Отправить</button></div>
+
+                </form>
+
+            </div>
+{#            {% endif %}#}
+        {% endif %}
+    {% else %}
+        <div>Заказ не найден</div>
+    {% endif %}
+    </div>
+{% endblock %}

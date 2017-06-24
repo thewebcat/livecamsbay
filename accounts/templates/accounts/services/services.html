@@ -1,0 +1,68 @@
+{% extends "accounts/base.html" %}
+{% load bootstrap3 thumbnail common_exras %}
+
+{% block breadcrumbs %}
+    {{ block.super }}
+    <div class="breadcrumb"><a href="{% url 'accounts:services' %}">Услуги</a></div>
+{% endblock %}
+
+{% block profile_content %}
+    <div class="nav_name">
+        <div class="Full_name">Услуги</div>
+        <div class="plus">
+            <a href="{% url 'accounts:service_add' %}" class="add-on"></a>
+        </div>
+        {% include 'accounts/blocks/state_filter.html' %}
+    </div>
+
+    <div class="block_info">
+    {% if services %}
+        <div class="service_list">
+        {% for service in services %}
+
+            <div class="inside {{ service.get_css_class_for_actions }}">
+                {{ service.get_actions_html }}
+                {% thumbnail service.main_image 250x250 crop as thumb %}
+                <a href="{{ service.private_url }}"><img src="{{ thumb.url }}" alt=""></a>
+
+                <div class="shares_left">
+                    <div class="shares_title"><a href="{{ service.private_url }}">{{ service.title }}</a></div>
+                    <div class="categories">
+                        <span class="sottotitoli">{{ service.create_date|date:"d.m.Y" }} </span>
+
+                        <div class="dividing_line"></div>
+                        <a href="" class="sottotitoli">{{ service.service_catalog.title }} </a>
+
+                        <div class="dividing_line"></div>
+                        <a href="" class="sottotitoli">{{ service.profile.city.title }}</a>
+                    </div>
+                    <div class="info_wrap2">
+                        <div class="sale-text2">
+                            {{ service.description|truncatechars_html:400|safe }}
+                        </div>
+                        <br>
+
+                        <div class="price_wrap">
+                            {% if service.currency.is_currency %}
+                                <p class="price">Цена от</p>
+                                <p class="cost">{{ service.price }}</p>
+                                <p class="price">{{ service.currency }}</p>
+                            {% else %}
+                                <p class="price">Скидка до</p>
+                                <p class="cost">{{ service.price }}</p>
+                                <p class="price">{{ service.currency }}</p>
+                            {% endif %}
+                        </div>
+                        <div class="action_statistics"></div>
+                    </div>
+                </div>
+            </div>
+            {% if not forloop.last %}<div class="line_down"></div>{% endif %}
+        {% endfor %}
+
+        </div>
+    {% else %}
+            <p>Пусто</p>
+    {% endif %}
+    </div>
+{% endblock %}

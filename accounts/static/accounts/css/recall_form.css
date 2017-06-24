@@ -1,0 +1,16 @@
+#for_recall_form{
+    cursor: pointer;
+}
+#recall_form ul{
+    margin: 1em auto;
+    -webkit-margin-before: 0em;
+    -webkit-margin-after: 0em;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+    -webkit-padding-start: 0px;
+}
+
+#recall_form li{
+    list-style-type: none;
+    display: inline-block;
+}

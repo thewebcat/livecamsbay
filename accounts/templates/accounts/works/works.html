@@ -1,0 +1,77 @@
+{% extends "accounts/base.html" %}
+{% load bootstrap3 thumbnail static sekizai_tags %}
+
+{% block breadcrumbs %}
+    {{ block.super }}
+    <div class="breadcrumb"><a href="{% url 'accounts:works' %}">Каталог работ</a></div>
+    {% for breadcrumb in breadcrumbs %}
+        <div class="breadcrumb"><a href="{{ breadcrumb.private_url }}">{{ breadcrumb.title|truncatewords:5 }}</a></div>
+    {% endfor %}
+{% endblock %}
+
+{% block profile_content %}
+
+        <div class="nav_name">
+            <div class="Full_name">Каталог работ</div>
+        </div>
+        <div class="spacer"></div>
+        {% if list.add_catalog %}
+            <a href="#{{ form_catalog.description.id_for_label }}_popup" class="jq_open_popup button" data-fancybox style="margin-right:25px;">Добавить каталог</a>
+            {% include 'accounts/works/forms/catalog_form.html' %}
+        {% endif %}
+        {% if list.add_work %}
+            <a href="#{{ form_work.description.id_for_label }}_popup" class="jq_open_popup button" data-fancybox>Добавить работу</a>
+            {% include 'accounts/works/forms/work_form.html' %}
+        {% endif %}
+        <a href="#x" class="overlay" id="win2"></a>
+
+        <div class="block_info flex-container" style="flex-wrap: wrap">
+            {% if list.catalogs %}
+                {% for catalog in list.catalogs %}
+                    <div class="cataloge {{ catalog.get_css_class_for_actions }}" data-resize="true">
+                    {{ catalog.get_actions_html }}
+                        <a href="{{ catalog.private_url }}">
+                            {% thumbnail catalog.get_image 205x180 crop as thumb %}
+                            <img src="{{ thumb.url }}" style="width:205px;">
+                            <span class="figcaption1">{{ catalog.title }}</span>
+                        </a>
+                    </div>
+                {% endfor %}
+                {% include "common/pagination.html" with paginations=list.catalogs %}
+            {% elif list.works %}
+                {% for work in list.works %}
+                    <div class="cataloge inline {{ work.get_css_class_for_actions }}" data-resize="true">
+                        {{ work.get_actions_html }}
+                        <a href="{{ work.private_url }}">
+                            {% thumbnail work.main_image 205x180 crop as thumb %}
+                            <img src="{{ thumb.url }}" style="width:205px;">
+                            <span class="figcaption1">{{ work.title }}</span>
+                        </a>
+                    </div>
+                {% endfor %}
+                {% include "common/pagination.html" with paginations=list.works %}
+            {% else %}
+                <p>Каталог пуст </p>
+            {% endif %}
+        </div>
+{% endblock %}
+{% block extra_js %}
+    <script type="text/javascript" src="{% static "ckeditor/ckeditor/ckeditor.js" %}"></script>
+    <script>
+        $(document).ready(function() {
+            {% if list.add_catalog %}
+                modalFancyboxWithCKEditor(
+                    "#{{ form_catalog.description.id_for_label }}",
+                    $('[href="#{{ form_catalog.description.id_for_label }}_popup"]')
+                );
+            {% endif %}
+            {% if list.add_work %}
+                modalFancyboxWithCKEditor(
+                    "#{{ form_work.description.id_for_label }}",
+                    $('[href="#{{ form_work.description.id_for_label }}_popup"]')
+                );
+            {% endif %}
+        });
+    </script>
+{% endblock %}
+

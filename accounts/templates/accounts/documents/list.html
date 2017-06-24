@@ -1,0 +1,43 @@
+{% extends "accounts/base.html" %}
+{% load thumbnail %}
+
+{% block breadcrumbs %}
+    {{ block.super }}
+    <div class="breadcrumb"><a href="">Документы</a></div>
+{% endblock %}
+
+{% block profile_content %}
+    <div class="nav_name">
+        <div class="Full_name">Документы</div>
+        {#			<div class="plus">#}
+        {#				<a href="{% url 'company:offer_add' %}" class="add-on"></a>#}
+        {#			</div>#}
+    </div>
+    {% for document in documents %}
+
+        <div class="documentation_wrap">
+            <div class="doc_left">
+                <div class="documentation"></div>
+                <div class="doc_wrap">
+                    <div class="doc_title">{{ document.get_type_display }}</div>
+                    <a href="" class="doc_category">Опубликовано: {{ document.create_date|date:"d.m.Y" }}</a><br>
+
+                </div>
+            </div>
+
+            <div class="doc_right">
+                <div class="delete"></div>
+                <a class="doc_link">Удалить</a><br>
+
+                <div class="download"></div>
+                <a href="{{ document.file.url }}" target="_blank" class="doc_link">Скачать</a><br>
+
+            </div>
+            <div class="number"><a href="{% url 'accounts:order_view' document.order.pk %}">Заказ № {{ document.order.id|stringformat:"04d" }}</a></div>
+        </div>
+
+        {% if not forloop.last %}<div class="menu_line" style="margin-top:23px;"></div>{% endif %}
+
+    {% endfor %}
+
+{% endblock %}

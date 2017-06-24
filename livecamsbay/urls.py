@@ -19,8 +19,14 @@ from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
 
+from newsletter_email.views import email_subscribe
+
 urlpatterns = [
                   url(r'^', include('main.urls')),
+                  url(r'^auth/', include('authorization.urls', namespace="authorization")),
+
+                  # subscribe
+                  url(r'^subscribe', email_subscribe, name='email_subscribe'),
 
                   url(r'^admin_tools/', include('admin_tools.urls')),
                   url(r'^admin/', admin.site.urls),

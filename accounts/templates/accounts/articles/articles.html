@@ -1,0 +1,51 @@
+{% extends "accounts/base.html" %}
+{% load bootstrap3 thumbnail %}
+
+{% block breadcrumbs %}
+    {{ block.super }}
+    <div class="breadcrumb"><a href="{% url 'accounts:articles' %}">Статьи</a></div>
+{% endblock %}
+
+{% block profile_content %}
+    <div class="nav_name">
+        <div class="Full_name">Статьи</div>
+
+        <div class="plus">
+            <a href="{% url 'accounts:article_add' %}" class="add-on"></a>
+        </div>
+        {% include 'accounts/blocks/state_filter.html' %}
+    </div>
+
+    <div class="block_info">
+    {% for article in articles %}
+        <div class="inside {{ article.get_css_class_for_actions }}">
+            {{ article.get_actions_html }}
+
+            {% thumbnail article.main_image 250x250 crop as thumb %}
+            <a href="{% url 'accounts:article_view' article.pk %}">
+            <img src="{{ thumb.url }}" alt="{{ article.title }}">
+            </a>
+            <div class="shares_left">
+            <div class="shares_title">
+                <a href="{% url 'accounts:article_view' article.pk %}">{{ article.title }}</a>
+            </div>
+            <div class="categories">
+                <span class="sottotitoli">{{ article.create_date|date:"d.m.Y" }} </span>
+                <div class="dividing_line"></div>
+                <p href="" class="sottotitoli">{{ article.profile.city.title }}</p>
+                <div class="dividing_line"></div>
+                <p href="" class="sottotitoli">{{ article.profile.name }}</p>
+            </div>
+            <div class="info_wrap2">
+                <div class="sale-text2">
+                    {{ article.text|truncatechars_html:400|safe }}
+                </div>
+            </div>
+            </div>
+        </div>
+
+       {% if not forloop.last %}<div class="line_down"></div>{% endif %}
+    {% endfor %}
+    </div>
+
+{% endblock %}

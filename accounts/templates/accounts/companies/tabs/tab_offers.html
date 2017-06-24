@@ -1,0 +1,75 @@
+{% load thumbnail common_exras %}
+<div style="margin-top:15px;"></div>
+
+{% for offer in offers %}
+<div class="div_element card_product">
+    <div class="slider_right">
+        {% thumbnail offer.main_image 340x340 crop as thumb %}
+        <div class="img1">
+            <a href="{{ thumb.url }}" rel="example_group" data-fancybox id="adpdp14">
+                <img src="{{ thumb.url }}" id="dp14" style="margin-bottom: 3px;" alt="{{ offer.title }}"></a>
+        </div>
+        <div class="thumbs">
+            {% for image in offer.get_all_images %}
+                {% thumbnail image.image 340x340 crop as thumb %}
+            <div class="it">
+                <a style="display:none;" href="{{ thumb.url }}" rel="example_group"></a>
+                <img src="{{ thumb.url }}" onclick="setBigImage(this);" alt="Миниатюра {{ forloop.counter }}: {{ offer.title }}">
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+
+    <div class="publick">
+        <div class="slider_left1">
+            <p class="sale-title">{{ offer.title }}</p>
+
+            <div class="wrap_icon">
+                <div class="vk1"></div>
+                <div class="twitter1"></div>
+                <div class="fs1"></div>
+                <div class="inst1"></div>
+            </div>
+            <div class="categories">
+                <span class="sottotitoli">{{ offer.create_date|date:"d.m.Y" }} </span>
+                <div class="dividing_line"></div>
+                <a href="{{ offer.profile.public_url }}" class="sottotitoli">{{ offer.profile.name }}</a>
+                <div class="dividing_line"></div>
+                <a href="" class="sottotitoli">{{ offer.profile.city.title }}</a>
+            </div>
+
+            <div class="info_wrap">
+                <div class="sale-text">
+                    {{ offer.description|safe }}
+                </div>
+                <p class="price">Сроки действия:</p>
+
+                <p class="price"> с {{ offer.start_date|date:"d.m.Y" }} по {{ offer.end_date|date:"d.m.Y" }}г</p>
+
+                {% if offer.currency %}
+                <div class="price_wrap">
+                    {% if offer.currency.is_currency %}
+                    <p class="price">Цена от</p>
+                    <p class="cost">{{ offer.cost|intspace }}</p>
+                    <p class="price">{{ offer.currency.title }}</p>
+                    {% else %}
+                    <p class="price">Скидка до</p>
+                    <p class="cost">{{ offer.cost|intspace }}</p>
+                    <p class="price">{{ offer.currency.title }}</p>
+                    {% endif %}
+                </div>
+                {% endif %}
+
+            </div>
+            <div class="action_statistics">
+                <div class="views">Просмотры</div>
+                <div class="reviews">Отзывы</div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+{% if not forloop.last %}<div class="line_down" style="margin-bottom: 15px;"></div>{% endif %}
+{% endfor %}

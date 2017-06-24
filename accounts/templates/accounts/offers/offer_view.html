@@ -1,0 +1,72 @@
+{% extends "accounts/offers/offers.html" %}
+{% load widget_tweaks thumbnail common_exras %}
+
+{% block breadcrumbs %}
+    {{ block.super }}
+    {% if offer.id %}
+    <div class="breadcrumb"><a href="{{ offer.private_url }}">{{ offer.title|truncatewords:5 }}</a></div>
+    {% endif %}
+{% endblock %}
+
+{% block profile_content %}
+    <div class="block_info">
+        <div class="service_view">
+			<div class="nav_name">
+				<div class="Full_name">{{ offer.title }}</div>
+{#				<div class="back" style="margin-right:10px"></div>#}
+			</div>
+
+            <div class="slider_right">
+                <div class="img1">
+                    {% thumbnail offer.main_image 340x340 crop as thumb %}
+                    <a href="{% check_empty offer.main_image.url thumb.url %}" data-fancybox rel="example_group" id="adpdp14">
+                        <img src="{{ thumb.url }}" id="dp14" style="margin-bottom: 3px;" alt=""/>
+                    </a>
+                </div>
+                <div class="thumbs">
+                    {% for offer_image in offer.offerimage_set.all %}
+                        <div class="it">
+                            {% thumbnail offer_image.image 340x340 crop as thumb %}
+                            <a style="display:none;" href="{{ thumb.url }}" rel="example_group"></a>
+                            <img src="{{ thumb.url }}" onclick='setBigImage(this);' alt=""/>
+                        </div>
+                    {% endfor %}
+
+                    <div class="clr"></div>
+                </div>
+
+            </div>
+
+			<div class="slider_left1 {{ offer.get_css_class_for_actions }}">
+                <div class="shares_right">
+                    <div style="float: right; display: block; margin-left: 0; margin-top: 15px;" class="shares_wrap2 {{ offer.get_css_class_for_actions_visible }}">
+                        {{ offer.get_actions_html }}
+                    </div>
+                </div>
+                <p class="sale-title" style="width: 100%; display: inherit;">{{ offer.title }}</p>
+				<div class="categories">
+				<span class="sottotitoli">{{ offer.publish_date|date:'d.m.Y' }}</span><div class="dividing_line"></div>
+{#				<a href="" class="sottotitoli">Кварцевый агломерат </a><div class="dividing_line"></div>#}
+				<a href="" class="sottotitoli">{{ offer.city.title }}</a><div class="dividing_line"></div>
+				<a href="" class="sottotitoli">{{ offer.profile.name }}</a>
+				</div>
+				<div class="info_wrap">
+					<div class="sale-text">{{ offer.description|safe }}</div>
+					<p class="price">Сроки действия:</p> <p class="price"> с {{ offer.start_date|date:"d.m.Y" }} по {{ offer.end_date|date:"d.m.Y" }}</p>
+					<div class="price_wrap">
+                        {% if offer.currency.is_currency %}
+                            <p class="price">Цена от</p>
+                            <p class="cost">{{ offer.cost|intspace }}</p>
+                            <p class="price">{{ offer.currency.title }}</p>
+                        {% else %}
+                            <p class="price">Скидка до</p>
+                            <p class="cost">{{ offer.cost|intspace }}</p>
+                            <p class="price">{{ offer.currency.title }}</p>
+                        {% endif %}
+                    </div>
+				</div>
+			</div>
+			<div style="clear: both"></div>
+		</div>
+    </div>
+{% endblock %}

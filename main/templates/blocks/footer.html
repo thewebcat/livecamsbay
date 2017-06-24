@@ -3,7 +3,7 @@
 <div class="flex-child-shrink">
     <div class="page__line page__line--bgi-stone">
         <div class="page__line-title page__line-title--white">Будьте в курсе наших событий!</div>
-        <form id="email_subscribe" method="post" action="" class="row mini-gutter mini-gutter-off-xlarge-down">
+        <form id="email_subscribe" method="post" action="{% url 'email_subscribe' %}" class="row mini-gutter mini-gutter-off-xlarge-down">
           {% csrf_token %}
           <div class="columns small-12 large-6 xlarge-4 xxlarge-3">
             <input type="text" name="email" id="email_subscribe" placeholder="Введите e-mail" class="input-text input-text--subscribe">

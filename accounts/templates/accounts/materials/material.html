@@ -1,0 +1,49 @@
+{% extends "accounts/materials/materials.html" %}
+{% load thumbnail %}
+
+{% block breadcrumbs %}
+    {{ block.super }}
+    {% if material.id %}
+    <div class="breadcrumb"><a href="{{ material.private_url }}">{{ material.title|truncatewords:5 }}</a></div>
+    {% endif %}
+{% endblock %}
+
+{% block profile_content %}
+    <div class="nav_name">
+        <div class="Full_name">{{ material.title }}</div>
+    </div>
+
+    <div class="slider_right">
+        <div class="img1">
+            {% thumbnail material.main_image 339x247 crop as thumb %}
+            <a href="{{ thumb.url }}" rel="example_group" data-fancybox id="adpdp14">
+                <img src="{{ thumb.url }}" id="dp14" style="margin-bottom: 3px;" alt="{{ material.title }}">
+            </a>
+        </div>
+        <div class="thumbs">
+            {% for image in material.get_all_images %}
+                <div class="it">
+                    {% thumbnail image.image 339x247 crop as thumb %}
+                    <img src="{{ thumb.url }}" onclick="setBigImage(this);" alt="Миниатюра {{ forloop.counter }}: {{ material.title }}">
+                </div>
+            {% endfor %}
+
+            <div class="clr"></div>
+        </div>
+
+    </div>
+    <div class="slider_left1 {{ material.get_css_class_for_actions }}">
+        <div style="float: right; display: block; margin-left: 0; margin-top: 15px;" class="shares_wrap2 {{ material.get_css_class_for_actions_visible }}">
+            {{ material.get_actions_html }}
+        </div>
+        <p class="sale-title">{{ material.title }}</p>
+
+        <div class="sale-text">
+            {{ material.description|safe }}
+        </div>
+        <a href="" class="price">{{ material.country }}</a><br>
+        {% if material.production %}<a href="" class="price">{{ material.production }}</a><br>{% endif %}
+        <br>
+
+    </div>
+{% endblock %}

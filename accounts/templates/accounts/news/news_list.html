@@ -1,0 +1,54 @@
+{% extends "accounts/base.html" %}
+{% load bootstrap3 thumbnail common_exras %}
+
+{% block breadcrumbs %}
+    {{ block.super }}
+    <div class="breadcrumb"><a href="{% url 'accounts:news' %}">Новости</a></div>
+{% endblock %}
+
+{% block profile_content %}
+    <div class="nav_name">
+        <div class="Full_name">Новости</div>
+
+        <div class="plus">
+            <a href="{% url 'accounts:news_add' %}" class="add-on"></a>
+        </div>
+        {% include 'accounts/blocks/state_filter.html' %}
+    </div>
+
+    <div class="block_info">
+    {% for news in list %}
+        <div class="inside {{ news.get_css_class_for_actions }}">
+            {{ news.get_actions_html }}
+
+            {% thumbnail news.get_image 250x250 crop as thumb %}
+            <a href="{% url 'accounts:news_view' news.pk %}">
+                <img src="{{ thumb.url }}">
+            </a>
+            <div class="shares_left">
+            <div class="shares_title">
+                <a href="{% url 'accounts:news_view' news.pk %}">{{ news.title }}</a>
+            </div>
+            <div class="categories">
+            <span class="sottotitoli">{{ news.create_date|date:"d.m.Y" }} </span><div class="dividing_line"></div>
+{#            <a href="" class="sottotitoli">Кварцевый агломерат </a><div class="dividing_line"></div>#}
+            <a href="" class="sottotitoli">{{ news.profile.city.title }}</a><div class="dividing_line"></div>
+            <a href="" class="sottotitoli">{{ news.profile.name }}</a>
+            </div>
+            <div class="info_wrap2">
+                <div class="sale-text2">
+                    {{ news.short_text|safe }}
+                </div>
+            </div>
+{#            <div class="action_statistics">#}
+{#                <div class="views">Просмотры</div>#}
+{#                <div class="reviews">Отзывы</div>#}
+{#            </div>#}
+            </div>
+        </div>
+
+       {% if not forloop.last %}<div class="line_down"></div>{% endif %}
+    {% endfor %}
+    </div>
+
+{% endblock %}

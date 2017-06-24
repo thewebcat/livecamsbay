@@ -1,0 +1,110 @@
+<style>
+    #jq_catalog_tabs .tabs a.active {
+
+        color: #358c38;
+        background: none;
+    }
+    #jq_catalog_tabs .tabs .ui-state-active a,
+    #jq_catalog_tabs .tabs .ui-state-active a.active {
+        background: none;
+        color: #358c38;
+    }
+    #jq_catalog_tabs .tabs .ui-state-active {
+        background: none;
+        border-bottom: 2px solid #358c38;
+    }
+{#    #jq_catalog_tabs .tabs a {#}
+{#        border-bottom:2px solid #358c38;#}
+{#        color:#358c38;#}
+{#        background: none;#}
+{#    }#}
+
+.ajax_load_catalogs a.jq_next_page {
+    display: none;
+    padding-top: 0;
+    padding-bottom: 20px;
+}
+.ajax_load_catalogs a.jq_next_page span {
+    text-align: center;
+    border: 1px solid #358c38;
+    background-color: #A4D89D;
+    color: white;
+    margin: 0 505px;
+    display: block;
+    padding: 10px;
+}
+.ajax_load_catalogs a.jq_next_page:last-child {
+    display: block;
+}
+</style>
+<script>
+$(function () {
+    $("#jq_catalog_tabs").tabs({
+        active: 0
+    });
+    $('#catalog_products .tabs a').on('click', function(e){
+        e.preventDefault()
+    })
+});
+</script>
+<div id="jq_catalog_tabs">
+<ul class="tabs" style="margin: 0; height: 42px;">
+    <li style="padding: 0"><a href="#catalog_products">Каталог товаров</a></li>
+    <li style="padding: 0"><a href="#catalog_materials">Каталог камней</a></li>
+    <li style="padding: 0"><a href="#catalog_works">Каталог работ</a></li>
+    <li style="padding: 0"><a href="#catalog_services">Каталог услуг</a></li>
+</ul>
+
+<script>
+
+</script>
+
+<div id="catalog_products">
+    <ul class="tabs" >
+    {% for menu_catalog in menu_catalogs %}
+        <li id="tab{{ forloop.counter }}" style="padding: 10px">
+            <a style="padding: 0" href="">{{ menu_catalog.get_title }}</a>
+        </li>
+    {% endfor %}
+    </ul>
+    <div class="jq_catalog_contents">
+    {% for menu_catalog in menu_catalogs %}
+        <div id="content{{ forloop.counter }}" class="tabscontent tabscontent_catalog jq_catalog_{{ forloop.counter0 }}">
+            <div class="jq_catalog_{{ forloop.counter0 }}_carousel_titles jq_trigger_ajax_load_catalogs">
+
+            {% if menu_catalog.object_pk %}
+                {% if menu_catalog.get_children %}
+                {% include 'accounts/companies/tabs/catalogs/products.html' %}
+                {% endif %}
+
+            {% else %}
+
+                {% include 'accounts/companies/tabs/catalogs/materials.html' with custom_prefix=0 %}
+
+            {% endif %}
+
+
+            </div>
+            <div class="jq_catalog_{{ forloop.counter0 }}_catalogs"></div>
+        </div>
+    {% endfor %}
+    </div>
+</div>
+
+<div id="catalog_materials">
+    <div class="tabscontent" style="display: block">
+    {% include 'accounts/companies/tabs/catalogs/materials.html' with menu_catalog=material_catalogs custom_prefix=1 %}
+    </div>
+</div>
+<div id="catalog_works">
+    {% include 'accounts/companies/tabs/catalogs/works.html' %}
+</div>
+<div id="catalog_services">
+    {% include 'accounts/companies/tabs/catalogs/services.html' %}
+</div>
+
+</div>
+
+
+{% include 'products/blocks/mustache_templates.html' %}
+{% include 'accounts/companies/tabs/mustache/mustache_service_templates.html' %}

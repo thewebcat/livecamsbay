@@ -1,0 +1,61 @@
+{% load thumbnail %}
+
+<div style="margin-top:15px;"></div>
+{% for news in news_list %}
+    <div class="card_product">
+    <div class="slider_right">
+        <div class="img1">
+            {% thumbnail news.get_image 340x340 crop as thumb %}
+            <img src="{{ thumb.url }}" id="dp14" style="margin-bottom: 3px;" alt="{{ news.title }}">
+        </div>
+    </div>
+    <div class="publick">
+        <div class="slider_left1">
+            <div style="width:100%">
+                <p class="sale-title">{{ news.title|upper }}</p>
+    {#            <div class="wrap_icon">#}
+    {#                <div class="vk1"></div>#}
+    {#                <div class="twitter1"></div>#}
+    {#                <div class="fs1"></div>#}
+    {#                <div class="inst1"></div>#}
+    {#            </div>#}
+                <div class="categories">
+                <span class="sottotitoli">{{ news.create_date|date:"d.m.Y" }} </span><div class="dividing_line"></div>
+    {#            <a href="" class="sottotitoli">Керамогранит</a><div class="dividing_line"></div>#}
+                <a href="" class="sottotitoli">{{ news.profile.name }}</a><div class="dividing_line"></div>
+                <a href="" class="sottotitoli">{{ news.profile.city.title }}</a>
+                </div>
+
+                <div class="info_wrap">
+                    <div class="sale-text">{# sale-text-scrollbar #}
+                        {{ news.text|safe }}
+                    </div>
+
+                </div>
+                <div class="action_statistics">
+                    {% include 'common/elements/views_count.html' %}
+                    {% include 'common/elements/comments_count.html' %}
+                </div>
+            </div>
+        </div>
+        <div style="clear:both"></div>
+    </div>
+    <div style="clear:both"></div>
+    </div>
+
+    {% if not forloop.last %}<div style="clear: both"></div><div class="line_down" style="margin-bottom: 15px;"></div>{% endif %}
+{% endfor %}
+
+<script>
+{#$(function() {#}
+{#    $('.sale-text-scrollbar0')#}
+{#            .addClass('default-skin')#}
+{#            .customScrollbar()#}
+{# })#}
+</script>
+
+<style>
+    .card_product:after {
+        clear: both;
+    }
+</style>

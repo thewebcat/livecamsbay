@@ -1,0 +1,32 @@
+{% extends "accounts/articles/articles.html" %}
+{% load bootstrap3 widget_tweaks thumbnail common_exras %}
+
+{% block breadcrumbs %}
+    {{ block.super }}
+    <div class="breadcrumb"><a href="{% url 'accounts:article_add' %}">Добавить</a></div>
+{% endblock %}
+
+{% block profile_content %}
+
+    <div class="nav_name">
+        <div class="Full_name">Добавить статью</div>
+    </div>
+    <form action="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        {% check_forms form %}
+
+        <div class="control-container {{ form.title.css_classes }}">{{ form.title.label_tag }}{{ form.title }}</div>
+        <div class="control-container {{ form.text.css_classes }}">{{ form.text.label_tag }}{{ form.text }}</div>
+
+        {% include 'common/elements/uploadformset.html' %}
+
+        {% include 'tags/blocks/tags_control.html' with multiple_choice_tag_form=multiple_choice_tag_form %}
+
+        {% include 'common/elements/user_content_form_submit.html' %}
+
+    </form>
+    {{ form.media }}
+
+
+{% endblock %}

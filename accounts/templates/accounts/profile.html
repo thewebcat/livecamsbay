@@ -1,0 +1,173 @@
+{% extends "accounts/base.html" %}
+{% load bootstrap3 common_exras thumbnail %}
+
+{% block breadcrumbs %}
+    {{ block.super }}
+    <div class="breadcrumb"><a href="{% url 'accounts:profile' %}">Профиль</a></div>
+{% endblock %}
+
+{% block extra_js %}
+    <script src="{{ STATIC_URL }}js/catalogs.js" type="text/javascript"></script>
+{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/catalogs_update.css" />
+{% endblock %}
+
+{% block profile_content %}
+
+    <div class="block_info">
+
+        <div class="nav_name">
+            <div class="Full_name">{{ request.user.profile.name }}</div>
+        </div>
+
+        {% if request.user.profile.is_user %}
+            {% thumbnail request.user.profile.get_avatar 250x250 crop as thumb %}
+            <div class="nav-foto" style="background: url('{{ thumb.url }}') center center no-repeat"></div>
+            <div class="nav_information">
+{#                <li>{{ request.user.email }}</li>#}
+                <li>{{ request.user.profile.city }}<br>
+                    {{ request.user.profile.name }}</li>
+            </div>
+            <div class="check">
+                <a href="{% url 'accounts:order_add' %}">
+                    <img src="{{ STATIC_URL }}images/check.png" alt="Оформить заказ" style="margin-right:10px;">Оформить заказ
+                </a>
+            </div>
+            <a href="{% url 'accounts:profile_edit' %}" class="edit">Редактировать информацию</a>
+
+            {% if request.user.profile.description %}
+                <div class="nav">
+                    <div class="about-me">Обо мне</div>
+                </div>
+                <div class="nav_biography">
+                    {{ request.user.profile.description|safe }}
+                </div>
+            {% endif %}
+
+        {% elif request.user.profile.is_company or request.user.profile.is_master %}
+            <div class="inside">
+
+                {% thumbnail request.user.profile.get_avatar 250x250 crop as thumb %}
+                <img src="{{ thumb.url }}" alt="{{ request.user.profile.name }}">
+
+
+				<div class="contacts_wrap editing">
+                    {% if request.user.profile.is_company %}
+					<p class="rating">Контакты компании</p>
+                    {% else %}
+					<p class="rating">Контакты мастера</p>
+                    {% endif %}
+
+                {% if request.user.profile.is_company %}
+					<p><span class="title_name">Оператор биржи:</span> {{ request.user.profile.get_contactperson }}</p>
+                {% else %}
+					<p><span class="title_name">ФИО:</span> {{ request.user.profile.name }}</p>
+                {% endif %}
+
+
+					<p><span class="title_name">Тел/факс:</span> {{ request.user.profile.get_phone }}</p>
+					<p><span class="title_name">E-mail:</span> {{ request.user.profile.get_email }}</p>
+					<p><span class="title_name">Web-сайт:</span> {{ request.user.profile.get_url }}</p>
+                {% if request.user.profile.is_company %}
+					<p><span class="title_name">Фактический адрес:</span> {% if request.user.profile.address %}{{ request.user.profile.address }}{% endif %}</p>
+                {% else %}
+					<p><span class="title_name">Адрес:</span> {{ request.user.profile.address }}</p>
+                {% endif %}
+
+				</div>
+				<div class="rating_wrap editing">
+					<p class="rating">
+                        Рейтинг: {% if company.position %}{{ company.position }}{% else %}{{ producers_count }}{% endif %}
+                        <span class="rating_from">/</span> <span class="rating_all">{{ producers_count }}</span>
+                    </p>
+                    <div class="shadow_diamond">
+						<div class="rating_diamond" style="width: {% widthratio company.profilegrades.get_gems 5 100 %}%" ></div>
+					</div>
+                    <h3>Отзывы</h3>
+					<div class="shadow_star">
+						<div class="rating_star" style="width: {{ company.ave_rate }}%" ></div>
+					</div>
+					<div class="orders_num"></div><div class="sum">{{ company.orders_finished }}</div>
+					<p class="ed_green">заказов</p>
+					<a  class="comments_num" href="#button_for_look_recalls">{{ testimonials.count }} отзывов</a><br>
+                    <a  class="sum_views_by_users">{{ company.views.get.profiles.count | default:0 }} просмотров</a>
+				</div>
+
+			</div>
+			<a class="edit editing" href="{% url 'accounts:profile_edit' %}">Редактировать информацию</a>
+            {% if request.user.profile.description %}
+                <div class="nav">
+                    <div class="about-me"> Описание деятельности</div>
+                </div>
+                <div class="description-text">
+                    {{ request.user.profile.description|safe }}
+                </div>
+            {% endif %}
+
+
+
+
+
+            <script>
+            $(function () {
+                $("#jq_tabs").tabs();
+            });
+            </script>
+            <style>
+                .ui-state-active {
+                    color: #fefefe;
+                    background:#236125;
+                    border: none;
+                    outline: none;
+                }
+                .ui-state-active a {
+                    border: none;
+                    outline: none;
+                    background:#236125;
+                }
+            </style>
+            <div id="jq_tabs">
+                <ul class="css-menu-3" style="margin-bottom:0">
+                    <li><a href="#tab_offers">Акции и предложения</a></li>
+                    <li><a href="#tab_news">Новости</a></li>
+                    <li><a href="#tab_catalogs">Каталоги</a></li>
+{#                    <li><a href="#tab_vacancies">Вакансии</a></li>#}
+                    <li><a href="#tab_events">Мероприятия</a></li>
+                </ul>
+                <div>
+                    <div id="tab_offers" class="table_wrap" style="background-color: #ffffff;">
+                        {% include 'accounts/companies/tabs/tab_offers.html' with width='540px' %}
+                    </div>
+                    <div id="tab_news" class="table_wrap" style="background: none">
+                        {% include 'accounts/companies/tabs/tab_news.html' with width='540px' %}
+                    </div>
+                    <div id="tab_catalogs" class="table_wrap">
+                        {% include 'accounts/companies/tabs/tab_catalogs.html' %}
+                    </div>
+{#                    <div id="tab_vacancies" class="table_wrap">#}
+{#                        {% include 'accounts/companies/tabs/tab_vacancies.html' %}#}
+{#                    </div>#}
+                    <div id="tab_events" class="table_wrap" style="background: none">
+                        {% include 'accounts/companies/tabs/tab_events.html' %}
+                    </div>
+                </div>
+            </div>
+    {% include 'accounts/blocks/map.html' with company=request.user.profile %}
+    {% include 'orders/blocks/testimonials.html' %}
+<script>
+    $(function () {
+        $('.jq_material_filter').on('change', 'select, input[type=checkbox], input[type=checkbox]', function (e) {
+            var form = $(this).closest('.jq_material_filter')
+            var url = form.attr('action')
+            var data = form.serializeArray()
+            ajax_load(url, data, update_catalog_products, $(this));
+        })
+    })
+</script>
+        {% endif %}
+
+
+    </div>
+{% endblock %}

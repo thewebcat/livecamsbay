@@ -1,0 +1,63 @@
+{% extends "main/registration.html" %}
+{% load bootstrap3 widget_tweaks common_exras %}
+
+{% block extra_js %}
+    <script>
+        $(function(){
+            var id_city = '#{{ form_profile.city.id_for_label }}';
+            select2_initial($(id_city))
+        })
+
+        $(function(){
+            $('.g-recaptcha').closest('form').find('button[type="submit"]').attr('disabled', 'disabled')
+        });
+        function enableSubmit() {
+            var submit = $('.g-recaptcha').closest('form').find('button[type="submit"]');
+            submit.removeAttr('disabled');
+            submit.next().hide('slow')
+        };
+    </script>
+{% endblock %}
+
+{% block content %}
+  <style>
+    .select2-container {
+        width: 100%!important;
+    }
+  </style>
+    <div class="wrapper row column">
+			<div class="nav_name">
+			<div class="Full_name">{% block registration_title %}{% endblock %}</div>
+			</div>
+      <div class="row">
+        <div class="column small-12 xlarge-6">
+          <h5 class="text-center" style="margin-top: 1em; margin-bottom: 1em">{% block registration_title2 %}{% endblock %}</h5>
+			    <form class="resend" action="" method="post">
+                {% csrf_token %}
+
+{#                {% check_forms form form_profile form_profile_phone %}#}
+                {{ form.show_errors }}
+                {{ form_profile.show_errors }}
+                {{ form_profile_phone.show_errors }}
+
+                <div class="control-container {{ form_profile.name.css_classes }}">{{ form_profile.name.label_tag }}{{ form_profile.name }}</div>
+                {% block company_only_fields %}{% endblock %}
+                <div class="control-container {{ form.email.css_classes }}">{{ form.email.label_tag }}{{ form.email }}</div>
+                <div class="control-container {{ form_profile_phone.phone.css_classes }}">{{ form_profile_phone.phone.label_tag }}{{ form_profile_phone.phone }}</div>
+                <div class="control-container {{ form_profile.city.css_classes }}">{{ form_profile.city.label_tag }}{{ form_profile.city }}</div>
+                <div class="control-container {{ form.password1.css_classes }}">{{ form.password1.label_tag }}{{ form.password1 }}</div>
+                <div class="control-container {{ form.password2.css_classes }}">{{ form.password2.label_tag }}{{ form.password2 }}</div>
+                <div class="control-container {{ form.captcha.css_classes }}"><div class="g-recaptcha" data-sitekey="{{ NORECAPTCHA_SITE_KEY }}" data-callback="enableSubmit"></div></div>
+
+                <div class="buttons-container buttons-container-left">
+                    <button class="button" type="submit">Отправить</button>
+                    <div style="font-size: 14px">Кнопка станет активной после подтверждения, что вы не робот.</div>
+                </div>
+            </form>
+        </div>
+        <div class="column small-12 xlarge-6">
+          {% block recistration_advantages %}{% endblock %}
+        </div>
+      </div>
+	</div>
+{% endblock %}

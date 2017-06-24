@@ -147,6 +147,60 @@ class Extra(models.Model):
     def __unicode__(self):
         return self.name
 
+
+class AbstractStatus(models.Model):
+    """
+    Абстрактный класс. В нем указаные возможные состояния обектов (удален, опубликован ...)
+    """
+    STATE_TO_PUBLISH = 0
+    STATE_PUBLISH = 1
+    STATE_REMOVE = 2
+    STATE_DRAFT = 3
+
+    STATES = (
+        (STATE_TO_PUBLISH, u"не опубликован"),
+        (STATE_PUBLISH, u"опубликован"),
+        (STATE_REMOVE, u"удален"),
+        (STATE_DRAFT, u"перенесен в черновик"),
+    )
+
+    state = models.IntegerField(verbose_name=u"Статус", choices=STATES, default=STATE_DRAFT)
+
+    def is_publish(self):
+        """
+        Проверка, что материал опубликован
+        """
+        return self.state == self.__class__.STATE_PUBLISH
+
+    def is_to_publish(self):
+        """
+        Проверка, что материал отправлен на модерацию
+        """
+        return self.state == self.__class__.STATE_TO_PUBLISH
+
+    def is_draft(self):
+        """
+        Проверка, что материал находится в черновиках
+        """
+        return self.state == self.__class__.STATE_DRAFT
+
+    @classmethod
+    def get_beauty_name(cls):
+        """
+        Возвращает человекопонятное название модели в единственном числе
+        """
+        return cls._meta.verbose_name
+
+    @classmethod
+    def get_beauty_name_plural(cls):
+        """
+        Возвращает человекопонятное название модели во множественном числе
+        """
+        return cls._meta.verbose_name_plural
+
+    class Meta:  # noqa
+        abstract = True
+
 class AbstractBaseClass(models.Model):
     date_add = models.DateTimeField(auto_now_add=True)
     date_update = models.DateTimeField(auto_now=True)

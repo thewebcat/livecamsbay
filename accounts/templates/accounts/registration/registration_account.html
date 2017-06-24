@@ -1,0 +1,35 @@
+{% extends "accounts/registration/base_registration.html" %}
+{% load bootstrap3 widget_tweaks common_exras %}
+
+{% block breadcrumbs %}
+    {{ block.super }}
+    <div class="breadcrumb"><a href="">Регистрация пользователя</a></div>
+{% endblock %}
+
+{% block registration_title %}Регистрация пользователя{% endblock %}
+{% block registration_title2 %}Регистрация пользователя{% endblock %}
+
+{% block recistration_advantages %}
+			<h5 class="text-center" style="margin-top: 1em; margin-bottom: 1em">Регистрация займет меньше минуты,<br>в результате вы получаете: </h5>
+      <div class="icon_reg">
+        <div class="row align-middle">
+            <div class="column flex-child-shrink"><div class="hour"></div></div>
+            <div class="column"><p class="text-justify">Текст</p></div>
+          </div>
+        <div class="spacer"></div>
+        <div class="row align-middle">
+            <div class="column flex-child-shrink"><div class="list"></div></div>
+            <div class="column"><p class="text-justify">Текст</p></div>
+          </div>
+        <div class="spacer"></div>
+        <div class="row align-middle">
+            <div class="column flex-child-shrink"><div class="personal_area"></div></div>
+            <div class="column"><p class="text-justify">Личный кабинет, в котором сохраняется вся информация.</p></div>
+          </div>
+        <div class="spacer"></div>
+        <div class="row align-middle">
+            <div class="column flex-child-shrink"><div class="cool"></div></div>
+            <div class="column"><p class="text-justify">Текст!</p></div>
+          </div>
+      </div>
+{% endblock %}

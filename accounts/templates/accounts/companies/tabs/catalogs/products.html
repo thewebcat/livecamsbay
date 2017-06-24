@@ -1,0 +1,29 @@
+{% load common_exras %}
+
+                <div class="contents marginbot" style="margin-left:0;">
+                    <div>
+
+                        <div class="jcarousel_wrapper">
+{% if menu_catalog.get_children|queryset_filter:company %}
+                            <div class="jcarousel_menu jcarousel_menu_text catalog_products_element jcarousel_element"
+                                 data-jcarousel="true">
+                                <ul>
+                                    {% for catalog in menu_catalog.get_children|queryset_filter:company %}
+                                        <li>
+                                            <a class="jq_top_catalogs"
+                                               href="{% url 'products:ajax_catalog_products' catalog.pk %}">{{ catalog.title }}</a>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                            <a class="jcarousel-control-prev" href="#"></a>
+                            <a class="jcarousel-control-next" href="#"></a>
+
+{% endif %}
+                        </div>
+                        <div class="jq_sub_catalogs_list"></div>
+                        <div class="jq_catalog_elements_list catalog_elements_list"></div>
+
+
+                    </div>
+                </div>

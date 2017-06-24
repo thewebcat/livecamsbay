@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% load bootstrap3 %}
+
+{% block breadcrumbs %}
+    <div class="breadcrumb"><a href="{% url 'accounts:profile' %}">Личный кабинет</a></div>
+{% endblock %}
+
+{% block content %}
+    {% comment %}<div class="row">
+        <div class="col-sm-6 col-md-4">
+            {% include 'accounts/blocks/navigation.html' %}
+        </div>
+        <div class="col-sm-6 col-md-8">
+            {% block profile_content %}
+
+            {% endblock %}
+        </div>
+    </div>{% endcomment %}
+
+
+    <div class="wrapper">
+
+        {% include 'accounts/blocks/navigation.html' %}
+
+		<div class="nav-right">
+            {% block profile_content %}
+
+            {% endblock %}
+		</div>
+	</div>
+    {% include 'tickets/add_ticket.html' %}
+{% endblock %}

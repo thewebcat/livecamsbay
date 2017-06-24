@@ -1,0 +1,65 @@
+{% extends "accounts/orders.html" %}
+{% load widget_tweaks thumbnail common_exras %}
+
+{% block breadcrumbs %}
+    {{ block.super }}
+    <div class="breadcrumb"><a href="{% url 'accounts:order_add' %}">Создать заказ</a></div>
+{% endblock %}
+
+{% block extra_js %}
+    <script>
+    $(function(){
+        var label = $('.radio + label');
+        label.text(label.text().substr(0, label.text().length-1))
+    });
+    $(function(){
+        var id_city = '#{{ form.city.id_for_label }}';
+        var id_product_catalog = '#{{ form.product_catalog.id_for_label }}';
+        select2_initial($(id_city));
+        select2_basic_initial($(id_product_catalog))
+    });
+    </script>
+
+    <script>
+        $(function(){
+            $('.g-recaptcha').closest('form').find('button[type="submit"]').attr('disabled', 'disabled')
+        });
+        function enableSubmit() {
+            var submit = $('.g-recaptcha').closest('form').find('button[type="submit"]');
+            submit.removeAttr('disabled');
+            submit.next().hide('slow')
+        };
+    </script>
+{% endblock %}
+
+{% block profile_content %}
+        <div class="block_info">
+			<div class="nav_name">
+                <div class="Full_name">
+                    {% if order_id %}Редактировать заказ{% else %}Добавить заказ{% endif %}
+                </div>
+
+			</div>
+			<div class="add_wrap">
+                <form class="event_form" action="" method="post">
+                {% csrf_token %}
+
+                {{ form.errors }}
+
+                <div class="control-container {{ form.name.css_classes }}">{{ form.name.label_tag }}{{ form.name }}</div>
+                <div class="control-container {{ form.email.css_classes }}">{{ form.email.label_tag }}{{ form.email }}</div>
+                <div class="control-container {{ form.phone.css_classes }}">{{ form.phone.label_tag }}{{ form.phone }}</div>
+                <div class="control-container {{ form.title.css_classes }}">{{ form.title.label_tag }}{{ form.title }}</div>
+                <div class="control-container {{ form.city.css_classes }}">{{ form.city.label_tag }}{{ form.city }}</div>
+                <div class="control-container {{ form.product_catalog.css_classes }}">{{ form.product_catalog.label_tag }}{{ form.product_catalog }}</div>
+                <div class="control-container {{ form.description.css_classes }}">{{ form.description.label_tag }}{{ form.description }}</div>
+
+                <div class="control-container">Добавить эскиз / проект (при наличии)</div>
+                {% include 'common/elements/uploadformset.html' %}
+
+                <div class="buttons-container buttons-container-center"><button class="button" type="submit">Отправить</button></div>
+                </form>
+                {{ form.media }}
+		    </div>
+        </div>
+{% endblock %}

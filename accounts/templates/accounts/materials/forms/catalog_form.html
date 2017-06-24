@@ -1,0 +1,21 @@
+{% load widget_tweaks thumbnail common_exras %}
+
+<div id="add_catalog" class="popup" style="width:800px;">
+    <h3>Добавить каталог</h3>
+    <form action="{% url 'accounts:materialcatalog_add' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form_catalog.action }}
+        {{ form_catalog.parent }}
+
+        {% check_forms form_catalog %}
+        <div class="control-container {{ form_catalog.title.css_classes }}">{{ form_catalog.title.label_tag }}{{ form_catalog.title }}</div>
+        <div class="control-container {{ form_catalog.description.css_classes }}">{{ form_catalog.description.label_tag }}{{ form_catalog.description }}</div>
+
+        {% include 'common/elements/uploadform.html' with field=form_catalog.image form=form_catalog %}
+
+        {% include 'common/elements/user_content_form_submit.html' %}
+
+    </form>
+
+    <a class="close" title="Закрыть" href="#close"></a>
+</div>

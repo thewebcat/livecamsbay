@@ -1,0 +1,61 @@
+{% load widget_tweaks thumbnail common_exras %}
+
+<div id="add_material" class="popup" style="width:800px;">
+    {% if not form_material.production %}
+        <h3>Добавить натуральный камень</h3>
+    {% else %}
+        <h3>Добавить искусственный камень</h3>
+    {% endif %}
+
+    <form action="{% if not form_material.production %}{% url 'accounts:material_natural_add' %}{% else %}{% url 'accounts:material_artificial_add' %}{% endif %}" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form_material.action }}
+    {{ form_material.material_catalog }}
+
+    {% check_forms form_material %}
+
+        {% if not form_material.production %}
+            <div class="form-row">
+                <div class="form-col-6">
+                    <div class="control-container {{ form_material.title.css_classes }}">{{ form_material.title.label_tag }}{{ form_material.title }}</div>
+                </div>
+                <div class="form-col-6">
+                    <div class="control-container {{ form_material.country.css_classes }}">{{ form_material.country.label_tag }}{{ form_material.country }}</div>
+                </div>
+            </div>
+        {% else %}
+            <div class="control-container {{ form_material.title.css_classes }}">{{ form_material.title.label_tag }}{{ form_material.title }}</div>
+            <div class="form-row">
+                <div class="form-col-6">
+                    <div class="control-container {{ form_material.country.css_classes }}">{{ form_material.country.label_tag }}{{ form_material.country }}</div>
+                </div>
+                <div class="form-col-6">
+                    <div class="control-container {{ form_material.production.css_classes }}">{{ form_material.production.label_tag }}{{ form_material.production }}</div>
+                </div>
+            </div>
+        {% endif %}
+        <div class="form-row">
+            <div class="form-col-12">
+                <div class="control-container {{ form_material.description.css_classes }}">{{ form_material.description.label_tag }}{{ form_material.description }}</div>
+            </div>
+        </div>
+
+
+        {% include 'common/elements/uploadformset.html' with formset=formset_material %}
+
+        {% include 'tags/blocks/tags_control.html' with multiple_choice_tag_form=multiple_choice_tag_form %}
+
+        {% include 'common/elements/user_content_form_submit.html' %}
+    </form>
+
+    <a class="close" title="Закрыть" href="#close"></a>
+</div>
+
+<script>
+    $(function(){
+        var id_country = '#{{ form_material.country.id_for_label }}';
+        var id_production = '#{{ form_material.production.id_for_label }}';
+        select2_basic_initial($(id_country).css('width', '100%'));
+        select2_basic_initial($(id_production).css('width', '100%'))
+    })
+</script>

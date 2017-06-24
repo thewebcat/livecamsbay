@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% load bootstrap3 %}
+
+{% block breadcrumbs %}
+    {{ block.super }}
+    <div class="breadcrumb"><a href="{% url 'authorization:registration' %}">Регистрация</a></div>
+{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/animate.css" />
+{% endblock %}
+
+
+{% block content %}
+<div class="wrapper">
+    <div class="block_info">
+
+        <div class="nav_name">
+			<h1>Выберите как вы регистрируетесь</h1>
+        </div>
+
+
+        <div id="content">
+            <section id="ex1">
+                <article class="post animated zoomIn">
+                    <a href="{% url "authorization:registration_account" 'account' %}">
+                        <img src="{{ STATIC_URL }}images/man-user.svg">
+                        <span class="post-title">Вы пользователь</span>
+                    </a>
+                </article>
+
+                <article class="post animated zoomIn">
+                    <a href="{% url "authorization:registration_account" 'model' %}">
+                        <img src="{{ STATIC_URL }}images/woman-avatar.svg">
+                        <span class="post-title">Вы Модель</span>
+                    </a>
+                </article>
+
+                <article class="post animated zoomIn">
+                    <a href="{% url "authorization:registration_account" 'company' %}">
+                        <img src="{{ STATIC_URL }}images/man-with-tie.svg" style="    width: 171px;">
+                        <span class="post-title">Вы Представитель "Кам сервиса"</span>
+                    </a>
+                </article>
+
+            </section>
+        </div>
+
+    </div>
+</div>
+{% endblock %}
+{% comment %}
+
+<div class="wrapper">
+        <div class="choose">Выберите как Вы регистрируетесь:</div>
+        <div style="margin-left:218px;">
+            <a href="{% url "registration_account" 'account' %}" class="registration_wrap">
+                <div class="individual2"></div>
+                <div class="fl">Вы физическое лицо</div>
+{#                <input type="radio" class="r1" name=""/>#}
+{#                <label for="r1"></label>#}
+            </a>
+            <a href="{% url "registration_account" 'company' %}" class="registration_wrap">
+                <div class="entity2"></div>
+                <div class="fl">Вы юридическое лицо</div>
+{#                <input type="radio" class="r1" style="margin-left:35px;" name=""/>#}
+{#                <label for="r1"></label>#}
+            </a>
+        </div>
+    </div>{% endcomment %}
