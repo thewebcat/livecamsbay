@@ -10,3 +10,8 @@ django-debug-toolbar==1.8
 django-bootstrap3==8.2.3
 django-annoying==0.10.3
 django-spurl==0.6.4
+django-nocaptcha-recaptcha==0.0.19
+easy-thumbnails==2.4.1
+django-widget-tweaks==1.4.1
+django-ckeditor==5.2.2
+django-cities-light==3.3.0
