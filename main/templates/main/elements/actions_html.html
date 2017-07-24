@@ -1,0 +1,18 @@
+<div class="jq_action_bar action_bar">
+    <div class="main_actions">
+        <a href="{{ instance.private_url_edit }}"><div class="main_action main_action_edit"></div></a>
+        <a href="" class="jq_show_delete_form"><div class="main_action main_action_delete"></div></a>
+    </div>
+    <div class="jq_action_delete_form action_delete_form">
+        <table><tr><td>
+        <div style="text-align: center;">
+        <p>
+            Вы хотите удалить <br/>этот материал? <br/><br/>
+        </p>
+        <p>
+            <a href="{{ instance.to_trash_url }}" class="retain jq_submit_form">Да</a>  <a href="#" class="retain retain-gray jq_cancel_form">Нет</a>
+        </p>
+        </div>
+        </td></tr></table>
+    </div>
+</div>

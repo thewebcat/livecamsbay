@@ -27,7 +27,7 @@
     background: no-repeat center center;
 }
 .container_action_bar .main_actions > a {
-    background-color: #358C38;
+    background-color: #f40361;
 }
 .container_action_bar .container_action_bar_visible .main_actions > a {
     background: none;

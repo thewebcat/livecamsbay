@@ -1,0 +1,5 @@
+[SUBJECT]
+text: Notification of the order
+
+[CONTENT]
+text: Order is finish. To view click on the <a href="{{ url }}">link</a>

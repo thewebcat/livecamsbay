@@ -24,7 +24,15 @@
 .view { position: absolute; top: 0px; right: 6px; font-size: 0px; }
 .view .ico_view { background-position: -450px -50px; width: 16px; height: 12px; margin-right: 4px; }
 .view em { color: rgb(34, 40, 79); font-size: 11px; display: inline-block; vertical-align: top; margin: -1px 0px 0px; }
-.circle { float: left; position: relative; z-index: 2; }
+
+.circle {
+    float: left;
+    position: relative;
+    z-index: 2;
+    border: 1px solid #b9b9b9;
+    border-radius: 50px;
+    background: #f0f0f0;
+}
 .circle canvas { border-radius: 50%; background: rgb(255, 255, 255) none repeat scroll 0% 0%; }
 .circle strong { font-size: 15px; font-weight: normal; left: 0px; line-height: 65px; position: absolute; text-align: center; top: 0px; color: rgb(52, 58, 65); width: 100%; }
 .circle span { position: absolute; top: 38px; left: 0px; right: 0px; text-align: center; font-size: 10px; color: rgb(52, 58, 65); }

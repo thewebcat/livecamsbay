@@ -1,0 +1,17 @@
+[SUBJECT]
+Новый комментарий от модератора
+
+[CONTENT]
+Комментарий:
+---
+{{ comment }}
+---
+Для просмотра комментария перейдите по ссылке <a href="{{ url }}">link</a>
+
+[HTML]
+<p>Комментарий</p>
+<code>{{ comment|linebreaks }}</code>
+<code>{{ comment|linebreaksbr }}</code>
+<blockquote>{{ comment|linebreaks }}</blockquote>
+<blockquote>{{ comment|linebreaksbr }}</blockquote>
+Для просмотра комментария перейдите по ссылке <a href="{{ url }}">link</a>

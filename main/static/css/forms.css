@@ -160,7 +160,7 @@ input[type="tel"], input[type="url"], input[type="text"] {
     font-size: 18px;
     padding: 0 15px;
     box-sizing: border-box;
-	border: 1px solid #417538;
+	border: 1px solid #f40361;
 	outline: none;
 }
 textarea {
@@ -169,7 +169,7 @@ textarea {
     font-size: 18px;
     padding: 15px;
     box-sizing: border-box;
-	border: 1px solid #417538;
+	border: 1px solid #f40361;
 	outline: none;
 
 	font-family: inherit;
@@ -180,7 +180,7 @@ select {
     font-size: 18px;
     /*padding: 15px;*/
     box-sizing: border-box;
-	border: 1px solid #417538;
+	border: 1px solid #f40361;
 	outline: none;
 
     background-color: transparent;
@@ -266,7 +266,7 @@ button[disabled='disabled']:hover {
 	width: 16px;
 	height: 16px;
 	border-radius: 50%;
-	background: #48BA4C;
+	background: #f40361;
 	box-shadow: inset 0 1px 1px rgba(0,0,0,.5);
 	opacity: 0;
 	transition: all .2s;
@@ -304,6 +304,7 @@ label[for='id-ajax-upload-file'], label.ajax_upload_file_label {
 	min-height: 1px;
 	max-width: 130px;
 	max-height: 100px;
+	vertical-align: middle;
 	position: relative;
 }
 .dynamic-form:hover .delete-row {

@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <div class="wrapper">
+
+        <div class="nav_name">
+            <h1>{% if validlink %}Ваш аккаунт активирован{% else %}Аккаунт не активирован{% endif %}</h1>
+        </div>
+
+        <div class="resend">
+            <div class="word" style="text-align:center">
+                <div class="add_wrap" style="margin: 0 auto;">
+                    <div class="moderation" style="margin: 67px 0; text-align: center; width: initial">
+                {% if validlink %}
+                    Ваш аккаунт уже активирован.<br>
+                    Для авторизации перейдите <a href="{% url 'authorization:enter' %}" class="login_link">по ссылке</a>
+                {% else %}
+                    Аккаунт не активирован. <br>
+                    Не верная ссылка для активации аккаунта. <br>
+                {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="br" style="padding-top: 20px"></div>
+
+    </div>
+
+
+{% endblock %}

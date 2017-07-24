@@ -126,7 +126,7 @@
             {% endif %}
             <div class="form-row">
                 <div class="form-col-3">
-                    <div class="control-container">{% include 'common/elements/uploadform.html' with field=form_profile.avatar form=form_profile %}</div>
+                    <div class="control-container">{% include 'main/elements/uploadform.html' with field=form_profile.avatar form=form_profile %}</div>
                 </div>
                 <div class="form-col-9">
                     <div class="control-container"><div class="deal" style="vertical-align: top; margin-left: 20px;">Изменить аватар</div></div>
@@ -136,7 +136,7 @@
 {#            <div class="cloud"></div>#}
             <div style="clear: both"></div>
 
-            <div class="control-container"><a href="{% url 'accounts:profile_change_password' %}" style="color: #2E7D31; font-size: 18px;">Изменить пароль</a></div>
+            <div class="control-container"><a href="{% url 'accounts:profile_change_password' %}" style="font-size: 18px;">Изменить пароль</a></div>
 
             <div class="buttons-container buttons-container-left"><button class="button" type="submit">Сохранить</button></div>
             {{ form_profile.media }}

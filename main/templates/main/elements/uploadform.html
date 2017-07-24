@@ -1,0 +1,27 @@
+{% load widget_tweaks %}
+{% if field and form %}
+    <script>
+        $(function(){
+            $('#{{ field.id_for_label }}').uploadform({
+                allowedFileExtensions: '{{ form.allowed_file_extensions }}'
+            })
+        })
+    </script>
+
+    <div class="formset-elements">
+    {{ field.label_tag }}{{ field|attr:'style: display: none;' }}
+    </div>
+{% else %}
+    <script>
+        $(function(){
+            $('#{{ id_field }}{{ prefix }}').uploadform({
+                allowedFileExtensions: '',
+                ajaxUploadFileId: 'id-ajax-upload-one-file{{ prefix }}'
+            })
+        })
+    </script>
+
+    <div class="formset-elements">
+        <input name="file" type="text" id="{{ id_field }}{{ prefix }}" style='display: none;'>
+    </div>
+{% endif %}

@@ -1,13 +1,19 @@
 # -*- coding: utf-8 -*-
 from django.shortcuts import render
+from django.db.models import Avg, Max
 from django.views.generic import View, TemplateView, ListView, DetailView, FormView
 from django_filters.views import FilterView
+from main.decorators import set_views
 
 from .filters import ModelsFilter
 
 from .models import Model
 from .models import CamService
 from .models import CamSnapshot
+from .models import Race
+from .models import HairColor
+from .models import BustSize
+from .models import PublicArea
 
 import urllib, json
 
@@ -41,7 +47,12 @@ class Catalogue(FilterView):
         # context['min_age'] = min(price_list) if price_list else 0
         context['max_age'] = 70
         context['min_age'] = 18
+        context['race'] = Race.objects.all()
+        context['hair_color'] = HairColor.objects.all()
+        context['bust_size'] = BustSize.objects.all()
+        context['public_area'] = PublicArea.objects.all()
         context['models_count'] = self.qs_count
+        context['all_time'] = self.get_queryset().aggregate(max_time=Max('online_time'))
         return context
 
     def get(self, request, *args, **kwargs):
@@ -56,6 +67,10 @@ class ModelPage(DetailView):
     template_name = 'model_page.html'
     model = Model
 
+    @set_views(obj='model')
+    def dispatch(self, request, *args, **kwargs):
+        return super(ModelPage, self).dispatch(request, *args, **kwargs)
+
 class UpdateApi(TemplateView):
     template_name = 'api-update-log.html'
 
@@ -64,8 +79,8 @@ class UpdateApi(TemplateView):
         context = super(UpdateApi, self).get_context_data(**kwargs)
         cam = CamService.objects.get(pk=1)
         response = urllib.urlopen(cam.api_url)
-
         data = json.loads(response.read())
+
         gender = []
         primary_language_key = []
         secondary_language_key = []
@@ -74,6 +89,7 @@ class UpdateApi(TemplateView):
         height = []
         pubic_hair = []
         ethnicity = []
+        sh_bust_penis_size = []
         context['girls'] = []
         Model.objects.all().update(available=False)
         # for item in models:
@@ -109,6 +125,7 @@ class UpdateApi(TemplateView):
             hair_color.append(i['hair_color'])
             pubic_hair.append(i['pubic_hair'])
             ethnicity.append(i['ethnicity'])
+            sh_bust_penis_size.append(i['bust_penis_size'])
 
             context['gender'] = list(set(gender))
             context['primary_language_key'] = list(set(primary_language_key))
@@ -117,8 +134,44 @@ class UpdateApi(TemplateView):
             context['hair_color'] = list(set(hair_color))
             context['pubic_hair'] = list(set(pubic_hair))
             context['ethnicity'] = list(set(ethnicity))
+            context['sh_bust_penis_size'] = list(set(sh_bust_penis_size))
             # context['primary_language_key'] = list(set(primary_language_key))
             # context['girls'].append(i['username'])
+            if i['ethnicity'] == u'Европейское/Кавказское':
+                race = Race.objects.get(code='white')
+            elif i['ethnicity'] == u'Латиноамериканское':
+                race = Race.objects.get(code='latin')
+            elif i['ethnicity'] == u'Ближневосточное':
+                race = Race.objects.get(code='west')
+            elif i['ethnicity'] == u'Индийское':
+                race = Race.objects.get(code='indian')
+            elif i['ethnicity'] == u'Темнокожие':
+                race = Race.objects.get(code='black')
+            elif i['ethnicity'] == u'Азиатcкое':
+                race = Race.objects.get(code='asian')
+            else:
+                race = None
+
+            if i['hair_color'] == u'Тёмные':
+                hair = HairColor.objects.get(code='black')
+            elif i['hair_color'] == u'Светлые':
+                hair = HairColor.objects.get(code='white')
+            elif i['hair_color'] == u'Рыжие':
+                hair = HairColor.objects.get(code='red')
+            else:
+                hair = None
+
+            if i['bust_penis_size'] == u'Большая':
+                bust_penis_size = BustSize.objects.get(code='big')
+            elif i['bust_penis_size'] == u'Средняя':
+                bust_penis_size = BustSize.objects.get(code='middle')
+            elif i['bust_penis_size'] == u'Маленькая':
+                bust_penis_size = BustSize.objects.get(code='small')
+            elif i['bust_penis_size'] == u'Огромные':
+                bust_penis_size = BustSize.objects.get(code='biggest')
+            else:
+                bust_penis_size = None
+
             data = {
                 'name': cam.prefix + i['username'],
                 'display_name': i['username'],
@@ -128,6 +181,9 @@ class UpdateApi(TemplateView):
                 'cam_service': cam,
                 'chat_url': i['chat_url_on_home_page'],
                 'online_time': i['online_time'],
+                'race': race,
+                'hair_color': hair,
+                'bust_size': bust_penis_size,
             }
 
             Model.objects.update_or_create(

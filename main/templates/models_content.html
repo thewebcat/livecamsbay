@@ -1,8 +1,9 @@
+{% load sekizai_tags %}
 <div class="thumbs">
 
     {% for item in object_list %}
         <div class="th">
-            <a id="768331527" class="thumblink" href="{{ item.profile_image }}">
+            <a id="768331527" class="thumblink" href="/models/{{ item.name }}">
                 <img src="{{ item.profile_image }}" alt="assessence" width="225"
                      height="175">
                 <img class="source_logo bongalogo" src="{{ item.cam_service.image.url }}">
@@ -17,34 +18,54 @@
                     </a>
                     <span class="view">
                         <i class="ico_view"></i>
-                        <em>{{ item.views_count }}</em>
+                        <em>{{ item.get_redis_key|default:0 }}</em>
                     </span>
                 </div>
                 <div class="desc">
                     <div class="tags">
-                        <a href="https://megacams.me/webcams/female/teen-18-20">Teen 18 - 20</a>
-                        <a href="https://megacams.me/webcams/female/brunette">Brunette</a>
-                        <a href="https://megacams.me/webcams/female/hairy-pussy">Hairy Pussy</a>
-                        <a href="https://megacams.me/webcams/female/redhead">Redhead</a>
-                        <a href="https://megacams.me/webcams/female/white">White</a>
-                        <a href="https://megacams.me/webcams/female/other">Other</a>
-                        <a href="https://megacams.me/webcams/female/adult-21-29">Adult 21 - 29</a>
+                        <a href="/webcams/female/teen-18-20">Teen 18 - 20</a>
+                        <a href="/webcams/female/brunette">Brunette</a>
+                        <a href="/webcams/female/hairy-pussy">Hairy Pussy</a>
+                        <a href="/webcams/female/redhead">Redhead</a>
+                        <a href="/webcams/female/white">White</a>
+                        <a href="/webcams/female/other">Other</a>
+                        <a href="/webcams/female/adult-21-29">Adult 21 - 29</a>
                     </div>
                 </div>
                 <div class="thumb-languages">
                     <p><img src="en.png"></p>
                 </div>
                 <div class="rate">
-                    <div class="circle" data-circle="8">
-                        <canvas width="72" height="72"></canvas>
-                        <strong>{{ item.online_time }} min</strong><span>online</span></div>
-                    <div class="amount">
+                    <div class="circle" id="circle{{ item.id }}" style="margin: 15px;"></div>
+                    <strong style="font-size: 15px;
+    position: absolute;
+    top: 95px;
+    left: 5px;
+    width: 104px;
+    text-align: center;
+    color: #5a5a5a;z-index:3">{% widthratio item.online_time 60 1 %} min online</strong>
+                    <div class="amount" style="display: none">
                         <i class="ico_amount_woman"></i>
                         <span>{{ item.age }}</span>
                     </div>
+                    {% addtoblock 'js' %}
+                        <script>
+                            var optionsObject = {
+                                'size': 80, // 150px width and height
+                                'progress': {% widthratio item.online_time all_time.max_time 100 %}, // fillup in percent
+                                'innerOpacity': 1,
+                                'outerOpacity': 1,
+                                'innerColor': '#F40361',
+                                'outerColor': '#393939',
+                                'borderSize': 3, // width of the border
+                            }
+                            $("#circle{{ item.id }}").circlesProgress(optionsObject);
+                        </script>
+                    {% endaddtoblock %}
                 </div>
             </div>
         </div>
     {% endfor %}
+
 </div>
 {% include "blocks/pagination.html" %}

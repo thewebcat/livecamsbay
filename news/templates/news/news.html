@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% load bootstrap3 thumbnail common_exras %}
+
+{% block breadcrumbs %}
+    {{ block.super }}
+    <div class="breadcrumb"><a href="{% url 'news:listnews' %}">Новости</a></div>
+{% endblock %}
+
+{% block content %}
+    <div class="wrapper">
+    <div class="block_info">
+        <div class="nav_name">
+			<h1>Новости</h1>
+        </div>
+
+        {% for news in listnews %}
+
+            <div class="inside">
+            {% thumbnail news.get_image 250x250 crop as thumb %}
+            <a href="{{ news.public_url }}">
+			    <img src="{{ thumb.url }}" alt="{{ news.title }}">
+            </a>
+				<div class="left">
+				<a href="{{ news.public_url }}" class="shares_title">{{ news.title|upper }}</a>
+				<div class="categories">
+				    <span class="sottotitoli">{{ news.create_date|date:"d.m.Y" }}</span>
+                    {% if news.profile %}
+                        <div class="dividing_line"></div>
+                        <a href="{{ news.profile.public_url }}" class="sottotitoli">{{ news.profile.name }}</a>
+                        <div class="dividing_line"></div>
+                        <a href="" class="sottotitoli">{{ news.profile.city }}</a>
+                    {% else %}
+                        <div class="dividing_line" style="background: none"></div>
+                    {%  endif %}
+				</div>
+				<div class="info_wrap2">
+					<div class="sale-text">
+                        {{ news.short_text|default:news.text|truncatechars_html:600|safe|striptags }} <a class="further" href="{{ news.public_url }}"> читать далее</a>
+					</div>
+				</div>
+{#				<div class="action_statistics">#}
+{#					{% include 'common/elements/views_count.html' %}#}
+{#					{% include 'common/elements/comments_count.html' %}#}
+{#				</div>#}
+				</div>
+			</div>
+
+            {% if not forloop.last %}<div class="line_down"></div>{% endif %}
+
+        {% endfor %}
+    </div>
+    </div>
+
+
+{#    {% if listnews %}#}
+{#        {% for news in listnews %}#}
+{#            <div class="panel-default">#}
+{#                <div class="panel-heading">#}
+{#                    {{ news.title }}#}
+{#                </div>#}
+{#                {% if news.image %}#}
+{#                    <div class="panel-body">#}
+{#                        {% thumbnail news.image 300x233 upscale as thumb %}#}
+{#                        <img src="{{ thumb.url }}" alt="..." width="300px" height="233px">#}
+{#                    </div>#}
+{#                {% endif %}#}
+{#                <div class="panel-body">#}
+{#                    <p>{{ news.short_text|safe }}</p>#}
+{#                    <p><a href="{% url 'news:news_view' news.pk %}" class="btn btn-primary" role="button">View</a></p>#}
+{#                </div>#}
+{#            </div>#}
+{#        {% endfor %}#}
+{#    {% else %}#}
+{#        <div class="alert alert-warning" role="alert">There are no news</div>#}
+{#    {% endif %}#}
+{% endblock %}

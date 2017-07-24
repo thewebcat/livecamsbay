@@ -30,7 +30,7 @@
                   <span class="show-for-large">Регистрация</span>
                 </a>
               {% else %}
-                <a class="menu__link" href="">
+                <a class="menu__link" href="{% url 'accounts:profile' %}">
                   <span class="menu__profile-icon icon icon-user icon-lg"></span>
                   <span class="show-for-large hide-for-xlarge">Личный кабинет</span>
                   <span class="show-for-xlarge">{{ request.user.profile.name }}</span>
@@ -40,12 +40,12 @@
             <li class="menu__item text-secondary">|</li>
             <li class="menu__item">
               {% if not request.user.is_authenticated %}
-                <a class="menu__link" href="">
+                <a class="menu__link" href="{% url 'authorization:enter' %}">
                   <span class="menu__profile-icon icon icon-sign-in icon-lg"></span>
                   <span class="show-for-large">Вход</span>
                 </a>
               {% else %}
-                <a class="menu__link" href="">
+                <a class="menu__link" href="{% url 'authorization:escape' %}">
                   <span class="menu__profile-icon icon icon-sign-out icon-lg"></span>
                   <span class="show-for-large">Выход</span>
                 </a>
@@ -60,7 +60,7 @@
     <div class="header__bottom row align-middle align-justify small-collapse medium-uncollapse">
       <div class="column shrink show-for-large">
         <a href="/" class="logo logo--bottom-header">
-          <img src="{{ STATIC_URL }}img/logo.svg" alt="" class="logo__img">
+          <img src="{{ STATIC_URL }}img/logo.png" alt="" class="logo__img">
         </a>
       </div>
       <div class="column show-for-large">

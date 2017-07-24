@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% load bootstrap3 thumbnail %}
+
+{% block content %}
+
+    {% if materials %}
+        <p>Materials</p>
+        <div class="row">
+        {% for material in materials %}
+                <div class="col-sm-6 col-md-4">
+                    <div class="thumbnail">
+                        {% thumbnail material.main_image.image 196x150 crop as thumb %}
+                        <img src="{{ thumb.url }}" alt="..." width="242px" height="200px">
+
+                        <div class="caption">
+                            <p>{{ material.title }}</p>
+
+                            <p><a href="{% url 'materials:material_view' material.pk %}" class="btn btn-primary" role="button">Посмотреть</a></p>
+                        </div>
+                    </div>
+                </div>
+        {% endfor %}
+        </div>
+    {% endif %}
+
+    {% if products %}
+        <p>Products</p>
+        <div class="row">
+        {% for product in products %}
+                <div class="col-sm-6 col-md-4">
+                    <div class="thumbnail">
+                        {% thumbnail product.main_image.image 196x150 crop as thumb %}
+                        <img src="{{ thumb.url }}" alt="..." width="242px" height="200px">
+
+                        <div class="caption">
+                            <p>{{ product.title }}</p>
+
+                            <p><a href="{% url 'companies:catalog_product_view' product.pk %}" class="btn btn-primary" role="button">Посмотреть</a></p>
+                        </div>
+                    </div>
+                </div>
+        {% endfor %}
+        </div>
+    {% endif %}
+
+    {% if articles %}
+        <p>Articles</p>
+        {% for article in articles %}
+        <div class="panel-default">
+            <div class="panel-heading">
+                {{ article.title }} ({% if article.public_date %}is public{% else %}not public{% endif %})
+            </div>
+            <div class="panel-body">{{ article.text|safe }}</div>
+        </div>
+    {% endfor %}
+    {% endif %}
+
+{% endblock %}

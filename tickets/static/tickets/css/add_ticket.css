@@ -1,0 +1,56 @@
+/*#add_new_ticket{*/
+    /*box-sizing: border-box;*/
+    /*position: fixed;*/
+    /*left: 35%;*/
+    /*top: 10%;*/
+    /*width:30%;*/
+    /*background-color: #ffffff;*/
+    /*text-align: center;*/
+    /*padding: 1em 1em 0 1em;*/
+    /*opacity: 1;*/
+    /*z-index: 1001;*/
+/*}*/
+#add_new_ticket textarea{
+    box-sizing: border-box;
+    display: block;
+    width: 100%;
+    border: 1px solid #417538;
+    height: 10em;
+    outline: none;
+}
+#add_new_ticket input[type=submit]{
+    box-sizing: border-box;
+    display: block;
+    width:30%;
+    margin: 2em  auto 1em;
+    background-color: #417538;
+    border: none;
+    color:#ffffff;
+    padding: 1em;
+    font-size: inherit;
+    cursor: pointer;
+    -webkit-transition:  .3s ease-out 0s;
+    -moz-transition:  .3s ease-out 0s;
+    -o-transition:  .3s ease-out 0s;
+    transition:  .3s ease-out 0s;
+
+}
+#add_new_ticket input[type=submit]:hover{
+    background-color: #358c38;
+}
+/*#for_popup{*/
+    /*width:100%;*/
+    /*min-height:100%;*/
+    /*background-color: rgba(0,0,0,0.5);*/
+    /*overflow:hidden;*/
+    /*position:fixed;*/
+    /*top:0;*/
+    /*z-index: 1000;*/
+
+/*}*/
+/*#add_question{*/
+    /*cursor: pointer;*/
+/*}*/
+/*#form_popup{*/
+    /*display: none;*/
+/*}*/

@@ -1,0 +1,69 @@
+{% extends "news/news.html" %}
+{% load bootstrap3 thumbnail common_exras %}
+
+{% block breadcrumbs %}
+    {{ block.super }}
+    <div class="breadcrumb"><a href="{{ news.public_url }}">{{ news.title|truncatewords:5 }}</a></div>
+{% endblock %}
+
+{% block meta %}
+  <title>{{ news.get_seo_title }}</title>
+  <meta name="keywords" content="{{ news.get_seo_keywords|cut:'"' }}"/>
+  <meta name="description" content="{{ news.get_seo_description|cut:'"' }}"/>
+  <meta http-equiv="Last-Modified" content=""/>
+{% endblock %}
+
+{% block content %}
+
+    <div class="wrapper">
+    <div class="block_info">
+        <div class="nav_name">
+            <h1>{{ news.title }}</h1>
+        </div>
+
+        <div class="slider_right">
+            {% thumbnail news.get_image 340x340 crop as thumb %}
+            <div class="img1">
+                <a href="{{ thumb.url }}" data-fancybox rel="example_group" id="adpdp14">
+                    <img src="{{ thumb.url }}" id="dp14" style="margin-bottom: 3px;" alt="{{ news.title }}"></a>
+            </div>
+        </div>
+
+        <div class="publick">
+        <div class="slider_left1">
+            <p class="sale-title">{{ news.title|upper }}</p>
+            <div class="wrap_icon">
+                <div class="vk1"></div>
+                <div class="twitter1"></div>
+                <div class="fs1"></div>
+                <div class="inst1"></div>
+            </div>
+            <div class="categories">
+				    <span class="sottotitoli">{{ news.create_date|date:"d.m.Y" }} </span>
+                    {% if news.profile %}
+                        <div class="dividing_line"></div>
+                        <a href="{{ news.profile.public_url }}" class="sottotitoli">{{ news.profile.name }}</a>
+                        <div class="dividing_line"></div>
+                        <a href="" class="sottotitoli">{{ news.profile.city }}</a>
+                    {% else %}
+                        <div class="dividing_line" style="background: none"></div>
+                    {%  endif %}
+				</div>
+
+            <div class="info_wrap">
+                <div class="sale-text">
+                {{ news.text|safe }}
+                </div>
+            </div>
+{#            <div class="action_statistics">#}
+{#                {% include 'common/elements/views_count.html' %}#}
+{#                {% include 'common/elements/comments_count.html' %}#}
+{#            </div>#}
+        </div>
+        </div>
+
+        {{ news|tag_relations  }}
+    </div>
+    </div>
+
+{% endblock %}

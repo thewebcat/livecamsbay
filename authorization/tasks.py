@@ -2,10 +2,10 @@ from django.core.urlresolvers import reverse
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
 
-from amigostone import celery
-from amigostone import settings
-from common.func import build_absolute_uri
-from common.tokens import user_is_active_token_generator
+from livecamsbay import celery
+from livecamsbay import settings
+from main.func import build_absolute_uri
+from main.tokens import user_is_active_token_generator
 from email_sender.models import EmailSender
 
 

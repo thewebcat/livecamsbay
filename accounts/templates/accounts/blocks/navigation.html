@@ -11,12 +11,9 @@
     <ul>
         <li><a href="{% url 'accounts:profile' %}">Мой профиль</a></li>
         <li class="separator"></li>
-        <li><a href="{% url 'accounts:order_add' %}">Опубликовать заказ</a></li>
-        <li><a href="{% url 'accounts:order_list' %}">Заказы</a></li>
-        <li class="separator"></li>
         <li><a href="{% url 'accounts:message_list' %}">Сообщения{% if request.message_counter %} <span class="badge">+{{ request.message_counter }}</span>{% endif %}</a></li>
-        <li><a href="{% url 'accounts:note_list' %}">Заметки</a></li>
-        <li><a href="{% url 'accounts:documents' %}">Документы</a></li>
+{#        <li><a href="{% url 'accounts:note_list' %}">Заметки</a></li>#}
+        <li><a href="{% url 'accounts:favorite_list' %}">Избранные модели</a></li>
         <li><a href="{% url 'accounts:notifications' %}">Настройка уведомлений</a></li>
         <li class="separator"></li>
         <li><a href="#form_popup" class="jq_open_popup" data-fancybox>Задать вопрос</a></li>

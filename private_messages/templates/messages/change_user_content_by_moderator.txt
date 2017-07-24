@@ -1,0 +1,10 @@
+[SUBJECT]
+Ваш {{ obj }} изменен модератором
+
+[CONTENT]
+<p>
+    {% for change in changes %}
+    Изменено поле {{ change }} <br>
+    {% endfor %}
+    <a href="{{ url }}">Посмотреть обновленную версию</a>
+</p>

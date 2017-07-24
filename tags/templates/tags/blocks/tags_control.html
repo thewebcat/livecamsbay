@@ -1,0 +1,43 @@
+{% if multiple_choice_tag_form %}
+        <div class="form-row">
+            <div class="form-col-4">
+                <div class="control-container">
+                    <div class="add_tags">
+                        <a href="">Добавьте основные <span class="green_teg">теги</span></a>
+                        <div class="issue"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-col-8">
+                <div class="control-container {{ form_material.tags.css_classes }}">
+                    {{ multiple_choice_tag_form.tags }}
+                </div>
+            </div>
+        </div>
+    <style>
+        #{{ multiple_choice_tag_form.tags.id_for_label }} {
+            height: 32px;
+        }
+        #{{ multiple_choice_tag_form.tags.id_for_label }} option {
+            display: none;
+        }
+        .select2-dropdown {
+            z-index: 9001;
+        }
+    </style>
+    <script>
+    $(function(){
+        var id_tags = '{{ multiple_choice_tag_form.tags.id_for_label }}';
+        var placeholder_tags = '{{ multiple_choice_tag_form.tags.field.widget.attrs.placeholder }}';
+        var tags = $('#'+id_tags).select2({
+            tags: true,
+            placeholder: placeholder_tags,
+            minimumInputLength: 1,
+            language: "ru"
+        }).select2('open').select2('close');
+        tags.on("select2:select", function() {
+            $(this).select2('open').select2('close')
+        });
+    })
+    </script>
+{% endif %}

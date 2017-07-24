@@ -1,0 +1,15 @@
+{% load common_exras %}
+{% with segments_length=segments|length %}
+<div class="progress-bar">
+    <div class="progress-bar-filler {{ class }}" style="width: {{ percent }}%"></div>
+    {% if segments %}
+    <div class="progress-bar-segments">
+        {% for value in segments %}
+        <div class="progress-bar-segment" style="width: {{ 100|divide:segments_length }}%">
+            <div class="progress-bar-segment-line">{{ value.desc }}</div>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+{% endwith %}
+</div>

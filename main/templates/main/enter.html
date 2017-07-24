@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% load widget_tweaks %}
+
+{% block breadcrumbs %}
+    {{ block.super }}
+    <div class="breadcrumb"><a href="{% url 'authorization:enter' %}">Авторизация</a></div>
+{% endblock %}
+
+{% block content %}
+
+    <div class="wrapper">
+
+
+        <div class="nav_name">
+            <h1>Авторизация</h1>
+        </div>
+
+        <form action="" method="post" style="width: 479px; margin: 0 auto;">
+            {% csrf_token %}
+            <div class="login">Введите ваш логин и пароль или <a href="{% url "authorization:registration" %}" class="login_link">зарегистрируйтесь</a></div>
+
+            {{ form.show_errors }}
+
+            <div class="control-container {{ form.email.css_classes }}">{{ form.email.label_tag }}{{ form.email }}</div>
+            <div class="control-container {{ form.password.css_classes }}">{{ form.password.label_tag }}{{ form.password }}</div>
+            <div class="control-container {{ form.email.css_classes }}">
+                <input type="checkbox" class="radio" id="remember_me" name="remember_me"/>
+                <label for="remember_me">Запомнить меня</label>
+            </div>
+            <div class="show_right"><a href="{% url "authorization:forgot_password" %}">Забыли пароль?</a></div>
+            <div class="buttons-container buttons-container-center"><button class="button" type="submit">Войти</button></div>
+        </form>
+
+    </div>
+
+{% endblock %}

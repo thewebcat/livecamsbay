@@ -1,39 +1,48 @@
- {% extends 'base.html' %}
-            {% block filter %}
-            <div class="title">
-                <h2><i class="ico_title"></i>LIVE SEX SEARCH</h2>
-                <ul class="left-menu">
-                    <form action="{{ request.path }}" method="get">
-                        <!--{{ filter.form.as_p }}-->
+{% extends 'base.html' %}
+{% load sekizai_tags %}
+{% block filter %}
+    <div class="title">
+        <h2><i class="ico_title"></i>LIVE SEX SEARCH</h2>
+        <ul class="left-menu">
+            <form action="{{ request.path }}" method="get">
+                <!--{{ filter.form.as_p }}-->
 
-                        <li class="prices-display" style="padding-right: 10px;">
-                            <span class="bold" style="margin-bottom: 10px;display: inline-block;">Возраст</span>
-                            <input type="hidden" id="range_price" data-min="{{ min_age }}" data-max="{{ max_age }}" data-from="{{ request.GET.min_age|default:min_age }}" data-to="{{ request.GET.max_age|default:max_age }}" />
-                            <div class="price-slider-info">
-                                <span>От</span><input type="text" name="min_age" class="mright10 only-number" value="{{ request.GET.min_age|default:min_age }}">
-                                <span>До</span><input type="text" name="max_age" class="only-number"  value="{{ request.GET.max_age|default:max_age }}">
-                            </div>
-                        </li>
-                        <input type="submit"/>
-                    </form>
-                </ul>
-            </div>
-            {% endblock %}
-
-                {% block content %}
-                    {% include 'blocks/navigation.html' %}
-                    <div class="nav-right">
-                        <div class="top-cams-section">
-                            <div class="headline">
-                                <h3>{{ models_count }} онлайн моделей</h3>
-                            </div>
-
-                            <div id="item-search">
-                                {% include 'models_content.html' %}
-                            </div>
-
-
-                        </div>
+                <li class="prices-display" style="padding-right: 10px;">
+                    <span class="bold" style="margin-bottom: 10px;display: inline-block;">Возраст</span>
+                    <input type="hidden" id="range_price" data-min="{{ min_age }}" data-max="{{ max_age }}"
+                           data-from="{{ request.GET.min_age|default:min_age }}"
+                           data-to="{{ request.GET.max_age|default:max_age }}"/>
+                    <div class="price-slider-info">
+                        <span>От</span><input type="text" name="min_age" class="mright10 only-number"
+                                              value="{{ request.GET.min_age|default:min_age }}">
+                        <span>До</span><input type="text" name="max_age" class="only-number"
+                                              value="{{ request.GET.max_age|default:max_age }}">
                     </div>
-                {% endblock %}
+                </li>
+                <input type="submit"/>
+            </form>
+        </ul>
+    </div>
+{% endblock %}
+
+{% block content %}
+    {% addtoblock 'js' %}
+        <script src="{{ STATIC_URL }}js/libs/jquery.circles-progressbar.js"></script>
+
+    {% endaddtoblock %}
+    {% include 'blocks/navigation.html' %}
+    <div class="nav-right">
+        <div class="top-cams-section">
+            <div class="headline">
+                <h3>{{ models_count }} онлайн моделей</h3>
+            </div>
+
+            <div id="item-search">
+                {% include 'models_content.html' %}
+            </div>
+
+
+        </div>
+    </div>
+{% endblock %}
 

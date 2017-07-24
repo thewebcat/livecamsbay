@@ -1,0 +1,260 @@
+{% extends "base.html" %}
+{% load thumbnail widget_tweaks common_exras %}
+
+{% block breadcrumbs %}
+    {{ block.super }}
+    <div class="breadcrumb"><a href="{% url 'search' %}">Поиск</a></div>
+{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" type="text/css" media="screen" href="{{ STATIC_URL }}css/adpagestyle.css" />
+{% endblock %}
+
+{% block content %}
+
+    <div class="wrapper">
+        <div class="block_info">
+            <div class="nav_name">
+                <h1>Поиск</h1>
+            </div>
+
+<style>
+    .search_grid {
+        box-sizing: border-box;
+    }
+    .search_grid:before, .search_grid:after {
+        display: table;
+        content: " ";
+        clear: both;
+    }
+    .search_grid_select, .search_grid_text, .search_grid_button {
+        box-sizing: border-box;
+        float: left;
+        position: relative;
+        min-height: 1px;
+    }
+    .search_grid_select {width: 250px;}
+    .search_grid_text {width: 750px;}
+    .search_grid_button {width: 200px;}
+
+</style>
+
+        <form class="seek" action="" method="get">
+            <div class="search_grid">
+                <div class="search_grid_select">
+                    <select class="jq_select">
+                        <option>Везде</option>
+                    </select>
+                </div>
+                <div class="search_grid_text">
+                    <input name="q" type="text" class="" placeholder="|">
+                </div>
+                <div class="search_grid_button">
+                    <button type="submit" class="">Найти</button>
+                </div>
+            </div>
+
+            <script>
+                $(function(){
+                    select2_basic_initial($('.jq_select'))
+                })
+            </script>
+
+
+        </form>
+
+        {% if q %}
+            <p class="no_result">
+            {% if success %}
+                Результаты по запросу "<a class="search_result">{{ q }}</a>"
+            {% else %}
+                К сожалению, по вашему запросу "<span class="search_result">{{ q }}</span>" ничего не найдено. Не расстраивайтесь!<br> Попробуйте уточнить запрос или поискать
+                нужный товар в каталоге.
+            {% endif %}
+            </p>
+        {% endif %}
+
+        {% if articles %}
+            <div class="block_info">
+            {% for article in articles %}
+                {% thumbnail article.main_image.image 258x258 crop as thumb %}
+                <div class="inside">
+                <img src="{{ thumb.url }}">
+                    <div class="left">
+                    <div class="shares_title">{{ article.title|upper }}</div>
+                    <div class="categories">
+                        <span class="sottotitoli">{{ article.create_date|date:"d.m.Y" }} </span>
+                        <div class="dividing_line"></div>
+                        <a href="{{ article.profile.public_url }}" class="sottotitoli">{{ article.profile.name }}</a>
+                        <div class="dividing_line"></div>
+                        <a href="" class="sottotitoli">{{ article.profile.city }}</a>
+                    </div>
+                    <div class="info_wrap2">
+                        <div class="sale-text">
+                            {{ article.text|truncatechars_html:800|safe|striptags }} <a class="further" href="{% url 'articles:article_view' article.slug %}"> читать далее</a>
+                        </div>
+                    </div>
+                    <div class="action_statistics">
+                        {% include 'common/elements/views_count.html' %}
+                        {% include 'common/elements/comments_count.html' %}
+                    </div>
+                    </div>
+                </div>
+
+                {% if not forloop.last %}<div class="line_down"></div>{% endif %}
+
+            {% endfor %}
+            </div>
+        {% endif %}
+
+        {% if news_list %}
+            <div class="block_info">
+            {% for news in news_list %}
+
+                <div class="inside">
+                {% thumbnail news.image 250x250 crop as thumb %}
+                <img src="{{ thumb.url }}">
+                    <div class="left">
+                    <div class="shares_title">{{ news.title|upper }}</div>
+                    <div class="categories">
+                        <span class="sottotitoli">{{ news.create_date|date:"d.m.Y" }} </span>
+                        {% if news.company %}
+                        <div class="dividing_line"></div>
+                        <a href="{{ news.company.public_url }}" class="sottotitoli">{{ news.company.title }}</a>
+                        <div class="dividing_line"></div>
+                        <a href="" class="sottotitoli">{{ news.company.city }}</a>
+                        {% else %}
+                            <div class="dividing_line" style="background: none"></div>
+                        {%  endif %}
+                    </div>
+                    <div class="info_wrap2">
+                        <div class="sale-text">
+                            {{ news.text|truncatechars_html:800|safe|striptags }} <a class="further" href="{{ news.public_url }}"> читать далее</a>
+                        </div>
+                    </div>
+                    <div class="action_statistics">
+                        {% include 'common/elements/views_count.html' %}
+                        {% include 'common/elements/comments_count.html' %}
+                    </div>
+                    </div>
+                </div>
+
+                {% if not forloop.last %}<div class="line_down"></div>{% endif %}
+
+            {% endfor %}
+            </div>
+        {% endif %}
+
+        {% if services %}
+            {% for service in services %}
+                <div class="nav-foto2">
+                    {% thumbnail service.main_image.image 249x249 crop as thumb %}
+                    <img src="{{ thumb.url }}" alt="...">
+                </div>
+                <div class="right-block1">
+                    <div class="category"><a href="{% url 'services:service_view' service.pk %}" class="subtitle">{{ service.title }}</a>
+                        <div>
+                            <span class="company-name"><a href="{{ service.profile.public_url }}" class="company-name">{{ service.profile.name }}</a></span>
+                            <br>
+                            <span class="">Цена: {{ service.price|intspace }} руб.</span>
+                        </div>
+                        <div>
+                            <a class="company-name" href="">{{ service.service_catalog.title }}</a>
+                        </div>
+                    </div>
+                    <div class="anons" style="width: 850px;">
+                        {{ service.description|safe }}
+                        <a href="{% url 'services:service_view' service.pk %}" class="further"> читать далее</a>
+                    </div>
+                    <div style="margin-top:22px;">
+                        {% include 'common/elements/views_count.html' %}
+                        {% include 'common/elements/comments_count.html' %}
+                        <div class="star-small"></div>
+                    </div>
+                </div>
+                {% if not forloop.last %}<div class="line_down"></div>{% endif %}
+            {% endfor %}
+        {% endif %}
+
+        {% if offers %}
+            <div class="block_info">
+            {% for offer in offers %}
+                <div class="inside">
+                {% thumbnail offer.main_image.image 250x250 crop as thumb %}
+                    <img src="{{ thumb.url }}">
+
+                    <div class="left">
+                        <a href="{{ offer.get_public_url }}" class="shares_title" style="color: #000000">{{ offer.title|upper }}</a>
+                        <div class="categories">
+                            <span class="sottotitoli">{{ offer.create_date|date:"d.m.Y" }} </span>
+
+                            <div class="dividing_line"></div>
+                            <a href="{{ offer.get_category.get_public_url }}" class="sottotitoli">{{ offer.get_category }}</a>
+
+                            <div class="dividing_line"></div>
+                            <a href="" class="sottotitoli">{{ offer.city }}</a>
+                        </div>
+                        <div class="info_wrap2">
+                            <div class="sale-text">
+                                {{ offer.description|safe }}
+                            </div>
+                        </div>
+                        <div class="action_statistics">
+                            {% include 'common/elements/views_count.html' %}
+                            {% include 'common/elements/comments_count.html' %}
+                        </div>
+                    </div>
+                </div>
+
+                {% if not forloop.last %}<div class="line_down"></div>{% endif %}
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        {% if companies %}
+            <div class="block_info">
+            {% for company in companies %}
+
+            <div class="inside">
+
+                {% thumbnail company.get_avatar 250x250 crop as thumb %}
+                <img src="{{ thumb.url }}" alt="{{ company.name }}">
+
+                <div class="left" style="width:50%">
+                    <div class="shares_title">{{ company.name }}</div>
+                    <div class="categories" style="margin-top: 0px;">
+                        <a href="" class="sottotitoli">{{ company.city.title }}</a>
+                    </div>
+                    <div class="info_wrap2">
+                        <div class="company-description">
+                            {{ company.description|safe|truncatechars_html:500 }}
+                            <a href="{{ company.public_url }}" class="further">читать далее</a>
+                        </div>
+                    </div>
+                    <div class="action_statistics">
+                        <div class="views">Просмотры</div>
+                        <div class="reviews">Отзывы</div>
+                    </div>
+                </div>
+
+                <div class="rating_wrap">
+                    <p class="rating">Рейтинг: 2560</p>
+                    <div class="shadow_star">
+                        <div class="rating_star"></div>
+                    </div>
+                    <div class="orders_num"></div><div class="sum">{{ company.orders_finished }}</div>
+                    <p style="margin:0">выполненных заказов</p>
+                    <a class="comments_num" href="">250 отзывов</a>
+                </div>
+            </div>
+            {% if not forloop.last %}<div class="line_down"></div>{% endif %}
+
+            {% endfor %}
+
+            </div>
+        {% endif %}
+
+        </div>
+    </div>
+
+{% endblock %}

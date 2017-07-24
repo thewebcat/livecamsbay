@@ -9,9 +9,9 @@ from django.db import models
 # from articles.models import Article
 # from calendar_events.models import Event
 # from custom_auth.models import User
-# from accounts.models import (
-#     Profile, ProfilePhone, ProfileBankDetails, ProfileContactPerson, ProfileDirector,
-#     ProfileEmail, ProfileUrl, ProfileGrades)
+from accounts.models import (
+     Profile, ProfilePhone,
+     ProfileEmail, ProfileUrl, FavoriteModel)
 #
 # from materials.models import MaterialCatalog, Material
 # from news.models import News
@@ -145,7 +145,9 @@ from django.db import models
 #     model = ServiceCatalog
 #
 #
-# class ProfileAdmin(admin.ModelAdmin):
+@admin.register(Profile)
+class ProfileAdmin(admin.ModelAdmin):
+    pass
 #     save_on_top = True
 #     exclude = ('position', )
 #     list_display = ('name', 'city', 'certified', 'state', 'provider', 'stoneworker', 'create_date_formated', 'position', 'point')
@@ -174,3 +176,6 @@ from django.db import models
 #     create_date_formated.short_description = 'Create date'
 #
 # admin.site.register(Profile, ProfileAdmin)
+@admin.register(FavoriteModel)
+class FavoriteModelAdmin(admin.ModelAdmin):
+    list_display = ('profile', 'model')

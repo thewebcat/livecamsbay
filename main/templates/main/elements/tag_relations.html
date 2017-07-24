@@ -1,0 +1,64 @@
+{#{% if materials %}#}
+{#    <div style="clear: both"></div>#}
+{#    <div class="line_down"></div>#}
+{#    <div class="wrapper">#}
+{#        <div class="article_stone"><a>Камни</a></div>#}
+{##}
+{#        {% for material in materials %}#}
+{#            {% include 'products/blocks/product_element.html' with product=material%}#}
+{##}
+{#            {% if not forloop.last %}#}
+{#                <div class="line_down"></div>{% endif %}#}
+{#        {% endfor %}#}
+{##}
+{#    </div>#}
+{#{% endif %}#}
+{% if products %}
+    <div style="clear: both"></div>
+    <div class="line_down"></div>
+    <div class="wrapper">
+        <div class="article_stone"><a>Изделия из камня</a></div>
+
+        {% for product in products %}
+            {% include 'products/blocks/product_element.html' %}
+
+            {% if not forloop.last %}
+                <div class="line_down"></div>{% endif %}
+        {% endfor %}
+
+    </div>
+{% endif %}
+{% if articles %}
+    <div class="block_info">
+        <div style="clear: both"></div>
+        <div class="line_down"></div>
+        <div class="wrapper">
+            <div class="article_stone"><a>Cтатьи</a></div>
+
+            {% for article in articles %}
+                {% include 'articles/blocks/article_element.html' %}
+
+                {% if not forloop.last %}
+                    <div class="line_down"></div>{% endif %}
+            {% endfor %}
+
+        </div>
+    </div>
+{% endif %}
+{% if news_list %}
+    <div class="block_info">
+        <div style="clear: both"></div>
+        <div class="line_down"></div>
+        <div class="wrapper">
+            <div class="article_stone"><a>Новости</a></div>
+
+            {% for news in news_list %}
+                {% include 'news/blocks/news_element.html' %}
+
+                {% if not forloop.last %}
+                    <div class="line_down"></div>{% endif %}
+            {% endfor %}
+
+        </div>
+    </div>
+{% endif %}

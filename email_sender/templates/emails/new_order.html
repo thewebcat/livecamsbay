@@ -1,0 +1,23 @@
+{% extends 'emails/email_base.html' %}
+{% block subject %}Размещён новый заказ.{% endblock %}
+
+{% block text_message %}
+Здравствуйте, {{ name }}, на каменной бирже Amigostone.ru размещён заказ "{{ order_name }}" для того чтобы перейти к работе с ним перейдите, пожалуйста по ссылке {{ order_link }}.
+Если заказ Вам не интересен можно просто ничего не делать.
+{% endblock %}
+
+{% block html_message %}
+<p style="font-size: 16px; color: #000 !important; font-family: Arial, sans-serif; line-height: 1.5;text-align:justify; margin: 0; padding: 0; background:none;">
+    Здравствуйте, {{ name }}, на каменной бирже Amigostone.ru размещён заказ "{{ order_name }}" для того чтобы перейти к работе с ним перейдите, пожалуйста по <a href="{{ order_link }}" style="text-decoration:none;color:#797979;font-weight:bold;">ссылке</a>.
+    <br />
+    Если заказ Вам не интересен можно просто ничего не делать.
+</p>
+{% endblock %}
+
+{% block html_link_to_object %}
+    <p align="center">
+        <a href="{{ order_link }}" style="color:#ffffff;text-decoration: none;text-align:center;font-family: Arial, sans-serif;font-size:16px;margin:0px auto;padding: 10px 25px;background: #358c38;line-height:40px;border-radius:5px;border:none;">
+            Перейти к заказу
+        </a>
+    </p>
+{% endblock %}

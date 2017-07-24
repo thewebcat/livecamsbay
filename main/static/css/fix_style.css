@@ -109,11 +109,33 @@
 .br {
     clear: both;
 }
+.nav_menu2 {
+    background: none 0% 0% repeat scroll rgb(55, 55, 55);
+    position: fixed;
+    top: 0;
+    width: 200px;
+    height: 100%;
+    /* margin-top: 0; */
+    font-size: 17px;
+    display: inline-block;
+    padding: 20px;
+    padding-top: 120px;
+    color: white;
+    /* float: left; */
+    /* overflow-y: auto; */
+     overflow-x: hidden;
+    box-sizing: border-box;
+}
+.nav_menu2 .left-menu {
+    padding-left: 0;
+    margin-left: 0;
+}
+
 .nav_menu1 {
     height: initial;
-    background: none 0% 0% repeat scroll rgb(55, 55, 55);
+    /*background: none 0% 0% repeat scroll rgb(55, 55, 55);*/
     float: left;
-    position: fixed;
+    /*position: fixed;*/
 }
 /********************Account profile*/
 

@@ -1,0 +1,38 @@
+{% extends 'emails/email_base.html' %}
+{% block subject %}Ссылка для активации аккаунта livecamsbay.com{% endblock %}
+
+{% block text_message %}
+Здравствуйте, {{ name }}!
+
+Добро пожаловать на сервис {{ site_name }}
+
+Ваш аккаунт на сайте успешно создан.
+Для дальнейшего использования сайта {{ site_name }} подтвердите регистрацию, пройдя по ссылке
+{{ activate_url }}
+Если ссылка не нажимается, скопируйте её и вставьте в адресную строку браузера.
+Желаем приятной работы с нашим сайтом!
+Если письмо попало к Вам по ошибке не переходите по ссылке активации. Напишите об ошибке в службу поддержки и мы удалим Ваш e-mail из базы.
+{% endblock %}
+
+{% block html_message %}
+<p style="font-size: 16px; color: #000 !important; font-family: Arial, sans-serif; line-height: 1.5;text-align:justify; margin: 0; padding: 0; background:none;">
+    Здравствуйте, {{ name }}!<br>
+    Добро пожаловать на сервис {{ site_name }}
+</p>
+<p style="font-size: 16px; color: #000 !important; font-family: Arial, sans-serif; line-height: 1.5;text-align:justify; margin: 0; padding: 0; background:none;">
+    Ваш аккаунт на сайте успешно создан.<br>
+Для дальнейшего использования сайта {{ site_name }} подтвердите регистрацию, пройдя по ссылке<br>
+<a href="{{ activate_url }}" style="text-decoration:none;color:#f40361;font-weight:bold;">{{ activate_url }}</a><br>
+Если ссылка не нажимается, скопируйте её и вставьте в адресную строку браузера.<br>
+Желаем приятной работы с нашим сайтом!<br>
+Если письмо попало к Вам по ошибке не переходите по ссылке активации. Напишите об ошибке в службу поддержки и мы удалим Ваш e-mail из базы.
+</p>
+{% endblock %}
+
+{% block html_link_to_object %}
+    <p align="center">
+        <a href="{{ activate_url }}" style="color:#ffffff;text-decoration: none;text-align:center;font-family: Arial, sans-serif;font-size:16px;margin:0px auto;padding: 10px 25px;background: #f40361;line-height:40px;border-radius:5px;border:none;">
+            Подтвердить активацию
+        </a>
+    </p>
+{% endblock %}

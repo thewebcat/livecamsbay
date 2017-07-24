@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/1.9/ref/settings/
 """
 
 import os
+import djcelery
+from django.core.urlresolvers import reverse_lazy
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -43,6 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
 
     # pip apps
     'modeltranslation',
@@ -57,6 +60,7 @@ INSTALLED_APPS = [
     'ckeditor',
     'widget_tweaks',
     'nocaptcha_recaptcha',
+    'djcelery',
 
     # my apps
     'main',
@@ -65,6 +69,12 @@ INSTALLED_APPS = [
     'authorization',
     'accounts',
     'newsletter_email',
+    'email_sender',
+    'private_messages',
+    'tickets',
+    'news',
+    'tags',
+    'feedback',
 ]
 
 DEBUG_TOOLBAR_PANELS = [
@@ -82,6 +92,8 @@ DEBUG_TOOLBAR_PANELS = [
     'debug_toolbar.panels.redirects.RedirectsPanel',
 ]
 
+SITE_ID = 1
+
 CITIES_LIGHT_TRANSLATION_LANGUAGES = ['ru',]
 CITIES_LIGHT_INCLUDE_COUNTRIES = ['RU']
 
@@ -92,6 +104,7 @@ ADMIN_TOOLS_INDEX_DASHBOARD = 'livecamsbay.dashboard.CustomIndexDashboard'
 ADMIN_TOOLS_APP_INDEX_DASHBOARD = 'livecamsbay.dashboard.CustomAppIndexDashboard'
 
 MIDDLEWARE_CLASSES = [
+    'livecamsbay.middleware.CurrentUser',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -106,7 +119,15 @@ MIDDLEWARE_CLASSES = [
 
 ROOT_URLCONF = 'livecamsbay.urls'
 
+AUTHENTICATION_BACKENDS = (
+    'main.authbackend.AuthBackend',
+    'main.authbackend.OneTimeAccess',
+    'main.authbackend.EmailAccess',
+)
+
 AUTH_USER_MODEL = 'main.User'
+
+LOGIN_URL = reverse_lazy('authorization:enter')
 
 TEMPLATES = [
     {
@@ -196,6 +217,78 @@ MODELTRANSLATION_TRANSLATION_REGISTRY = 'livecamsbay.translation'
 
 STATIC_URL = '/static/'
 
+COMPANY = "Amigo Stone"
+DOMAIN = ""
+ADMIN_EMAIL = 'beholdthegreatnessofpotato@gmail.com'
+ADMIN_EMAILS = {
+    'info': 'info@livecamsbay.com',
+    'editor': 'editor@livecamsbay.com',
+    'manager': 'manager@livecamsbay.com',
+    'support': 'support@livecamsbay.com',
+    'advert': 'advert@livecamsbay.com',
+    'robot': 'noreply@livecamsbay.com',
+    'main': 'beholdthegreatnessofpotato@gmail.com'
+}
+
+# Size all imgs
+IMG_SIZE = {
+    'S': (),
+    'M': (),
+    'L': (250, 250),
+    'original': (350, 350)
+}
+
+PREVIEW_THUMBNAIL_OPTIONS = {'size': (130, 100), 'crop': True}
+
+def preview_default_image():
+    from easy_thumbnails.files import get_thumbnailer
+    return get_thumbnailer(open(DEFAULT_IMAGE), relative_name='default.png')\
+        .get_thumbnail(PREVIEW_THUMBNAIL_OPTIONS).url
+
+FILE_MIME_TYPE = {
+    'image/jpeg': None, 'image/png': None, 'application/pdf': preview_default_image, 'image/tiff': None,
+    'application/octet-stream': preview_default_image, 'application/dxf': preview_default_image,
+    'drawing/x-dwf': preview_default_image, 'model/vnd.dwf': preview_default_image,
+    'application/vnd.openxmlformats-officedocument.wordprocessingml.document': preview_default_image,
+    'application/msword': preview_default_image,
+    'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet': preview_default_image,
+    'application/vnd.ms-excel': preview_default_image
+}
+
+IMAGE_EXTENTION = {
+    'jpg': FILE_MIME_TYPE['image/jpeg'],
+    'jpeg': FILE_MIME_TYPE['image/jpeg'],
+    'png': FILE_MIME_TYPE['image/png'],
+    'tiff': FILE_MIME_TYPE['image/tiff'],
+}
+
+FILE_EXTENTION = {
+    'pdf': FILE_MIME_TYPE['application/pdf'],
+    'dws': FILE_MIME_TYPE['application/octet-stream'],
+    'dwt': FILE_MIME_TYPE['application/dxf'],
+    'dxf': FILE_MIME_TYPE['drawing/x-dwf'],
+    'dwf': FILE_MIME_TYPE['model/vnd.dwf'],
+    'docx': FILE_MIME_TYPE['application/vnd.openxmlformats-officedocument.wordprocessingml.document'],
+    'doc': FILE_MIME_TYPE['application/msword'],
+    'xlsx': FILE_MIME_TYPE['application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'],
+    'xls': FILE_MIME_TYPE['application/vnd.ms-excel']
+}
+
+DEFAULT_IMAGE = os.path.join(BASE_DIR, 'main/static', 'images/default.png')
+
+#############################
+djcelery.setup_loader()
+
+# BROKER_URL = 'redis+socket:///var/run/redis/redis.sock'
+# CELERY_RESULT_BACKEND = 'redis+socket:///var/run/redis/redis.sock'
+BROKER_URL = 'redis://localhost:6379/0'
+CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
+# CELERY_ACCEPT_CONTENT = ['json']
+# CELERY_TASK_SERIALIZER = 'json'
+# CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TASK_RESULT_EXPIRES = 7 * 86400  # 7 days
+CELERY_SEND_EVENTS = True
+CELERYBEAT_SCHEDULER = "djcelery.schedulers.DatabaseScheduler"
 
 try:
     from local_settings import *

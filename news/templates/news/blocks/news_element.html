@@ -1,0 +1,28 @@
+{% load thumbnail %}
+
+
+            {% thumbnail news.get_image 258x258 crop as thumb %}
+            <div class="inside">
+                <a href="{{ news.public_url }}">
+			        <img src="{{ thumb.url }}" alt="{{ news.title }}">
+                </a>
+				<div class="left">
+				<a href="{{ news.public_url }}" class="shares_title">{{ news.title|upper }}</a>
+				<div class="categories">
+				    <span class="sottotitoli">{{ news.create_date|date:"d.m.Y" }} </span>
+                    <div class="dividing_line"></div>
+                    <a href="{{ news.profile.public_url }}" class="sottotitoli">{{ news.profile.name }}</a>
+                    <div class="dividing_line"></div>
+				    <a href="" class="sottotitoli">{{ news.profile.city }}</a>
+				</div>
+				<div class="info_wrap2">
+					<div class="sale-text">
+                        {{ news.text|truncatechars_html:800|safe|striptags }} <a class="further" href="{{ news.public_url }}"> читать далее</a>
+					</div>
+				</div>
+{#				<div class="action_statistics">#}
+{#					{% include 'common/elements/views_count.html' %}#}
+{#					{% include 'common/elements/comments_count.html' %}#}
+{#				</div>#}
+				</div>
+			</div>

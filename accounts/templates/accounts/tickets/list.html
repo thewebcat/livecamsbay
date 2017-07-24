@@ -56,7 +56,7 @@
                                                         <label for="id_message">Введите сообщение:</label>
                                                         <textarea name="text" id="id_message" placeholder="Введите сообщение" required></textarea>
                                                     </div>
-                                                    {% include 'common/elements/uploadform.html' with id_field='id_ticket_file' form=None prefix=ticket.grouper %}
+                                                    {% include 'main/elements/uploadform.html' with id_field='id_ticket_file' form=None prefix=ticket.grouper %}
                                                     <div class="buttons-container buttons-container-center"><button type="submit">Отправить</button></div>
                                                 </form>
 

@@ -1,0 +1,29 @@
+{% load widget_tweaks %}
+
+<script type="text/javascript">
+$(function() {
+    $('form div.formset-element').uploadformset({
+        prefix: '{{ formset.management_form.prefix }}',
+        deleteText: '',
+        addText: '',
+        allowedFileExtensions: '{{ formset.0.allowed_file_extensions }}'.split(',')
+    })
+})
+</script>
+
+<div class="formset-elements">
+{% for form in formset.forms %}
+<div class="formset-element" id="{{ form.prefix }}-row">
+    {{ form }}
+{#    {% for hidden in form.hidden_fields %}#}
+{#        {{ hidden }}#}
+{#    {% endfor %}#}
+    {# Include the visible fields #}
+{#    {% for field in form.visible_fields %}#}
+{#        {{ field.label_tag }}#}
+{#        {{ field|add_class:''|attr:'style: display: none;' }}#}
+{#    {% endfor %}#}
+</div>
+{% endfor %}
+{{ formset.management_form }}
+</div>

@@ -25,7 +25,7 @@
 {#      <meta http-equiv="Last-Modified" content=""/>#}
 {#    {% endblock %}#}
 {#  {% endif %}#}
-  <link rel="icon" href="{{ STATIC_URL }}images/favicon.png" type="image/png">
+  <link rel="icon" href="{{ STATIC_URL }}img/favicon.png" type="image/png">
   <script>
       document.addEventListener('DOMContentLoaded', function () {
           if (window.isMobile !== undefined) {
@@ -98,7 +98,7 @@
   <link rel="stylesheet" href="{{ STATIC_URL }}css/fix_style_modal.css"/>
   <link rel="stylesheet" href="{{ STATIC_URL }}css/fix_style_catalogs.css"/>
   <link rel="stylesheet" href="{{ STATIC_URL }}css/ckeditor.css"/>
-{#  <link rel="stylesheet" href="{{ STATIC_URL }}css/forms.css"/>#}
+  <link rel="stylesheet" href="{{ STATIC_URL }}css/forms.css"/>
   <link rel="stylesheet" href="{{ STATIC_URL }}css/top_menu.css"/>
   <link rel="stylesheet" href="{{ STATIC_URL }}css/custom_select.css"/>
   <link rel="stylesheet" href="{{ STATIC_URL }}css/jquery.custom-scrollbar.css"/>
@@ -151,7 +151,7 @@
 
     <script src='https://www.google.com/recaptcha/api.js'></script>
   </head>
-<body class="page__body">
+<body class="page__body" style="overflow: hidden">
 
 {% include "blocks/yandex.metrika.counter_&_ga.html" %}
 
@@ -245,7 +245,41 @@
 
 {% block extra_js %}
 {% endblock %}
+<script>
+    function checkPosition(s){
+        var scrollTop = $(window).scrollTop();
+        var windowHeight = $(window).height();
+        var el = $(s);
+        var offset = el.offset();
+        //console.log(offset.top);
+        var height = scrollTop - offset.top + windowHeight;
+        var $nav_menu = $(".nav_menu2");
+        if (parseInt(height) > 0) {
+            //console.log(scrollTop - offset.top + windowHeight)
+            $nav_menu.css({top: -height});
+        } else {
+            $nav_menu.css({top: 0});
+        }
 
+    }
+
+    $(document).ready(function () {
+        $("body").niceScroll({zindex: 100});
+
+        $(document).scroll(function(){
+            // при скролле страницы делаем проверку
+            checkPosition('.page__line--bgi-stone');
+        });
+
+        // после загрузки страницы сразу проверяем
+        checkPosition('.page__line--bgi-stone');
+
+        // проверка при масштабировании и изменении размера страницы
+        $(window).resize(function(){
+            checkPosition('.page__line--bgi-stone');
+        });
+    });
+</script>
 {% render_block "js" %}
 </body>
 </html>

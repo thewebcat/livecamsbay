@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+{% load widget_tweaks thumbnail common_exras %}
+
+
+{% block content %}
+
+    <div class="wrapper">
+        <div class="block_info_none">
+            <div class="nav_name">
+                <h1>Обратная связь</h1>
+            </div>
+            <div class="row">
+              <div class="column small-12 self-full-gutter"></div>
+              <div class="column first_block" style="min-height:450px;">
+
+                  <table width="100%">
+                      <tr>
+                          <td colspan="2"><div class="background_contaсt"><img src="{{ STATIC_URL }}images/phone.png" style=""></div></td>
+                      </tr>
+                      <tr>
+                          <td width="40%"><p>Бесплатный номер <br>для звонков из России:</p></td>
+                          <td><p><br>{{ config.PHONE_RUSSIAN }}</p></td>
+                      </tr>
+                      <tr>
+                          <td colspan="2"><div class="background_contaсt"><img src="{{ STATIC_URL }}images/mail.png" style=""></div></td>
+                      </tr>
+                      <tr>
+                          <td width="40%"><p>Электронная почта:</p></td>
+                          <td><p>{{ config.EMAIL }}</p></td>
+                      </tr>
+                  </table>
+              </div>
+              <div class="column second_block">
+                  <p style="font-size:26px;">Форма обратной связи</p>
+
+                  <form action="" method="post" class="">
+                      {% csrf_token %}
+
+  {#                    {% check_forms feedback_form %}#}
+                      {{ feedback_form.show_errors }}
+
+                      {{ feedback_form.action }}
+                      <div class="control-container {{ feedback_form.name.css_classes }}">{{ feedback_form.name.label_tag }}{{ feedback_form.name }}</div>
+                      <div class="control-container {{ feedback_form.phone.css_classes }}">{{ feedback_form.phone.label_tag }}{{ feedback_form.phone }}</div>
+                      <div class="control-container {{ feedback_form.email.css_classes }}">{{ feedback_form.email.label_tag }}{{ feedback_form.email }}</div>
+                      <div class="control-container {{ feedback_form.question.css_classes }}">{{ feedback_form.question.label_tag }}{{ feedback_form.question }}</div>
+
+                      <div class="buttons-container buttons-container-center"><button class="button" type="submit">Отправить</button></div>
+                  </form>
+              </div>
+            </div>
+        </div>
+    </div>
+
+    {#    <div class="row">#}
+    {#        <div class="col-sm-6">#}
+    {#            <p>Звонки по России: {{ config.PHONE_RUSSIAN }}</p>#}
+    {#            <p>Международные звонки: {{ config.PHONE_INTERNATIONAL }}</p>#}
+    {#            <hr/>#}
+    {#            <p>Электронная почта: {{ config.EMAIL }}</p>#}
+    {#            <hr/>#}
+    {#            <p>{{ config.VK }}</p>#}
+    {#            <p>{{ config.TWITTER }}</p>#}
+    {#            <p>{{ config.FACEBOOK }}</p>#}
+    {#            <p>{{ config.INSTAGRAM }}</p>#}
+    {#        </div>#}
+    {#        <div class="col-sm-6">#}
+    {#            {% if feedback_form_sending %}#}
+    {#                <div class="alert alert-success" role="alert"><strong>Ваш запрос отправлен</strong></div>#}
+    {#            {% endif %}#}
+    {##}
+    {#            <form action="" method="post" class="form form-center">#}
+    {##}
+    {#                {% csrf_token %}#}
+    {#                {% bootstrap_form feedback_form %}#}
+    {##}
+    {#                {% buttons %}#}
+    {#                    <button type="submit" class="btn btn-primary">#}
+    {#                        Отправить#}
+    {#                    </button>#}
+    {#                {% endbuttons %}#}
+    {##}
+    {#            </form>#}
+    {#        </div>#}
+    {#    </div>#}
+
+{% endblock %}

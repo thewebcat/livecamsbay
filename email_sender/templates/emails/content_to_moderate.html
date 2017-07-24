@@ -1,0 +1,14 @@
+{% extends 'emails/email_base.html' %}
+{% block subject %}Публикация контента, отправлен на модерацию.{% endblock %}
+
+{% block text_message %}
+Здравствуйте, {{ name }}, Вы опубликовали материал "{{ content_name }}" в разделе "{{ content_type }}" сайта Amigostone.ru.
+Материал отправлен на модерацию, сразу после рассмотрения он будет опубликован.
+{% endblock %}
+
+{% block html_message %}
+<p style="font-size: 16px; color: #000 !important; font-family: Arial, sans-serif; line-height: 1.5;text-align:justify; margin: 0; padding: 0; background:none;">
+Здравствуйте, {{ name }}, Вы опубликовали материал "{{ content_name }}" в разделе "{{ content_type }}" сайта Amigostone.ru.
+Материал отправлен на модерацию, сразу после рассмотрения он будет опубликован.
+</p>
+{% endblock %}

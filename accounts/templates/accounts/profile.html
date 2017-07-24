@@ -23,18 +23,19 @@
         </div>
 
         {% if request.user.profile.is_user %}
+            {{ request.user.profile.get_avatar }}
             {% thumbnail request.user.profile.get_avatar 250x250 crop as thumb %}
-            <div class="nav-foto" style="background: url('{{ thumb.url }}') center center no-repeat"></div>
+            <div class="nav-foto" style="background: url('{{ thumb }}') center center no-repeat"></div>
             <div class="nav_information">
-{#                <li>{{ request.user.email }}</li>#}
+                <li>{{ request.user.email }}</li>
                 <li>{{ request.user.profile.city }}<br>
                     {{ request.user.profile.name }}</li>
             </div>
-            <div class="check">
+            {% comment %}<div class="check">
                 <a href="{% url 'accounts:order_add' %}">
                     <img src="{{ STATIC_URL }}images/check.png" alt="Оформить заказ" style="margin-right:10px;">Оформить заказ
                 </a>
-            </div>
+            </div>{% endcomment %}
             <a href="{% url 'accounts:profile_edit' %}" class="edit">Редактировать информацию</a>
 
             {% if request.user.profile.description %}
@@ -96,7 +97,7 @@
 				</div>
 
 			</div>
-			<a class="edit editing" href="{% url 'accounts:profile_edit' %}">Редактировать информацию</a>
+			<a class="edit editing" href="{% comment %}{% url 'accounts:profile_edit' %}{% endcomment %}">Редактировать информацию</a>
             {% if request.user.profile.description %}
                 <div class="nav">
                     <div class="about-me"> Описание деятельности</div>
@@ -155,7 +156,7 @@
                 </div>
             </div>
     {% include 'accounts/blocks/map.html' with company=request.user.profile %}
-    {% include 'orders/blocks/testimonials.html' %}
+    {% comment %}{% include 'orders/blocks/testimonials.html' %}{% endcomment %}
 <script>
     $(function () {
         $('.jq_material_filter').on('change', 'select, input[type=checkbox], input[type=checkbox]', function (e) {

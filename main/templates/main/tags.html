@@ -1,0 +1,8 @@
+
+{% if entity.get_tags %}
+    <div>
+    {% for tag in entity.get_tags %}
+        <a href="{% url 'tags:tags' %}?filter={{ tag.title }}">#{{ tag.title }}</a>
+    {% endfor %}
+    </div>
+{% endif %}

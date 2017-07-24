@@ -1,0 +1,24 @@
+{% extends 'emails/email_base.html' %}
+{% block subject %}Получен ответ на тикет.{% endblock %}
+
+{% block text_message %}
+Здравствуйте, {{ name }}, на Ваш вопрос "{{ ticket_message }}" в системе обратной связи сайта Amigostone.ru
+Получен ответ, перейдите, пожалуйста по ссылке ({{ tickets_url }}) для того чтобы прочитать ответ и задать следующий вопрос если это этого будет требовать ситуация.
+{% endblock %}
+
+{% block html_message %}
+<p style="font-size: 16px; color: #000 !important; font-family: Arial, sans-serif; line-height: 1.5;text-align:justify; margin: 0; padding: 0; background:none;">
+Здравствуйте, {{ name }}, на Ваш вопрос "{{ ticket_message }}" в системе обратной связи сайта Amigostone.ru
+</p>
+<p style="font-size: 16px; color: #000 !important; font-family: Arial, sans-serif; line-height: 1.5;text-align:justify; margin: 0; padding: 0; background:none;">
+Получен ответ, перейдите, пожалуйста по <a href="{{ tickets_url }}" style="text-decoration:none;color:#797979;font-weight:bold;">ссылке</a> для того чтобы прочитать ответ и задать следующий вопрос если это этого будет требовать ситуация.
+</p>
+{% endblock %}
+
+{% block html_link_to_object %}
+    <p align="center">
+        <a href="{{ tickets_url }}" style="color:#ffffff;text-decoration: none;text-align:center;font-family: Arial, sans-serif;font-size:16px;margin:0px auto;padding: 10px 25px;background: #358c38;line-height:40px;border-radius:5px;border:none;">
+            Перейти к вопросу
+        </a>
+    </p>
+{% endblock %}

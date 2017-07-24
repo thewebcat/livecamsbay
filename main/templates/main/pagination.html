@@ -1,0 +1,50 @@
+{% if paginations and paginations.paginator.num_pages > 1%}
+<div class="paginator">
+    {% if paginations.has_previous %}
+        <a href="?page={{ paginations.previous_page_number }}" class="prev" style="background-color:#fff;"><img src="{{ STATIC_URL }}images/arrows2.png"></a>
+    {% else %}
+        <a class="prev" style="background-color:#fff;"><img src="{{ STATIC_URL }}images/arrows2.png"></a>
+    {% endif %}
+
+    {% for i in paginations.paginator.page_range %}
+        {% if i == paginations.number %}
+            <span>{{ i }}</span>
+        {% else %}
+            <a href="?page={{ i }}">{{ i }}</a>
+        {% endif %}
+    {% endfor %}
+
+    {% if paginations.has_next %}
+        <a href="?page={{ paginations.next_page_number }}" class="next" style="background-color:#fff;"><img src="{{ STATIC_URL }}images/arrows.png"></a>
+    {% else %}
+        <a class="next" style="background-color:#fff;"><img src="{{ STATIC_URL }}images/arrows.png"></a>
+    {% endif %}
+
+</div>
+{% endif %}
+
+{#        <nav>#}
+{##}
+{##}
+{#            <ul class="pagination">#}
+{##}
+{#                {% if paginations.has_previous %}#}
+{#                    <li><a href="?page={{ paginations.previous_page_number }}" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>#}
+{#                {% endif %}#}
+{##}
+{#                {% for i in paginations.paginator.page_range %}#}
+{#                    {% if i == paginations.number %}#}
+{#                        <li class="disabled"><a href="?page={{ i }}">{{ i }}</a></li>#}
+{#                    {% else %}#}
+{#                        <li><a href="?page={{ i }}">{{ i }}</a></li>#}
+{#                    {% endif %}#}
+{#                {% endfor %}#}
+{##}
+{#                {% if paginations.has_next %}#}
+{#                    <li><a href="?page={{ paginations.next_page_number }}" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>#}
+{#                {% endif %}#}
+{##}
+{#            </ul>#}
+{##}
+{##}
+{#        </nav>#}

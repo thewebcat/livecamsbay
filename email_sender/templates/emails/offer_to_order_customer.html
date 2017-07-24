@@ -1,0 +1,22 @@
+{% extends 'emails/email_base.html' %}
+{% block subject %}На ваш заказ опубликовано предложение.{% endblock %}
+
+{% block text_message %}
+Здравствуйте {{ name }}, на Ваш заказ "{{ order_name }}" оставленный на каменной бирже Amigostone.ru  пришло предложение от производителя.
+Для работы с ним перейдите, пожалуйста, по ссылке: {{ order_link }}
+{% endblock %}
+
+{% block html_message %}
+<p style="font-size: 16px; color: #000 !important; font-family: Arial, sans-serif; line-height: 1.5;text-align:justify; margin: 0; padding: 0; background:none;">
+Здравствуйте {{ name }}, на Ваш заказ "{{ order_name }}" оставленный на каменной бирже Amigostone.ru  пришло предложение от производителя.<br />
+Для работы с ним перейдите, пожалуйста, по <a href="{{ order_link }}" style="text-decoration:none;color:#797979;font-weight:bold;">ссылке</a>.
+</p>
+{% endblock %}
+
+{% block html_link_to_object %}
+    <p align="center">
+        <a href="{{ order_link }}" style="color:#ffffff;text-decoration: none;text-align:center;font-family: Arial, sans-serif;font-size:16px;margin:0px auto;padding: 10px 25px;background: #358c38;line-height:40px;border-radius:5px;border:none;">
+            Перейти к заказу
+        </a>
+    </p>
+{% endblock %}

@@ -15,6 +15,8 @@ from easy_thumbnails.files import get_thumbnailer
 
 from main.models import AbstractBaseClass, AbstractStatus
 
+from email_sender.models import EmailSetting, EmailGroup
+
 from django.utils.translation import ugettext_lazy as _
 
 from os import path
@@ -33,7 +35,7 @@ class ProfileManager(models.Manager):
         return self.get_queryset().producers()
 
 
-class Profile(AbstractBaseClass, AbstractStatus):
+class Profile(AbstractBaseClass):
     """
     Модель профиля пользователя.
     Основная модель, она используется в создаваемых пользователем материалах.
@@ -42,11 +44,13 @@ class Profile(AbstractBaseClass, AbstractStatus):
 
     ROLE_USER = 'u'
     ROLE_MODEL = 'm'
+    ROLE_COMPANY = 'c'
     ROLE_DEAD_SOUL = 'd'
 
     ROLE_CHOICES = (
         (ROLE_USER, 'User'),
         (ROLE_MODEL, 'Model'),
+        (ROLE_COMPANY, 'Company'),
         (ROLE_DEAD_SOUL, 'Dead soul'),
     )
 
@@ -56,18 +60,12 @@ class Profile(AbstractBaseClass, AbstractStatus):
     city = models.ForeignKey('cities_light.City', null=True)
     short_description = models.CharField("Short description", max_length=255, default='', null=True, blank=True)
     description = models.TextField("Description", default='', null=True, blank=True)
-    avatar = ThumbnailerImageField(u"Company logo", upload_to="company_images", null=True, blank=True)
+    avatar = ThumbnailerImageField(u"Avatar", upload_to="profile_images", null=True, blank=True)
     # TODO: replace to state
     certified = models.BooleanField("Certified by the moderator", default=True)
     completed = models.BooleanField("Completed information", default=False)
-
-    zip = models.CharField("zip", max_length=255, null=True, blank=True)
     address = models.CharField("Address", max_length=255, null=True, blank=True)
-
-    #  Legal
-    legal_address = models.CharField("Legal address", max_length=255, null=True, blank=True)
     position = models.PositiveIntegerField(_('position'), null=True, default=None)
-
     point = models.PositiveSmallIntegerField(_(u'баллы'), default=0)
 
     def is_user(self):
@@ -109,7 +107,9 @@ class Profile(AbstractBaseClass, AbstractStatus):
         if self.avatar and path.exists(self.avatar.path):
             ava = self.avatar
         else:
+            print settings.DEFAULT_IMAGE
             ava = get_thumbnailer(open(settings.DEFAULT_IMAGE), relative_name='default.png')
+            print ava
         return ava
 
     # Foreign data
@@ -202,14 +202,6 @@ class Profile(AbstractBaseClass, AbstractStatus):
         """
         from accounts.forms import ProfileUrlForm
         return inlineformset_factory(Profile, ProfileUrl, ProfileUrlForm, extra=1, min_num=1, max_num=1, can_delete=False)
-
-    @staticmethod
-    def get_profile_contact_person_formset():
-        """
-        Форма для добавления Контактного лица/оператора биржи
-        """
-        from accounts.forms import ProfileContactPersonForm
-        return inlineformset_factory(Profile, ProfileContactPerson, ProfileContactPersonForm, extra=1, min_num=1, max_num=1, can_delete=False)
 
     @staticmethod
     def get_profile_director_form():
@@ -447,22 +439,26 @@ class ProfileHash(models.Model):
         return hashlib.sha1(salt + str(self.profile.id)).hexdigest()
 
 
-class ViewInstanceManager(models.Manager):
-    def get_or_create(self, content_object):
-        content_type = ContentType.objects.get_for_model(content_object)
-        return super(ViewInstanceManager, self).get_or_create(content_type=content_type, object_id=content_object.id)[0]
+class FavoriteModel(AbstractBaseClass):
+    profile = models.ForeignKey(Profile)
+    model = models.ForeignKey('main.Model')
 
-
-class ViewInstance(models.Model):
-    # уже не нужна, можно по позже удалить но проверить не используеться где либо еще
-    content_type = models.ForeignKey(ContentType)
-    object_id = models.PositiveIntegerField()
-    content_object = GenericForeignKey('content_type', 'object_id')
-    profiles = models.ManyToManyField(Profile)
-    # counter = models.PositiveIntegerField(default=0)
-    # unique_views = models.PositiveIntegerField(default=0)
-
-    objects = ViewInstanceManager()
-
-    class Meta:
-        unique_together = ('content_type', 'object_id')
+# class ViewInstanceManager(models.Manager):
+#     def get_or_create(self, content_object):
+#         content_type = ContentType.objects.get_for_model(content_object)
+#         return super(ViewInstanceManager, self).get_or_create(content_type=content_type, object_id=content_object.id)[0]
+#
+#
+# class ViewInstance(models.Model):
+#     # уже не нужна, можно по позже удалить но проверить не используеться где либо еще
+#     content_type = models.ForeignKey(ContentType)
+#     object_id = models.PositiveIntegerField()
+#     content_object = GenericForeignKey('content_type', 'object_id')
+#     profiles = models.ManyToManyField(Profile)
+#     # counter = models.PositiveIntegerField(default=0)
+#     # unique_views = models.PositiveIntegerField(default=0)
+#
+#     objects = ViewInstanceManager()
+#
+#     class Meta:
+#         unique_together = ('content_type', 'object_id')

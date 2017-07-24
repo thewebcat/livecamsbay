@@ -1,5 +1,5 @@
 .select2-container--default .select2-selection--single {
-    border: 1px solid #417538;
+    border: 1px solid #f40361;
     outline: none;
     border-radius: 0;
     height: 45px;
@@ -31,7 +31,7 @@
 }
 
 .select2-container--default .select2-results__option--highlighted[aria-selected] {
-    background-color: #417538;
+    background-color: #f40361;
 }
 .select2-container--open .select2-dropdown--below {
     z-index: 111111;

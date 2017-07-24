@@ -49,7 +49,7 @@
                     <div class="sum">{{ company.orders_finished }}</div>
 
                     <a class="comments_num" href="#button_for_look_recalls" >{{ testimonials.count }} {{ testimonials.ave_rate }} отзывов</a><br>
-                    <span class="sum_views_by_users">{{ company.views.get.profiles.count | default:0 }} просмотров</span>
+                    <span class="sum_views_by_users">{{ object.get_redis_key|default:0 }} просмотров</span>
                 </div>
 
             </div>

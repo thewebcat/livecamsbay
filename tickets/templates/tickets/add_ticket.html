@@ -1,0 +1,36 @@
+<div id="form_popup" class="popup" style="width: 500px;" >
+
+    <h3 style="margin-top:-10px;">Задать вопрос администрации</h3>
+
+    <div class="jq_call_order_form" style="position: relative">
+        <div class="call_order_form_success">
+            <p>Ваше обращение отправлено в службу поддержки. В ближайшее время Вам обязательно ответят. Ответ отобразится под Вашим вопросом в разделе "Ваши вопросы"</p>
+        </div>
+
+        <form id="add_new_ticket" enctype="multipart/form-data">
+            {% csrf_token %}
+            {% comment %}<textarea name="ticket_message" placeholder="Оставить новый вопрос" required></textarea>
+            <input type="submit" value="Отправить">{% endcomment %}
+
+
+            <div class="control-container">
+                <label for="id_ticket_message">Оставить новый вопрос:</label>
+                <textarea name="text" id="id_ticket_message" placeholder="Оставить новый вопрос" required></textarea>
+            </div>
+            {% include 'main/elements/uploadform.html' with id_field='id_ticket_file' form=None %}
+
+            <div class="buttons-container buttons-container-center"><button class="button" type="submit">Сохранить</button></div>
+
+        </form>
+    </div>
+    <a class="close" title="Закрыть" href="#close"></a>
+</div>
+{% comment %}<div id="add_new_ticket_success">
+        <h3>Ваша вопрос принят</h3>
+</div>
+<div id="add_new_ticket_error">
+    <h3>Непредвиденная ошибка,<br>
+        попробуйте позже</h3>
+</div>{% endcomment %}
+<link rel="stylesheet" href="{{ STATIC_URL }}tickets/css/add_ticket.css" />
+<script type="text/javascript" src="{{ STATIC_URL }}tickets/js/sent_new_ticket.js"></script>

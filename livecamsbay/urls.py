@@ -18,18 +18,34 @@ from django.conf.urls import url, include
 from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
+from django.shortcuts import render_to_response
 
 from newsletter_email.views import email_subscribe
 
+
+def handler404(request):
+    response = render_to_response('404.html', {},
+                                  context_instance=RequestContext(request))
+    response.status_code = 404
+    return response
+
 urlpatterns = [
                   url(r'^', include('main.urls')),
+                  url(r'^admin_tools/', include('admin_tools.urls')),
+                  url(r'^admin/', admin.site.urls),
+
                   url(r'^auth/', include('authorization.urls', namespace="authorization")),
+                  url(r'^accounts/', include('accounts.urls', namespace="accounts")),
 
                   # subscribe
                   url(r'^subscribe', email_subscribe, name='email_subscribe'),
+                  # feedback
+                  url(r'^feedback/', include('feedback.urls', namespace="feedback")),
+                  # news
+                  url(r'^news/', include('news.urls', namespace="news")),
 
-                  url(r'^admin_tools/', include('admin_tools.urls')),
-                  url(r'^admin/', admin.site.urls),
+                  url(r'^404/$', handler404, ),
+                  url(r'^add_new_ticket/', include('tickets.urls', namespace='tickets')),
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 if settings.DEBUG:

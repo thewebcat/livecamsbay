@@ -1,0 +1,258 @@
+{% extends "base.html" %}
+{% load widget_tweaks %}
+
+{% block extra_css %}
+    <link rel="stylesheet" type="text/css" media="screen" href="{{ STATIC_URL }}css/adpagestyle.css" />
+{% endblock %}
+
+{% block content %}
+
+    <div class="wrapper">
+        <div class="nav_name" style="margin-top:15px;">
+            <h1>Реклама</h1>
+        </div>
+    </div>
+
+    <div class="wrapper">
+        <div class="advert-info">
+            <div class="h1">Реклама на сайте Amigostone</div>
+            <p>
+                Приветствуем вас! Если вы ищете дополнительную рекламную площадку, для продвижения<br>
+                своих услуг и товаров — то пришли по нужному адресу! <br>
+                Вашу рекламу увидят все посетители сайта — покупатели камня и изделий из него,<br>
+                дизайнеры, архитекторы, камнеобработчики, строители.<br><br>
+                <b>Предлагайте продукцию и услуги тем, кто это ищет! </b>
+            </p>
+
+            <p>
+                Выбирайте формат рекламы и звоните по телефону,
+                или пишите на адрес электронной почты.
+            </p>
+            <ul>
+                <li>+7(800) 550-09-13</li>
+                <li>info@amigostone.ru</li>
+            </ul>
+        </div>
+
+        <div class="advert-positions">
+            <div class="advert-item">
+                <div class="advert-item-title">
+                    <div class="h2">Bottom Line</div>
+                    Баннер-растяжка. Размещается на всех страницах сайта. Перед футером.
+                </div>
+                <div class="advert-price-column">
+                    <p>
+                        <span class="price-rouble">25 000<span class="rouble">a</span></span><br>
+                        в месяц
+                    </p>
+
+                    <p>
+                        <span class="price-rouble">20 000<span class="rouble">a</span></span><br>
+                        при оплате за 3 месяца
+                    </p>
+                </div>
+                <ul class="advert-info-column">
+                    <li>
+                        Высота: 180 px
+                    </li>
+                    <li>Объем: до 300 Кб</li>
+                    <li>Форматы: JPG, GIF, PNG, SFW</li>
+                    <li>Анимация: допускается</li>
+                </ul>
+                <div class="advert-bnnr-img">
+                    <img src="{{ STATIC_URL }}images/adpage/01.jpg" alt="">
+                </div>
+            </div>
+
+            <div class="advert-item">
+                <div class="advert-item-title">
+                    <div class="h2">Top Line</div>
+                    Баннер-растяжка. Размещается на всех страницах сайта
+                </div>
+                <div class="advert-price-column">
+                    <p>
+                        <span class="price-rouble">25 000<span class="rouble">a</span></span><br>
+                        в месяц
+                    </p>
+
+                    <p>
+                        <span class="price-rouble">20 000<span class="rouble">a</span></span><br>
+                        при оплате 3 месяцев
+                    </p>
+                </div>
+                <ul class="advert-info-column">
+                    <li>
+                        Высота: 50 px
+                    </li>
+                    <li>Объем: до 300 Кб</li>
+                    <li>Форматы: JPG, GIF, PNG, SFW</li>
+                    <li>Анимация: допускается</li>
+                </ul>
+                <div class="advert-bnnr-img">
+                    <img src="{{ STATIC_URL }}images/adpage/02.jpg" alt="">
+                </div>
+            </div>
+
+            <div class="advert-item">
+                <div class="advert-item-title">
+                    <div class="h2">Баннер в личном кабинете</div>
+                    Размещается во всех корневых разделах личного кабинета
+                </div>
+                <div class="advert-price-column">
+                    <p>
+                        <span class="price-rouble">25 000<span class="rouble">a</span></span><br>
+                        в месяц
+                    </p>
+
+                    <p>
+                        <span class="price-rouble">20 000<span class="rouble">a</span></span><br>
+                        при оплате 3 месяцев
+                    </p>
+                </div>
+                <ul class="advert-info-column">
+                    <li>
+                        Размер: 200x400 px
+                    </li>
+                    <li>Объем: до 300 Кб</li>
+                    <li>Форматы: JPG, GIF, PNG, SFW</li>
+                    <li>Анимация: допускается</li>
+                </ul>
+                <div class="advert-bnnr-img">
+                    <img src="{{ STATIC_URL }}images/adpage/03.jpg" alt="">
+                </div>
+            </div>
+
+            <div class="advert-item">
+                <div class="advert-item-title">
+                    <div class="h2">Текстовый float-баннер</div>
+                    Появляется внизу экрана, перекрывая собой часть страницы.<br>
+                    Размещается на страницах каталогов камней, услуг, форума и каталога компаний
+                </div>
+                <div class="advert-price-column">
+                    <p>
+                        <span class="price-rouble">25 000<span class="rouble">a</span></span><br>
+                        в месяц
+                    </p>
+
+                    <p>
+                        <span class="price-rouble">20 000<span class="rouble">a</span></span><br>
+                        при оплате 3 месяцев
+                    </p>
+                </div>
+                <ul class="advert-info-column" style="padding-top:35px;">
+                    <li>
+                        Высота: 50 px
+                    </li>
+                    <li>Содержит только текст
+                        и ссылку<br>
+                        Баннер скрывается
+                        автоматически через 10 секунд
+                        или по клику на «крестик»
+                    </li>
+                    <li>
+                        Не более 3 показов одному<br>
+                        посетителю в неделю
+                    </li>
+                </ul>
+                <div class="advert-bnnr-img">
+                    <img src="{{ STATIC_URL }}images/adpage/04.jpg" alt="">
+                </div>
+            </div>
+
+            <div class="h1" style="font-family:Arial; text-align:center;">Услуги для участников биржи Amigostone</div>
+
+            <div class="advert-item">
+                <div class="advert-item-title">
+                    <div class="h2">Выделение вашего ответа на заказ</div>
+                </div>
+                <div class="advert-price-column">
+                    <p>
+                        <span class="price-rouble">25 000<span class="rouble">a</span></span><br>
+                        в месяц
+                    </p>
+
+                    <p>
+                        <span class="price-rouble">20 000<span class="rouble">a</span></span><br>
+                        при оплате 3 месяцев
+                    </p>
+                </div>
+                <ul class="advert-info-column">
+                    <li>Хотите, чтобы заказчик
+                        просматривал ваш ответ
+                        первым? — закажите
+                        выделение цветом!<br>
+                        Отклик получит яркую рамку
+                        «Лучшее предложение» и
+                        всегда будет показываться
+                        наверху списка ответов.
+                    </li>
+                </ul>
+                <div class="advert-bnnr-img">
+                    <img src="{{ STATIC_URL }}images/adpage/05.jpg" alt="">
+                </div>
+            </div>
+
+            <div class="advert-item">
+                <div class="advert-item-title">
+                    <div class="h2">Управление рейтингом компании</div>
+                </div>
+                <div class="advert-price-column">
+                    <p>
+                        <span class="price-rouble">25 000<span class="rouble">a</span></span><br>
+                        в месяц
+                    </p>
+
+                    <p>
+                        <span class="price-rouble">20 000<span class="rouble">a</span></span><br>
+                        при оплате 3 месяцев
+                    </p>
+                </div>
+                <ul class="advert-info-column" style="padding-top:35px;">
+                    <li>Управляйте рейтингом
+                        компании и получайте больше
+                        заказов на бирже!
+                        Высокий рейтинг повышает
+                        доверие покупателей и
+                        увеличивает продажу услуг
+                        и товаров.<br>
+                        А так же обеспечивает
+                        приоритетную выдачу
+                        в поиске на сайте.
+                    </li>
+                </ul>
+                <div class="advert-bnnr-img">
+                    <img src="{{ STATIC_URL }}images/adpage/06.jpg" alt="">
+                </div>
+            </div>
+
+            <div class="advert-item">
+                <div class="advert-item-title">
+                    <div class="h2">Рассылка сообщений</div>
+                </div>
+                <ul class="advert-info-column">
+                    <li>Используйте рассылку
+                        сообщений пользователям
+                        для увеличения продаж!
+                        Рекламируйте новый товар,
+                        акции, мероприятия и любые
+                        события. Все участники
+                        биржи получат вашу
+                        информацию личным
+                        сообщением и в письме
+                        на электронную почту.
+                    </li>
+                </ul>
+                <div class="advert-price-column">
+                    <p>
+                        <span class="price-rouble">25 000<span class="rouble">a</span></span><br>
+                        за 200 сообщений
+                    </p>
+                </div>
+                <div class="advert-bnnr-img">
+                    <img src="{{ STATIC_URL }}images/adpage/07.jpg" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

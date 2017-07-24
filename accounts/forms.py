@@ -12,7 +12,7 @@ from accounts.models import Profile, ProfilePhone, ProfileEmail, ProfileUrl
 from cities_light.models import City
 from main.fields import SplitPhoneField
 from main.fields import SplitPhoneWidget
-# from common.mixin import MixinForm
+from main.mixin import MixinForm
 # from common.models import Currency
 # from common.uploadform import UploadAvatarFormBase
 #
@@ -52,9 +52,11 @@ class BaseProfileForm(forms.ModelForm):
         super(BaseProfileForm, self).__init__(*args, **kwargs)
 
         if self.data and self.data['city']:
-            self.fields['city'].queryset = City.objects.filter(id=self.data['city'])
+            #self.fields['city'].queryset = City.objects.filter(id=self.data['city'])
+            self.fields['city'].queryset = City.objects.all()
         else:
-            self.fields['city'].queryset = City.objects.none()
+            #self.fields['city'].queryset = City.objects.none()
+            self.fields['city'].queryset = City.objects.all()
 
     class Meta:
         model = Profile
@@ -94,7 +96,7 @@ class CompanyProfileForm(MixinCaptchaForm, BaseProfileForm):
             raise ValidationError("Необходимо указать род деятельности (Поставщик, Камнеобработчик)")
 
 
-class PasswordChangeForm(DjangoPasswordChangeForm):
+class PasswordChangeForm(MixinForm, DjangoPasswordChangeForm):
     error_messages = {
         'password_mismatch': u"Пароли не совпадают",
         'password_incorrect': u"Неверно указан старый пароль. "
@@ -405,7 +407,7 @@ class UserCreationForm(forms.ModelForm):
         return user
 
 
-class AuthenticationForm(forms.Form):
+class AuthenticationForm(MixinForm, forms.Form):
     """
     Base class for authenticating users. Extend this to get a form that accepts
     username/password logins.
@@ -474,3 +476,9 @@ class AuthenticationForm(forms.Form):
 
     def get_user(self):
         return self.user_cache
+
+
+class FavoriteForm(MixinForm, forms.ModelForm):
+
+    profile = forms.ChoiceField()
+    model = forms.ChoiceField()

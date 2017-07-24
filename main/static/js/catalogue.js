@@ -58,6 +58,11 @@ $(document).ready(function(){
     $(document).pjax('.pagination a', '#item-search',{"push":true,"replace":false,"timeout":5000,"scrollTo":0})
 });
 
+/*При клике на чекбоксы сабмитим форму для pjax*/
+$(document).on('change','input[type=checkbox]',function(){
+    $('.left-menu form').trigger('submit')
+})
+
 /*Если идет pjax запрос - выводим прелоадер*/
 $(document).on('pjax:send', function() {
      $('#item-search').html('<div class="loading" ></div><br/><br/>')

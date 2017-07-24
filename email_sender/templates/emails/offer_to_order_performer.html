@@ -1,0 +1,22 @@
+{% extends 'emails/email_base.html' %}
+{% block subject %}Вы опубликовали ответ на заказ.{% endblock %}
+
+{% block text_message %}
+Здравствуйте, {{ name }}, вы разместили предложение на заказ "{{ order_name }}".
+В случае, если Ваше предложение будет интересным заказчик обязательно с вами свяжется.
+{% endblock %}
+
+{% block html_message %}
+<p style="font-size: 16px; color: #000 !important; font-family: Arial, sans-serif; line-height: 1.5;text-align:justify; margin: 0; padding: 0; background:none;">
+Здравствуйте, {{ name }}, вы разместили предложение на заказ "{{ order_name }}".<br />
+В случае, если Ваше предложение будет интересным заказчик обязательно с вами свяжется.
+</p>
+{% endblock %}
+
+{% block html_link_to_object %}
+    <p align="center">
+        <a href="{{ order_link }}" style="color:#ffffff;text-decoration: none;text-align:center;font-family: Arial, sans-serif;font-size:16px;margin:0px auto;padding: 10px 25px;background: #358c38;line-height:40px;border-radius:5px;border:none;">
+            Перейти к заказу
+        </a>
+    </p>
+{% endblock %}

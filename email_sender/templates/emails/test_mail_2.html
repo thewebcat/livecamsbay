@@ -1,0 +1,16 @@
+{% extends 'emails/email_base.html' %}
+{% block subject %}Создание заказа в Amigostone.{% endblock %}
+
+{% block html_message %}
+<p style="font-size: 16px; color: #000 !important; font-family: Arial, sans-serif; line-height: 1.5;text-align:justify; margin: 0; padding: 0; background:none;">
+    Всего отправлено писем: <strong>{{ profiles|length }}</strong>
+    <br>
+    <ul>
+    {% for p in profiles %}
+        {% if p.get_actual_emails %}
+            <ol>{{ p.name }} - {{ p.get_actual_emails|join:"," }}</ol>
+        {% endif %}
+    {% endfor %}
+    </ul>
+</p>
+{% endblock %}

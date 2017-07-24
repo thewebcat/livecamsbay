@@ -1,0 +1,24 @@
+{% extends 'emails/email_base.html' %}
+{% block subject %}Вы выбраны исполнителем заказа.{% endblock %}
+
+{% block text_message %}
+Здравствуйте, {{ name }}, Ваше предложение на заказ "{{ order_name }}" оказалось интересным заказчику.
+Вы выбраны исполнителем, свяжитесь, пожалуйста, с заказчиком для уточнения нюансов выполнения заказа.
+Ссылка для перехода в интерфейс обмена сообщениями с заказчиком: {{ order_link }}
+{% endblock %}
+
+{% block html_message %}
+<p style="font-size: 16px; color: #000 !important; font-family: Arial, sans-serif; line-height: 1.5;text-align:justify; margin: 0; padding: 0; background:none;">
+Здравствуйте, {{ name }}, Ваше предложение на заказ "{{ order_name }}" оказалось интересным заказчику.<br>
+Вы выбраны исполнителем, свяжитесь, пожалуйста, с заказчиком для уточнения нюансов выполнения заказа.<br>
+<a href="{{ order_link }}" style="text-decoration:none;color:#797979;font-weight:bold;">Ссылка</a> для перехода в интерфейс обмена сообщениями с заказчиком.
+</p>
+{% endblock %}
+
+{% block html_link_to_object %}
+    <p align="center">
+        <a href="{{ order_link }}" style="color:#ffffff;text-decoration: none;text-align:center;font-family: Arial, sans-serif;font-size:16px;margin:0px auto;padding: 10px 25px;background: #358c38;line-height:40px;border-radius:5px;border:none;">
+            Перейти к заказу
+        </a>
+    </p>
+{% endblock %}

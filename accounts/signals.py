@@ -2,11 +2,11 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 
 
-@receiver(post_save, sender='accounts.Profile')
-def create_profile_grade(instance, created, sender, **kwargs):
-    from accounts.models import ProfileGrades
-    if created and instance.role != sender.ROLE_USER:
-        ProfileGrades.objects.get_or_create(profile=instance)
+# @receiver(post_save, sender='accounts.Profile')
+# def create_profile_grade(instance, created, sender, **kwargs):
+#     from accounts.models import ProfileGrades
+#     if created and instance.role != sender.ROLE_USER:
+#         ProfileGrades.objects.get_or_create(profile=instance)
 
 
 @receiver(post_save, sender='accounts.Profile')

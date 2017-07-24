@@ -1,0 +1,24 @@
+{% extends 'emails/email_base.html' %}
+{% block subject %}Ваш заказ отправлен на модерацию.{% endblock %}
+
+{% block text_message %}
+Здравствуйте {{ name }}, Ваш заказ "{{ order_name }}", размещённый на каменной бирже Amigostone.ru отправлен на модерацию.
+Возможно, для уточнения данных по вашему заказу с Вами свяжется сотрудник биржи.
+Если это не понадобится, после модераци ваш заказ будет опубликован и автоматически разослан по производителям зарегистрированным на бирже.
+{% endblock %}
+
+{% block html_message %}
+<p style="font-size: 16px; color: #000 !important; font-family: Arial, sans-serif; line-height: 1.5;text-align:justify; margin: 0; padding: 0; background:none;">
+Здравствуйте {{ name }}, Ваш заказ "{{ order_name }}", размещённый на каменной бирже Amigostone.ru отправлен на модерацию.<br>
+Возможно, для уточнения данных по вашему заказу с Вами свяжется сотрудник биржи.<br>
+Если это не понадобится, после модераци ваш заказ будет опубликован и автоматически разослан по производителям зарегистрированным на бирже.
+</p>
+{% endblock %}
+
+{% block html_link_to_object %}
+    <p align="center">
+        <a href="{{ order_link }}" style="color:#ffffff;text-decoration: none;text-align:center;font-family: Arial, sans-serif;font-size:16px;margin:0px auto;padding: 10px 25px;background: #358c38;line-height:40px;border-radius:5px;border:none;">
+            Перейти к заказу
+        </a>
+    </p>
+{% endblock %}

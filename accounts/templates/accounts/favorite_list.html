@@ -1,0 +1,36 @@
+{% extends "accounts/base.html" %}
+{% load bootstrap3 thumbnail %}
+
+{% block breadcrumbs %}
+    {{ block.super }}
+    <div class="breadcrumb"><a href="{% url 'accounts:favorite_list' %}">Избранные модели</a></div>
+{% endblock %}
+
+{% block profile_content %}
+
+    <div class="block_info">
+        <div class="nav_name">
+			<div class="Full_name">Избранные модели</div>
+            <div class="plus">
+            <a href="{% url 'accounts:favorite_add' %}" class="add-on"></a>
+        </div>
+        </div>
+    <style>
+        .block_info .inside .main_actions, .inside .main_actions {
+            padding-top: 17px;
+            padding-right: 20px;
+        }
+    </style>
+            {% for favorite in favorites %}
+			<div class="inside note_wrap {{ favorite.get_css_class_for_actions }}" style="">
+                {{ favorite.get_actions_html }}
+				<div class="note" style="background: url({{ favorite.model.profile_image }})">
+					<div class="note_text">{{ favorite.model.name|safe }}</div>
+                    <a class="day">123</a>
+					<a class="time">321</a>
+				</div>
+			</div>
+            {% endfor %}
+    </div>
+
+{% endblock %}
