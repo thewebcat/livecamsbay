@@ -31,7 +31,7 @@
     z-index: 2;
     border: 1px solid #b9b9b9;
     border-radius: 50px;
-    background: #f0f0f0;
+    background: #f6bcd3;
 }
 .circle canvas { border-radius: 50%; background: rgb(255, 255, 255) none repeat scroll 0% 0%; }
 .circle strong { font-size: 15px; font-weight: normal; left: 0px; line-height: 65px; position: absolute; text-align: center; top: 0px; color: rgb(52, 58, 65); width: 100%; }

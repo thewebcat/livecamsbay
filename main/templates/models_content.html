@@ -39,11 +39,21 @@
                     <div class="circle" id="circle{{ item.id }}" style="margin: 15px;"></div>
                     <strong style="font-size: 15px;
     position: absolute;
-    top: 95px;
-    left: 5px;
+    top: 45px;
+    left: 6px;
     width: 104px;
     text-align: center;
-    color: #5a5a5a;z-index:3">{% widthratio item.online_time 60 1 %} min online</strong>
+    color: #5a5a5a;
+    z-index: 3;">
+                        <span style="padding: 3px 9px 3px 9px;
+    background: #fff;
+    border: 1px solid #c3c3c3;
+    border-radius: 15px;
+    /* box-shadow: 0 0 4px #c1c1c1; */">{% widthratio item.online_time 60 1 %}</span>
+                        <br>
+                        <span style="font-size: 11px; position: relative;
+    top: -3px;">min online</span>
+                    </strong>
                     <div class="amount" style="display: none">
                         <i class="ico_amount_woman"></i>
                         <span>{{ item.age }}</span>
@@ -55,8 +65,8 @@
                                 'progress': {% widthratio item.online_time all_time.max_time 100 %}, // fillup in percent
                                 'innerOpacity': 1,
                                 'outerOpacity': 1,
-                                'innerColor': '#F40361',
-                                'outerColor': '#393939',
+                                'innerColor': 'rgb(255, 112, 167)',
+                                'outerColor': 'rgb(107, 107, 107)',
                                 'borderSize': 3, // width of the border
                             }
                             $("#circle{{ item.id }}").circlesProgress(optionsObject);

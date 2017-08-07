@@ -494,6 +494,9 @@ class CamSnapshot(AbstractBaseClass):
     def __unicode__(self):
         return self.snapshot_url
 
+    class Meta:
+        ordering = ('-date_add',)
+
 
 class AgeTag(models.Model):
     """docstring for AgeTag"""

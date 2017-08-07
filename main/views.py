@@ -67,6 +67,9 @@ class ModelPage(DetailView):
     template_name = 'model_page.html'
     model = Model
 
+    def get_queryset(self):
+        return Model.objects.prefetch_related('camsnapshot_set')
+
     @set_views(obj='model')
     def dispatch(self, request, *args, **kwargs):
         return super(ModelPage, self).dispatch(request, *args, **kwargs)

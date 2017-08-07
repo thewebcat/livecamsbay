@@ -111,7 +111,11 @@
                 <div class="about-me"> Снимки камеры</div>
             </div>
             <div class="description-text">
-
+                <ul style="list-style-type: none; margin: 0">
+                    {% for item in object.camsnapshot_set.all %}
+                    <li style="display: inline-block;"><img src="{{ item.snapshot_url }}"></li>
+                    {% endfor %}
+                </ul>
             </div>
 
             <div class="nav" id="snapshots">
