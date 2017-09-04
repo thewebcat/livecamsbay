@@ -37,10 +37,11 @@
           <div class="columns small-12 medium-6 large-4">
             <div class="footer__column-title">Служба поддержки</div>
             <ul class="menu menu--footer">
-              <li class="menu__item"><a class="menu__link" href="#">Пользовательское соглашение</a></li>
-              <li class="menu__item"><a class="menu__link" href="#">Контакты</a></li>
-              <li class="menu__item"><a class="menu__link" href="#">Частые вопросы</a></li>
+              <li class="menu__item"><a class="menu__link" href="{% url 'cms_page' 'privacy_policy' %}">Политика конфиденциальности</a></li>
+              <li class="menu__item"><a class="menu__link" href="{% url 'cms_page' 'terms_of_use' %}">Правила и соглашения</a></li>
+{#              <li class="menu__item"><a class="menu__link" href="#">Частые вопросы</a></li>#}
               <li class="menu__item"><a class="menu__link" href="#">Обратная связь</a></li>
+              <li class="menu__item"><a class="menu__link" href="#">Контакты</a></li>
             </ul>
             <div class="callback callback--footer">
               <div class="callback__phone">

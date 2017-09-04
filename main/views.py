@@ -7,7 +7,7 @@ from main.decorators import set_views
 
 from .filters import ModelsFilter
 
-from .models import Model
+from .models import Model, Sex
 from .models import CamService
 from .models import CamSnapshot
 from .models import Race
@@ -27,13 +27,45 @@ class Catalogue(FilterView):
     paginate_by = 25
     qs_count = 0
 
+    @property
+    def get_cam_service(self):
+        cam_service = self.kwargs.get('cam_service')
+        if cam_service:
+            return cam_service
+        else:
+            return None
+
+    @property
+    def get_sex(self):
+        sex = self.kwargs.get('sex')
+        if sex:
+            return sex
+        else:
+            return None
+
     def get_template_names(self):
         if not self.request.is_ajax():
             return [self.template_name]
         return ['models_content.html']
 
     def get_queryset(self):
-        queryset = Model.objects.filter(available=True).select_related(
+        where = {}
+        if self.get_cam_service:
+            if self.get_cam_service == "all":
+                pass
+            else:
+                try:
+                    cam = CamService.objects.get(prefix=self.get_cam_service)
+                except:
+                    cam = None
+                where.update({'cam_service': cam})
+        if self.get_sex:
+            try:
+                sex = Sex.objects.get(code=self.get_sex)
+            except:
+                sex = None
+            where.update({'sex': sex})
+        queryset = Model.objects.filter(available=True).filter(**where).select_related(
             'sex', 'race', 'hair_color', 'bust_size', 'figure', 'public_area', 'cam_service').prefetch_related('speaks_language')
         self.qs_count = len(queryset)
         return queryset
@@ -73,130 +105,3 @@ class ModelPage(DetailView):
     @set_views(obj='model')
     def dispatch(self, request, *args, **kwargs):
         return super(ModelPage, self).dispatch(request, *args, **kwargs)
-
-class UpdateApi(TemplateView):
-    template_name = 'api-update-log.html'
-
-    def get_context_data(self, **kwargs):
-
-        context = super(UpdateApi, self).get_context_data(**kwargs)
-        cam = CamService.objects.get(pk=1)
-        response = urllib.urlopen(cam.api_url)
-        data = json.loads(response.read())
-
-        gender = []
-        primary_language_key = []
-        secondary_language_key = []
-        weight = []
-        hair_color = []
-        height = []
-        pubic_hair = []
-        ethnicity = []
-        sh_bust_penis_size = []
-        context['girls'] = []
-        Model.objects.all().update(available=False)
-        # for item in models:
-        #     item.available = False
-        #     item.save()
-
-        for i in data:
-            if i['username'] == 'Alice_in_Love':
-                context['json'] = u'username: {0}<br>'.format(i['username'])
-                context['json'] += u'primary_language_key: {0}<br>'.format(i['primary_language_key'])
-                context['json'] += u'weight: {0}<br>'.format(i['weight'])
-                context['json'] += u'secondary_language_key: {0}<br>'.format(i['secondary_language_key'])
-                context['json'] += u'hair_color: {0}<br>'.format(i['hair_color'])
-                context['json'] += u'height: {0}<br>'.format(i['height'])
-                context['json'] += u'pubic_hair: {0}<br>'.format(i['pubic_hair'])
-                context['json'] += u'restricted_country_ids: {0}<br>'.format(i['restricted_country_ids'])
-                context['json'] += u'primary_language: {0}<br>'.format(i['primary_language'])
-                context['json'] += u'ethnicity: {0}<br>'.format(i['ethnicity'])
-                context['json'] += u'display_name: {0}<br>'.format(i['display_name'])
-                context['json'] += u'eye_color: {0}<br>'.format(i['eye_color'])
-                context['json'] += u'members_count: {0}<br>'.format(i['members_count'])
-                context['json'] += u'gender: {0}<br>'.format(i['gender'])
-                context['json'] += u'display_age: {0}<br>'.format(i['display_age'])
-                context['json'] += u'thumbnail_image_medium_live: {0} <img src="{0}" ><br>'.format(
-                    i['profile_images']['thumbnail_image_medium_live'])
-                context['json'] += u'thumbnail_image_medium: {0} <img src="{0}" ><<br>'.format(
-                    i['profile_images']['thumbnail_image_medium'])
-
-            gender.append(i['gender'])
-            primary_language_key.append(i['primary_language_key'])
-            secondary_language_key.append(i['secondary_language_key'])
-            weight.append(i['weight'])
-            hair_color.append(i['hair_color'])
-            pubic_hair.append(i['pubic_hair'])
-            ethnicity.append(i['ethnicity'])
-            sh_bust_penis_size.append(i['bust_penis_size'])
-
-            context['gender'] = list(set(gender))
-            context['primary_language_key'] = list(set(primary_language_key))
-            context['secondary_language_key'] = list(set(secondary_language_key))
-            context['weight'] = list(set(weight))
-            context['hair_color'] = list(set(hair_color))
-            context['pubic_hair'] = list(set(pubic_hair))
-            context['ethnicity'] = list(set(ethnicity))
-            context['sh_bust_penis_size'] = list(set(sh_bust_penis_size))
-            # context['primary_language_key'] = list(set(primary_language_key))
-            # context['girls'].append(i['username'])
-            if i['ethnicity'] == u'Европейское/Кавказское':
-                race = Race.objects.get(code='white')
-            elif i['ethnicity'] == u'Латиноамериканское':
-                race = Race.objects.get(code='latin')
-            elif i['ethnicity'] == u'Ближневосточное':
-                race = Race.objects.get(code='west')
-            elif i['ethnicity'] == u'Индийское':
-                race = Race.objects.get(code='indian')
-            elif i['ethnicity'] == u'Темнокожие':
-                race = Race.objects.get(code='black')
-            elif i['ethnicity'] == u'Азиатcкое':
-                race = Race.objects.get(code='asian')
-            else:
-                race = None
-
-            if i['hair_color'] == u'Тёмные':
-                hair = HairColor.objects.get(code='black')
-            elif i['hair_color'] == u'Светлые':
-                hair = HairColor.objects.get(code='white')
-            elif i['hair_color'] == u'Рыжие':
-                hair = HairColor.objects.get(code='red')
-            else:
-                hair = None
-
-            if i['bust_penis_size'] == u'Большая':
-                bust_penis_size = BustSize.objects.get(code='big')
-            elif i['bust_penis_size'] == u'Средняя':
-                bust_penis_size = BustSize.objects.get(code='middle')
-            elif i['bust_penis_size'] == u'Маленькая':
-                bust_penis_size = BustSize.objects.get(code='small')
-            elif i['bust_penis_size'] == u'Огромные':
-                bust_penis_size = BustSize.objects.get(code='biggest')
-            else:
-                bust_penis_size = None
-
-            data = {
-                'name': cam.prefix + i['username'],
-                'display_name': i['username'],
-                'profile_image': i['profile_images']['thumbnail_image_medium'],
-                'age': i['display_age'],
-                'available': True if i['status'] == 1 else False,
-                'cam_service': cam,
-                'chat_url': i['chat_url_on_home_page'],
-                'online_time': i['online_time'],
-                'race': race,
-                'hair_color': hair,
-                'bust_size': bust_penis_size,
-            }
-
-            Model.objects.update_or_create(
-                name=cam.prefix + i['username'],
-                defaults=data
-            )
-
-            CamSnapshot.objects.create(
-                model=Model.objects.get(name=cam.prefix + i['username']),
-                snapshot_url=i['profile_images']['thumbnail_image_medium_live'],
-            )
-
-        return context

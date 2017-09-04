@@ -19,6 +19,7 @@ from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
 from django.shortcuts import render_to_response
+from django.template import RequestContext
 
 from newsletter_email.views import email_subscribe
 
@@ -28,6 +29,7 @@ def handler404(request):
                                   context_instance=RequestContext(request))
     response.status_code = 404
     return response
+
 
 urlpatterns = [
                   url(r'^', include('main.urls')),
@@ -44,8 +46,13 @@ urlpatterns = [
                   # news
                   url(r'^news/', include('news.urls', namespace="news")),
 
+                  url(r'^zombaiogw/', include('zombaio.urls', namespace="zombaio")),
+
+                  url(r'^update-api/', include('update_api.urls', namespace="update-api")),
+
                   url(r'^404/$', handler404, ),
                   url(r'^add_new_ticket/', include('tickets.urls', namespace='tickets')),
+                  url(r'^', include('cms.urls')),
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 if settings.DEBUG:

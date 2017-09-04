@@ -229,7 +229,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 class CamService(models.Model):
     name = models.CharField(verbose_name=u'Наименование', max_length=100)
     image = ImageField(verbose_name='Иконка', upload_to='camservice')
-    url = models.CharField(verbose_name=u'Ссылка', max_length=100)
+    url = models.CharField(verbose_name=u'Ссылка', max_length=255)
     prefix = models.CharField(verbose_name=u'Префикс', max_length=100)
     api_url = models.CharField(verbose_name=u'Апи url', max_length=255)
     active = models.BooleanField(default=True)
@@ -453,7 +453,7 @@ class Model(AbstractBaseClass):
     name = models.CharField(verbose_name=u'Ник', max_length=100, )
     display_name = models.CharField(verbose_name=u'Ник', max_length=100, )
     description = models.TextField(verbose_name=u'Описание', blank=True)
-    profile_image = models.CharField(verbose_name=u'Картинка профиля', max_length=100, blank=True)
+    profile_image = models.CharField(verbose_name=u'Картинка профиля', max_length=200, blank=True)
     profile_url = models.CharField(verbose_name=u'Ссылка на профиль', max_length=200, blank=True)
     chat_url = models.CharField(verbose_name=u'Ссылка на чат', max_length=200, blank=True)
     available = models.BooleanField(default=False)

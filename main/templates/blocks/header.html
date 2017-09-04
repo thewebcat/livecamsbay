@@ -5,7 +5,7 @@
         <div class="flex-child-shrink small-order-2 large-order-1">
           <ul class="menu menu--top show-for-large">
               {% for item in cam_services %}
-              <li class="menu__item"><a class="menu__link" href="#">{{ item.name }}</a></li>
+              <li class="menu__item"><a class="menu__link" href="{% url 'catalogue-liter' item.prefix 'w' %}">{{ item.name }}</a></li>
               {% endfor %}
           </ul>
           <div class="flex-container align-middle hide-for-large">
@@ -66,13 +66,13 @@
       <div class="column show-for-large">
         <ul id="main-menu" class="dropdown menu menu--main" data-dropdown-menu>
           <li class="menu__item">
-            <span class="menu__link">Девушки</span>
+              <span class="menu__link"><a href="{% url 'catalogue-liter' 'all' 'w' %}" >Девушки</a></span>
           </li>
           <li class="menu__item">
-            <span class="menu__link">Парни</span>
+              <span class="menu__link"><a href="{% url 'catalogue-liter' 'all' 'm' %}" >Парни</a></span>
           </li>
           <li class="menu__item">
-            <span class="menu__link">Трансы</span>
+              <span class="menu__link"><a href="{% url 'catalogue-liter' 'all' 't' %}" >Трансы</a></span>
           </li>
           <li class="menu__item">
             <span class="menu__link">

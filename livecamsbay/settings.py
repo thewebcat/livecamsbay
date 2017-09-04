@@ -75,6 +75,7 @@ INSTALLED_APPS = [
     'news',
     'tags',
     'feedback',
+    'cms',
 ]
 
 DEBUG_TOOLBAR_PANELS = [

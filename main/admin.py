@@ -124,7 +124,7 @@ class ExtraAdmin(admin.ModelAdmin):
 
 @admin.register(CamService)
 class CamServiceAdmin(admin.ModelAdmin):
-    list_display = ('name', 'url', 'api_url', 'active')
+    list_display = ('name', 'prefix', 'url', 'api_url', 'active')
     list_editable = ('api_url',)
 
 
