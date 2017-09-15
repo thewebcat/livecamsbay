@@ -66,7 +66,8 @@ class Catalogue(FilterView):
                 sex = None
             where.update({'sex': sex})
         queryset = Model.objects.filter(available=True).filter(**where).select_related(
-            'sex', 'race', 'hair_color', 'bust_size', 'figure', 'public_area', 'cam_service').prefetch_related('speaks_language')
+            'cam_service')
+        #'sex', 'race', 'hair_color', 'bust_size', 'figure', 'public_area',
         self.qs_count = len(queryset)
         return queryset
 
@@ -84,7 +85,7 @@ class Catalogue(FilterView):
         context['bust_size'] = BustSize.objects.all()
         context['public_area'] = PublicArea.objects.all()
         context['models_count'] = self.qs_count
-        context['all_time'] = self.get_queryset().aggregate(max_time=Max('online_time'))
+        context['all_time'] = self.model.objects.latest('online_time')
         return context
 
     def get(self, request, *args, **kwargs):

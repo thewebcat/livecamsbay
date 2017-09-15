@@ -62,7 +62,7 @@
                         <script>
                             var optionsObject = {
                                 'size': 80, // 150px width and height
-                                'progress': {% widthratio item.online_time all_time.max_time 100 %}, // fillup in percent
+                                'progress': {% widthratio item.online_time all_time.online_time 100 %}, // fillup in percent
                                 'innerOpacity': 1,
                                 'outerOpacity': 1,
                                 'innerColor': 'rgb(255, 112, 167)',
