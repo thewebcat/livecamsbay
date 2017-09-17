@@ -23,9 +23,8 @@
         </div>
 
         {% if request.user.profile.is_user %}
-            {{ request.user.profile.get_avatar }}
             {% thumbnail request.user.profile.get_avatar 250x250 crop as thumb %}
-            <div class="nav-foto" style="background: url('{{ thumb }}') center center no-repeat"></div>
+            <div class="nav-foto" style="background: url('{{ thumb.url }}') center center no-repeat"></div>
             <div class="nav_information">
                 <li>{{ request.user.email }}</li>
                 <li>{{ request.user.profile.city }}<br>
