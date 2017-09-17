@@ -2,7 +2,7 @@
 from django.conf.urls import patterns, url
 
 from django_filters.views import FilterView
-from main.views import Catalogue
+from main.views import Catalogue, CamServicesView, add_to_favourites
 from main.views import ModelPage
 
 from main.models import Model
@@ -10,8 +10,11 @@ from main.models import Model
 urlpatterns = [
     url(r'^$', Catalogue.as_view(), name='index'),
     url(r'^catalogue/$', Catalogue.as_view(), name='catalogue'),
-    url(r'^catalogue/(?P<cam_service>[-\w]+)/(?P<sex>[-\w]+)/$', Catalogue.as_view(), name='catalogue-liter'),
+    url(r'^catalogue/(?P<cam_service>[-\w]+)/(?P<sex>[-\w]+)/$', Catalogue.as_view(), name='catalogue-filter'),
     url(r'^models/(?P<slug>[-\w]+)/$', ModelPage.as_view(), name='model-page'),
+
+    url(r'^cam-services/$', CamServicesView.as_view(), name='cam-services'),
+    url(r'^favourites/(?P<action>[-\w]+)/$', add_to_favourites, name='add-to-favorites'),
 
     # url(r'^tst/$', views.tst, name='tst'),
     # url(r'^price/$', views.price, name='price'),

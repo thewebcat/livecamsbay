@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+from accounts.models import FavoriteModel
+from django.http import JsonResponse, Http404
 from django.shortcuts import render
 from django.db.models import Avg, Max
 from django.views.generic import View, TemplateView, ListView, DetailView, FormView
@@ -78,6 +80,7 @@ class Catalogue(FilterView):
         #context['models_count'] = len(Model.objects.filter(available=True))
         # context['max_age'] = max(price_list) if price_list else 1000
         # context['min_age'] = min(price_list) if price_list else 0
+        context['cam_service'] = self.get_cam_service if self.get_cam_service else 'all'
         context['max_age'] = 70
         context['min_age'] = 18
         context['race'] = Race.objects.all()
@@ -106,3 +109,28 @@ class ModelPage(DetailView):
     @set_views(obj='model')
     def dispatch(self, request, *args, **kwargs):
         return super(ModelPage, self).dispatch(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super(ModelPage, self).get_context_data(**kwargs)
+        try:
+            context['is_favourite'] = self.get_object().is_favourite(self.request.user.profile)
+        except AttributeError:
+            pass
+        return context
+
+
+class CamServicesView(ListView):
+    template_name = 'cam_services.html'
+    model = CamService
+
+
+def add_to_favourites(request, action):
+    if action == 'add':
+        FavoriteModel.objects.update_or_create(profile=request.user.profile, model=Model.objects.get(name=request.POST.get('model')))
+    elif action == 'remove':
+        try:
+            instance = FavoriteModel.objects.filter(profile=request.user.profile, model=Model.objects.get(name=request.POST.get('model')))
+            instance.delete()
+        except FavoriteModel.DoesNotExist:
+            raise Http404()
+    return JsonResponse({'success': True, 'action': action})

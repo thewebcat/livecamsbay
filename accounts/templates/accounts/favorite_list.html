@@ -11,9 +11,9 @@
     <div class="block_info">
         <div class="nav_name">
 			<div class="Full_name">Избранные модели</div>
-            <div class="plus">
-            <a href="{% url 'accounts:favorite_add' %}" class="add-on"></a>
-        </div>
+{#            <div class="plus">#}
+{#            <a href="{% url 'accounts:favorite_add' %}" class="add-on"></a>#}
+{#        </div>#}
         </div>
     <style>
         .block_info .inside .main_actions, .inside .main_actions {
@@ -23,11 +23,9 @@
     </style>
             {% for favorite in favorites %}
 			<div class="inside note_wrap {{ favorite.get_css_class_for_actions }}" style="">
-                {{ favorite.get_actions_html }}
-				<div class="note" style="background: url({{ favorite.model.profile_image }})">
+                {{ favorite.get_del_actions_html }}
+				<div class="note" style="background: url({{ favorite.model.profile_image }}) no-repeat;background-size: cover;">
 					<div class="note_text">{{ favorite.model.name|safe }}</div>
-                    <a class="day">123</a>
-					<a class="time">321</a>
 				</div>
 			</div>
             {% endfor %}

@@ -10,8 +10,13 @@ from main.models import CamService, Model, Race, HairColor, BustSize, CamSnapsho
 
 def load_api_data(service):
     cam = CamService.objects.get(prefix=service)
-    response = urllib.urlopen(cam.api_url)
-    return cam, json.loads(response.read())
+    try:
+        response = urllib.urlopen(cam.api_url)
+    except IOError:
+        response = None
+    if response:
+        return cam, json.loads(response.read())
+    return cam, None
 
 
 class BongaShowApi(TemplateView):

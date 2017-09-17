@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
 This file was generated with the customdashboard management command, it
 contains the two classes for the main dashboard and app index dashboard.
@@ -38,11 +39,53 @@ class CustomIndexDashboard(Dashboard):
             ]
         ))
 
-        # append an app list module for "Applications"
-        self.children.append(modules.AppList(
-            _('Applications'),
-            exclude=('main.models.User','django.contrib.*',),
+        self.children.append(modules.Group(
+            deletable=False,
+            title=u"Модели",
+            display="tabs",
+            children=[
+                modules.ModelList(
+                    title='Модели',
+                    models=(
+                        'main.models.Model',
+                        'main.models.ModelRecall',
+                    )
+                ),
+                modules.ModelList(
+                    title='Параметры',
+                    models=(
+                        'main.models.Sex',
+                        'main.models.Race',
+                        'main.models.HairColor',
+                        'main.models.BustSize',
+                        'main.models.Figure',
+                        'main.models.SpeaksLanguage',
+                        'main.models.PublicArea',
+                        'main.models.Extra',
+                    )
+                ),
+                modules.ModelList(
+                    title='Снимки камер',
+                    models=(
+                        'main.models.CamSnapshot',
+                    )
+                ),
+            ]
         ))
+
+        self.children.append(modules.ModelList(
+            deletable=False,
+            title=u"Кам Сервисы",
+            models=[
+                'main.models.CamService',
+            ]
+        ))
+
+        # append an app list module for "Applications"
+        # self.children.append(modules.AppList(
+        #     _('Applications'),
+        #     exclude=('main.models.User','django.contrib.*',),
+        # ))
 
         # append an app list module for "Administration"
         self.children.append(modules.AppList(

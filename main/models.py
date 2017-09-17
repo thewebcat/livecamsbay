@@ -1,9 +1,11 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
+from django.core.urlresolvers import reverse
 from django.db import models
 from django.conf import settings
 from sorl.thumbnail import ImageField
+#from accounts.models import FavoriteModel
 
 from django.template.loader import render_to_string
 from django.contrib.contenttypes.fields import GenericForeignKey
@@ -227,13 +229,20 @@ class User(AbstractBaseUser, PermissionsMixin):
 
 
 class CamService(models.Model):
+    prefix = models.CharField(verbose_name=u'Префикс', max_length=100, db_index=True, unique=True)
     name = models.CharField(verbose_name=u'Наименование', max_length=100)
+    description = models.TextField()
     image = ImageField(verbose_name='Иконка', upload_to='camservice')
     url = models.CharField(verbose_name=u'Ссылка', max_length=255)
-    prefix = models.CharField(verbose_name=u'Префикс', max_length=100)
+    affiliate_url = models.CharField(verbose_name=u'Партнерская ссылка', max_length=255)
     api_url = models.CharField(verbose_name=u'Апи url', max_length=255)
     active = models.BooleanField(default=True)
 
+    def __unicode__(self):
+        return self.name
+
+    def get_models_count(self):
+        return self.model_set.count()
 
 class Sex(models.Model):
     name = models.CharField(verbose_name=u'Пол', max_length=100)
@@ -401,6 +410,15 @@ class AbstractBaseClass(AbstractStatus):
         else:
             return ""
 
+    def get_del_actions_html(self):
+        """
+        Формирует html код для отбражения значков "редактировать/удалить" на материале в личном кабинете
+        """
+        if self.profile:
+            return render_to_string(template_name='main/elements/actions_html.html', context={'instance': self})
+        else:
+            return ""
+
     def create_redis_key(self):
         '''
         -----------------------------------------------------
@@ -448,6 +466,23 @@ class AbstractBaseClass(AbstractStatus):
     def get_css_class_for_actions_visible():
         return 'container_action_bar_visible'
 
+    @property
+    def private_url_edit(self):
+        """
+        Приватный урл на редактирование материала
+        """
+        return reverse('accounts:%s_edit' % self._meta.model_name, kwargs={'object_id': self.id})
+
+    @models.permalink
+    def to_trash_url(self):
+        """
+        Сгенерированный урл на удаление материала
+        """
+        from django.contrib.contenttypes.models import ContentType
+        ct = ContentType.objects.get_for_model(self)
+        # print "%s:%s:%s" % (ct.app_label, self.__class__.__name__, self.pk)
+        return 'accounts:delete', (), {'data': "%s:%s:%s" % (ct.app_label, self.__class__.__name__, self.pk)}
+
 
 class Model(AbstractBaseClass):
     name = models.CharField(verbose_name=u'Ник', max_length=100, )
@@ -483,6 +518,13 @@ class Model(AbstractBaseClass):
             return AgeTag.objects.get(pk=3).name
         elif self.age >= 55:
             return AgeTag.objects.get(pk=4).name
+
+    def is_favourite(self, profile):
+        from accounts.models import FavoriteModel
+        if FavoriteModel.objects.filter(profile=profile, model=self):
+            return True
+        else:
+            return False
 
     class Meta:
         index_together = ["name", "available", "views_count"]

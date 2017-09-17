@@ -315,11 +315,20 @@ h1 {
 .block_info .jcarousel-control-next1.editing{height: 242px;}
 .block_info .slider_left1.editing{width:535px;}
 .block_info .note_wrap{width:250px; height:250px; background:#fff;  box-shadow: -1px 1px 12px -1px #f40361;vertical-align:top;
- margin-right:25px; margin-left: 25px; display:inline-block;}
+ margin-right:25px; margin-left: 21px; display:inline-block;}
 .block_info .note{width:235px; height:235px; border:2px solid #f40361; margin: 0 auto; margin-top:5px;}
 .block_info .day{color:#000; float:left; display:inline-block; vertical-align:top; margin-left:15px; margin-top:15px;}
 .block_info .time{color:#000; float:right; display:inline-block; vertical-align:top; margin-right:15px; margin-top:15px;}
-.block_info .note_text{color:#000;  margin-top:45px; text-align:justify; margin-left:15px; margin-right:15px; min-height:150px;}
+.block_info .note_text {
+    color: #f40361;
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 196px;
+    text-align: justify;
+    margin-left: 15px;
+    margin-right: 15px;
+    min-height: 150px;
+}
 .block_info .note_text p {margin-bottom: 0}
 .block_info .editing_wrap{ float:right; margin-right:15px;}
 .block_info .form-control1.editing{width:750px; float:none; margin:0}

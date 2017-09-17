@@ -17,6 +17,8 @@ from django.core.urlresolvers import reverse_lazy
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+PROJECT_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.9/howto/deployment/checklist/
 
@@ -275,7 +277,7 @@ FILE_EXTENTION = {
     'xls': FILE_MIME_TYPE['application/vnd.ms-excel']
 }
 
-DEFAULT_IMAGE = os.path.join(BASE_DIR, 'main/static', 'images/default.png')
+DEFAULT_IMAGE = os.path.join(PROJECT_DIR, 'main/static', 'images/default.png')
 
 #############################
 djcelery.setup_loader()

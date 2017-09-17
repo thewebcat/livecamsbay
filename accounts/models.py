@@ -107,9 +107,9 @@ class Profile(AbstractBaseClass):
         if self.avatar and path.exists(self.avatar.path):
             ava = self.avatar
         else:
-            print settings.DEFAULT_IMAGE
             ava = get_thumbnailer(open(settings.DEFAULT_IMAGE), relative_name='default.png')
-            print ava
+        print settings.DEFAULT_IMAGE
+        print ava
         return ava
 
     # Foreign data

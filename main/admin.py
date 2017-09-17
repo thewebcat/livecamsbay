@@ -2,7 +2,7 @@
 from django.contrib import admin
 from main.emails import content_to_publish
 
-from .models import User
+from .models import User, ModelRecall
 from .models import Sex
 from .models import Race
 from .models import HairColor
@@ -156,3 +156,8 @@ class ViewInstanceAdmin(admin.ModelAdmin):
     #list_display = ('snapshot_url', 'model')
     pass
 
+
+@admin.register(ModelRecall)
+class ModelRecallAdmin(admin.ModelAdmin):
+    #list_display = ('snapshot_url', 'model')
+    pass

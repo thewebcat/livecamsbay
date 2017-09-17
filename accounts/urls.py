@@ -93,7 +93,7 @@ urlpatterns = [
     # url(r'^offer/(?P<object_id>[0-9]+)/$', views.offer_view, name='offer_view'),
     # url(r'^offer/(?P<object_id>[0-9]+)/edit/$', views.offer_edit, name='offer_edit'),
     #
-    # url(r'^delete/(?P<data>.*)/$', views.delete, name='delete'),
+    url(r'^delete/(?P<data>.*)/$', views.delete, name='delete'),
     #
     url(r'tickets/$', views.tickets, name='tickets'),
     url(r'notifications/$', views.notifications_setting, name='notifications'),

@@ -5,7 +5,7 @@
         <div class="flex-child-shrink small-order-2 large-order-1">
           <ul class="menu menu--top show-for-large">
               {% for item in cam_services %}
-              <li class="menu__item"><a class="menu__link" href="{% url 'catalogue-liter' item.prefix 'w' %}">{{ item.name }}</a></li>
+              <li class="menu__item"><a class="menu__link" href="{% url 'catalogue-filter' item.prefix 'w' %}">{{ item.name }}</a></li>
               {% endfor %}
           </ul>
           <div class="flex-container align-middle hide-for-large">
@@ -65,15 +65,11 @@
       </div>
       <div class="column show-for-large">
         <ul id="main-menu" class="dropdown menu menu--main" data-dropdown-menu>
-          <li class="menu__item">
-              <span class="menu__link"><a href="{% url 'catalogue-liter' 'all' 'w' %}" >Девушки</a></span>
-          </li>
-          <li class="menu__item">
-              <span class="menu__link"><a href="{% url 'catalogue-liter' 'all' 'm' %}" >Парни</a></span>
-          </li>
-          <li class="menu__item">
-              <span class="menu__link"><a href="{% url 'catalogue-liter' 'all' 't' %}" >Трансы</a></span>
-          </li>
+          {% if cam_service %}
+            {% include 'blocks/sex_filter.html' with cam_service=cam_service %}
+          {% else %}
+            {% include 'blocks/sex_filter.html' with cam_service='all' %}
+          {% endif %}
           <li class="menu__item">
             <span class="menu__link">
               <span class="menu__item-icon icon icon-info2 hide-for-large"></span>
@@ -81,6 +77,7 @@
               <span class="menu__item-icon icon icon-angle-down show-for-large"></span>
             </span>
             <ul class="menu">
+              <li class="menu__item"><a class="menu__link" href="{% url 'cam-services' %}">Кам сервисы</a></li>
               <li class="menu__item"><a class="menu__link" href="">Новости</a></li>
               <li class="menu__item"><a class="menu__link" href="">Статьи</a></li>
               <li class="menu__item"><a class="menu__link" href="">Помощь</a></li>

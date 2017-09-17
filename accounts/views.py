@@ -1957,41 +1957,41 @@ def news_view(request, object_id):
 #     return output
 #
 #
-# @render_to_json
-# def delete(request, data):
-#     """
-#     Общий метод для удаления контента пользователя.
-#     Получает строку с данными, в которой указаны Название приложения, Название модели и Id элемента.
-#     По полученным данным достает нужный экземпляр, проверяет его принадлежность текущему пользователю
-#     и метит его как удаленный instance.mark_as_removed().
-#     Сейчас instance.mark_as_removed() закомментирован, пока идет тест.
-#     """
-#     try:
-#         app_name, app_model, pk = data.split(':')
-#         from importlib import import_module
-#         app = import_module(app_name)
-#         if hasattr(app, 'models'):
-#             models_py = getattr(app, 'models')
-#             if hasattr(models_py, app_model):
-#                 model = getattr(models_py, app_model)
-#                 instance = model.objects.get(pk=pk, profile=request.user.profile)
-#                 instance.mark_as_removed(commit=True)
-#
-#                 from django.db import models
-#                 redirect_url = ''
-#                 for field in instance._meta.fields:
-#                     if isinstance(field, models.ForeignKey):
-#                         getattr(instance, field.name)
-#                         # todo: add redirect url
-#                         redirect_url = '/'
-#
-#                 return {'success': True, 'next': redirect_url}
-#     except:
-#         pass
-#
-#     return {'success': False}
-#
-#
+@render_to_json
+def delete(request, data):
+    """
+    Общий метод для удаления контента пользователя.
+    Получает строку с данными, в которой указаны Название приложения, Название модели и Id элемента.
+    По полученным данным достает нужный экземпляр, проверяет его принадлежность текущему пользователю
+    и метит его как удаленный instance.mark_as_removed().
+    Сейчас instance.mark_as_removed() закомментирован, пока идет тест.
+    """
+    try:
+        app_name, app_model, pk = data.split(':')
+        from importlib import import_module
+        app = import_module(app_name)
+        if hasattr(app, 'models'):
+            models_py = getattr(app, 'models')
+            if hasattr(models_py, app_model):
+                model = getattr(models_py, app_model)
+                instance = model.objects.get(pk=pk, profile=request.user.profile)
+                instance.delete()
+
+                from django.db import models
+                redirect_url = ''
+                for field in instance._meta.fields:
+                    if isinstance(field, models.ForeignKey):
+                        getattr(instance, field.name)
+                        # todo: add redirect url
+                        redirect_url = '/'
+
+                return {'success': True, 'next': redirect_url}
+    except:
+        pass
+
+    return {'success': False}
+
+
 @render_to("accounts/tickets/list.html")
 def tickets(request):
     """

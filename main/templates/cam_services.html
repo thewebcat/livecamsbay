@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="row">
+        {% for item in object_list %}
+        <div class="blog__items">
+            <div class="blog__item">
+                <div class="blog-item">
+                    <div class="row">
+                        <div class="column small-12 medium-flex-child-shrink">
+                            <div class="blog-item__title hide-for-medium">
+                                <a href="{% url 'catalogue-filter' item.prefix 'w' %}">{{ item.name }}</a>
+                            </div>
+                            <div class="blog-item__info hide-for-medium spacer spacer--mini">
+                                <span class="blog-item__info-elem"></span>
+                            </div>
+                            <div class="blog-item__img-wrap"><a href="{% url 'catalogue-filter' item.prefix 'w' %}"
+                                                                class="blog-item__img"
+                                                                style="background-image: url('{{ item.image.url }}')"></a>
+                            </div>
+                        </div>
+                        <div class="column blog-item__content separator separator--right separator--show-for-large">
+                            <div class="blog-item__info show-for-medium">
+                                <span class="blog-item__info-elem"></span>
+                            </div>
+                            <div class="blog-item__title show-for-medium spacer spacer--mini"><a
+                                    href="{% url 'catalogue-filter' item.prefix 'w' %}">{{ item.name }}</a></div>
+                            <div class="blog-item__description show-for-medium">
+                                {{ item.description }}
+                            </div>
+                        </div>
+                        <div class="column small-12 large-4 xxlarge-3 align-self-middle">
+                            <div class="spacer spacer--mini hide-for-large"></div>
+                            <div class="rating rating--disabled">
+                                <div class="rating__title font-weight-500 text-right-large">Отзывы:</div>
+                                <div class="rating__body">
+                                    <div class="rating__icons">
+
+                                        <input type="radio" id="stars_1_5 5" name="stars_1" value="5">
+                                        <label for="stars_1_5" title="Awesome - 5 stars"></label>
+
+                                        <input type="radio" id="stars_1_4 4" name="stars_1" value="4">
+                                        <label for="stars_1_4" title="Pretty good - 4 stars"></label>
+
+                                        <input type="radio" id="stars_1_3 3" name="stars_1" value="3">
+                                        <label for="stars_1_3" title="Meh - 3 stars"></label>
+
+                                        <input type="radio" id="stars_1_2 2" name="stars_1" value="2">
+                                        <label for="stars_1_2" title="Kinda bad - 2 stars"></label>
+
+                                        <input type="radio" id="stars_1_1 1" name="stars_1" value="1">
+                                        <label for="stars_1_1" title="Sucks big time - 1 star"></label>
+
+                                    </div>
+                                    <div class="rating__value">0</div>
+                                </div>
+                            </div>
+                            <div class="spacer spacer--micro"></div>
+                            <div class="rating">
+                                <div class="rating__title font-weight-500 text-right-large">Моделей:</div>
+                                <div class="rating__body">
+                                    <div class="rating__value">
+                                        {{ item.get_models_count }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="spacer spacer--micro"></div>
+                            <div class="rating">
+                                <div class="rating__title font-weight-500 text-right-large">Переходов:</div>
+                                <div class="rating__body">
+                                    <div class="rating__value">
+                                        5
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="spacer spacer"></div>
+                            <div class="text-center">
+                                <button class="button small" onclick="go()">Регистрация</button>
+                            </div>
+                            <script>
+                                function go() {
+                                    return location.href='{{ item.affiliate_url }}';
+                                }
+                            </script>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="spacer"></div>
+        {% endfor %}
+    </div>
+{% endblock %}
