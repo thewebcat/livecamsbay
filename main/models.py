@@ -4,6 +4,7 @@ from __future__ import unicode_literals
 from django.core.urlresolvers import reverse
 from django.db import models
 from django.conf import settings
+from main.func import build_absolute_uri
 from sorl.thumbnail import ImageField
 #from accounts.models import FavoriteModel
 
@@ -236,6 +237,7 @@ class CamService(models.Model):
     url = models.CharField(verbose_name=u'Ссылка', max_length=255)
     affiliate_url = models.CharField(verbose_name=u'Партнерская ссылка', max_length=255)
     api_url = models.CharField(verbose_name=u'Апи url', max_length=255)
+    on_header = models.BooleanField(default=True)
     active = models.BooleanField(default=True)
 
     def __unicode__(self):
@@ -492,7 +494,7 @@ class Model(AbstractBaseClass):
     profile_url = models.CharField(verbose_name=u'Ссылка на профиль', max_length=200, blank=True)
     chat_url = models.CharField(verbose_name=u'Ссылка на чат', max_length=200, blank=True)
     available = models.BooleanField(default=False)
-    age = models.PositiveIntegerField(verbose_name=u'Возраст', default=0)
+    age = models.PositiveIntegerField(verbose_name=u'Возраст', default=0, null=True)
     sex = models.ForeignKey(Sex, verbose_name=u'Пол', null=True, blank=True)
     race = models.ForeignKey(Race, verbose_name=u'Расса', null=True, blank=True)
     hair_color = models.ForeignKey(HairColor, verbose_name=u'Цвет волос', null=True, blank=True)
@@ -505,6 +507,7 @@ class Model(AbstractBaseClass):
     views_count = models.PositiveIntegerField(verbose_name=u'Просмотры', default=0)
     profile = models.ForeignKey('accounts.Profile', verbose_name=u'Пользователь', null=True, blank=True)
     cam_service = models.ForeignKey(CamService, verbose_name=u'Cam сервис')
+    bay_online_time = models.DateTimeField(null=True, blank=True)
 
     def __unicode__(self):
         return self.name
@@ -525,6 +528,17 @@ class Model(AbstractBaseClass):
             return True
         else:
             return False
+
+    @property
+    def public_url(self):
+        return reverse('model-page', args=[self.name,])
+
+    @property
+    def absolute_public_url(self):
+        """
+        Абсолютный публичный урл на материал или на профиль компании
+        """
+        return build_absolute_uri(self.public_url)
 
     class Meta:
         index_together = ["name", "available", "views_count"]

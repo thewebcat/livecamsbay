@@ -1,5 +1,5 @@
 # -*- coding: UTF-8 -*-
-
+from accounts.models import FavoriteModel
 from private_messages.models import MessageRecipient
 
 
@@ -32,3 +32,13 @@ class CurrentUser:
     def process_view(request, *args):
         CurrentUser.profile = request.user.profile if hasattr(request.user, 'profile') else None
         CurrentUser.user = request.user
+
+
+class QuickPanel(object):
+
+    @staticmethod
+    def process_request(request):
+        request.active_models = ()
+        if request.user.is_authenticated():
+            profile = request.user.profile
+            request.active_models = FavoriteModel.objects.filter(profile=profile, model__available=True)

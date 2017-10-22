@@ -20,3 +20,9 @@ def model_recall(recall):
     profile = recall.order.performer
     return profile, {'name': profile.name, 'order_name': recall.order,
                      'recall_link': profile.absolute_public_url + '?to_recalls=1'}
+
+
+@email_action_reg(u'Модель появилась онлайн!')
+def model_went_online(profile, model):
+    return profile, {'name': profile.name, 'model_name': model.display_name,
+                     'service_name': model.cam_service.name, 'model_link': model.absolute_public_url}

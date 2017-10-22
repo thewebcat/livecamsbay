@@ -317,7 +317,16 @@ h1 {
 .block_info .note_wrap{width:250px; height:250px; background:#fff;  box-shadow: -1px 1px 12px -1px #f40361;vertical-align:top;
  margin-right:25px; margin-left: 21px; display:inline-block;}
 .block_info .note{width:235px; height:235px; border:2px solid #f40361; margin: 0 auto; margin-top:5px;}
-.block_info .day{color:#000; float:left; display:inline-block; vertical-align:top; margin-left:15px; margin-top:15px;}
+.block_info .day {
+    color: #000;
+    font-size: 18px;
+    font-weight: bold;
+    top: 7px;
+    left: 16px;
+    position: absolute;
+}
+.block_info .day.monline {color: #35a536;}
+.block_info .day.moffline {color: #f77b1e;}
 .block_info .time{color:#000; float:right; display:inline-block; vertical-align:top; margin-right:15px; margin-top:15px;}
 .block_info .note_text {
     color: #f40361;

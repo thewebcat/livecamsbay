@@ -13,5 +13,5 @@ def get_settings(request):
 
 def get_cam_services(request):
     from main.models import CamService
-    cam_services = CamService.objects.all()
+    cam_services = CamService.objects.filter(on_header=True, active=True)
     return {'cam_services': cam_services}

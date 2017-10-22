@@ -124,8 +124,8 @@ class ExtraAdmin(admin.ModelAdmin):
 
 @admin.register(CamService)
 class CamServiceAdmin(admin.ModelAdmin):
-    list_display = ('name', 'prefix', 'url', 'api_url', 'active')
-    list_editable = ('api_url',)
+    list_display = ('name', 'prefix', 'url', 'api_url', 'on_header', 'active')
+    list_editable = ('api_url', 'on_header')
 
 
 class CamSnapshotInline(admin.TabularInline):
@@ -134,9 +134,9 @@ class CamSnapshotInline(admin.TabularInline):
 
 @admin.register(Model)
 class ModelAdmin(admin.ModelAdmin):
-    list_display = ('name', 'display_name', 'race', 'hair_color', 'available', 'profile', 'date_add')
+    list_display = ('name', 'display_name', 'race', 'hair_color', 'available', 'profile', 'date_add', 'bay_online_time')
     list_editable = ('available',)
-    list_filter = ('available',)
+    list_filter = ('available', 'cam_service')
     search_fields = ['display_name']
     inlines = (CamSnapshotInline,)
 

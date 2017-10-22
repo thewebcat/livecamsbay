@@ -22,12 +22,19 @@
         }
     </style>
             {% for favorite in favorites %}
-			<div class="inside note_wrap {{ favorite.get_css_class_for_actions }}" style="">
-                {{ favorite.get_del_actions_html }}
-				<div class="note" style="background: url({{ favorite.model.profile_image }}) no-repeat;background-size: cover;">
-					<div class="note_text">{{ favorite.model.name|safe }}</div>
-				</div>
-			</div>
+
+                <div class="inside note_wrap {{ favorite.get_css_class_for_actions }}" style="">
+                    {{ favorite.get_del_actions_html }}
+                    <a href="{{ favorite.model.absolute_public_url }}"><div class="note" style="background: url({{ favorite.model.profile_image }}) no-repeat;background-size: cover;">
+                        <div class="note_text">{{ favorite.model.display_name|safe }}</div>
+                        {% if favorite.model.available %}
+                            <a class="day monline">Onlne</a>
+                        {% else %}
+                            <a class="day moffline">Offlne</a>
+                        {% endif %}
+                    </div></a>
+                </div>
+
             {% endfor %}
     </div>
 

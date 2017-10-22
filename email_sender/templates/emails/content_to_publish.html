@@ -2,25 +2,24 @@
 {% block subject %}Материал одобрен модератором и опубликован.{% endblock %}
 
 {% block text_message %}
-Здравствуйте, {{ name }}, опубликованный Вами материал "{{ content_name }}" в разделе "{{ content_type }}" сайта Amigostone.ru.
-Прошёл модерацию, он опубликован на сайте.
-Для перехода на страницу публикации перейдите, пожалуйста, по ссылке: {{ content_link }}
+Здравствуйте, {{ name }}, модель "{{ model_name }}" с сервиса {{ service_name }} за которой вы наблюдаете появилась онлайн.
+
+Для перехода на страницу модели перейдите, пожалуйста, по ссылке: {{ model_link }}
 {% endblock %}
 
 {% block html_message %}
 <p style="font-size: 16px; color: #000 !important; font-family: Arial, sans-serif; line-height: 1.5;text-align:justify; margin: 0; padding: 0; background:none;">
     Здравствуйте, {{ name }}!<br>
-    Добро пожаловать на биржу {{ site_name }}
+    Модель "{{ model_name }}" с сервиса {{ service_name }} за которой вы наблюдаете появилась онлайн.
 </p>
 <p style="font-size: 16px; color: #000 !important; font-family: Arial, sans-serif; line-height: 1.5;text-align:justify; margin: 0; padding: 0; background:none;">
-Здравствуйте, {{ name }}, опубликованный Вами материал "{{ content_name }}" в разделе "{{ content_type }}" сайта Amigostone.ru, прошёл модерацию, он опубликован на сайте.<br />
-Для перехода на страницу публикации перейдите, пожалуйста, по <a href="{{ content_link }}" style="text-decoration:none;color:#797979;font-weight:bold;">ссылке</a>.
+Для перехода на страницу модели перейдите, пожалуйста, по {{ model_link }} <a href="{{ model_link }}" style="text-decoration:none;color:#797979;font-weight:bold;">ссылке</a>.
 </p>
 {% endblock %}
 
 {% block html_link_to_object %}
     <p align="center">
-        <a href="{{ content_link }}" style="color:#ffffff;text-decoration: none;text-align:center;font-family: Arial, sans-serif;font-size:16px;margin:0px auto;padding: 10px 25px;background: #358c38;line-height:40px;border-radius:5px;border:none;">
+        <a href="{{ model_link }}" style="color:#ffffff;text-decoration: none;text-align:center;font-family: Arial, sans-serif;font-size:16px;margin:0px auto;padding: 10px 25px;background: #358c38;line-height:40px;border-radius:5px;border:none;">
             Перейти
         </a>
     </p>
